@@ -50,6 +50,16 @@ namespace test
             tbMang.Text = string.Join(" ", randomArray);
         }
 
+        private void luuFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void docFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnGiam_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
@@ -100,7 +110,8 @@ namespace test
                     msg.Text = "Thời gian thực hiện:  " + stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
             }
-            else if (rbChen.Checked)
+            else 
+            if (rbChen.Checked)
             {
                 for (i = 1; i < n; i++)
                 {

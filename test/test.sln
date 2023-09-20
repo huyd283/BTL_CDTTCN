@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33927.289
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{D12998F9-FCC1-4244-ABE6-2A276670AE0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTL", "test\BTL.csproj", "{D12998F9-FCC1-4244-ABE6-2A276670AE0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
