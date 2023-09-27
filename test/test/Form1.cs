@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,6 @@ namespace test
             msg.ResetText();
             n = 0;
         }
-
         private void btnNhapMang_Click(object sender, EventArgs e)
         {
             int size = int.Parse(tbSoPT.Text);
@@ -52,11 +52,48 @@ namespace test
 
         private void luuFile_Click(object sender, EventArgs e)
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
+            // Đặt các thuộc tính cho SaveFileDialog
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            saveFileDialog.Title = "Save a Text File";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Hiển thị SaveFileDialog và kiểm tra kết quả trả về
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                string content = tbKetQua.Text;
+
+                // Lưu nội dung vào tập tin đã chọn
+                System.IO.File.WriteAllText(filePath, content);
+
+                MessageBox.Show("Lưu thành công!");
+            }
         }
 
         private void docFile_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // Đặt các thuộc tính cho OpenFileDialog
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog.Title = "Open a Text File";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Hiển thị OpenFileDialog và kiểm tra kết quả trả về
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                // Đọc toàn bộ nội dung từ tập tin đã chọn
+                string content = System.IO.File.ReadAllText(filePath);
+
+                // Hiển thị nội dung trong TextBox
+                tbMang.Text = content;
+
+                MessageBox.Show("File opened successfully!");
+            }
 
         }
 

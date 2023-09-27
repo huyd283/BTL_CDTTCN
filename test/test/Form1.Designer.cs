@@ -57,17 +57,19 @@ namespace test
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(91, 63);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(332, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 16);
+            this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Số phần tử";
             // 
             // tbSoPT
             // 
-            this.tbSoPT.Location = new System.Drawing.Point(176, 60);
+            this.tbSoPT.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSoPT.Location = new System.Drawing.Point(427, 22);
             this.tbSoPT.Name = "tbSoPT";
-            this.tbSoPT.Size = new System.Drawing.Size(67, 22);
+            this.tbSoPT.Size = new System.Drawing.Size(67, 27);
             this.tbSoPT.TabIndex = 16;
             // 
             // btnTang
@@ -129,7 +131,7 @@ namespace test
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(91, 94);
+            this.label3.Location = new System.Drawing.Point(80, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 16);
             this.label3.TabIndex = 9;
@@ -137,14 +139,14 @@ namespace test
             // 
             // tbSoDau
             // 
-            this.tbSoDau.Location = new System.Drawing.Point(176, 88);
+            this.tbSoDau.Location = new System.Drawing.Point(174, 62);
             this.tbSoDau.Name = "tbSoDau";
             this.tbSoDau.Size = new System.Drawing.Size(67, 22);
             this.tbSoDau.TabIndex = 10;
             // 
             // tbSoCuoi
             // 
-            this.tbSoCuoi.Location = new System.Drawing.Point(176, 116);
+            this.tbSoCuoi.Location = new System.Drawing.Point(174, 111);
             this.tbSoCuoi.Name = "tbSoCuoi";
             this.tbSoCuoi.Size = new System.Drawing.Size(67, 22);
             this.tbSoCuoi.TabIndex = 12;
@@ -152,7 +154,7 @@ namespace test
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(91, 122);
+            this.label4.Location = new System.Drawing.Point(80, 117);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 16);
             this.label4.TabIndex = 11;
@@ -267,7 +269,7 @@ namespace test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(845, 474);
             this.Controls.Add(this.docFile);
             this.Controls.Add(this.luuFile);
             this.Controls.Add(this.label8);
