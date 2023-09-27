@@ -110,17 +110,21 @@ namespace test
             if (rbNoiBot.Checked)
             {
                 for (i = 0; i < n - 1; i++)
-                    for (int j = i + 1; j < n; j++)
-                        if (randomArray[i] < randomArray[j])
+                {
+                    for (int j = 0; j < n - i - 1; j++)
+                    {
+                        if (numbers[j] < numbers[j + 1])
                         {
-                            tam = randomArray[i];
-                            randomArray[i] = randomArray[j];
-                            randomArray[j] = tam;
+                            int temp = numbers[j];
+                            numbers[j] = numbers[j + 1];
+                            numbers[j + 1] = temp;
                         }
-                // Hiển thị mảng đã sắp xếp
-                tbKetQua.Text = string.Join(" ", randomArray);
-                stopwatch.Stop();
-                msg.Text = "Thời gian thực hiện:  " + stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    }
+                    // Hiển thị mảng đã sắp xếp
+                    tbKetQua.Text = string.Join(" ", numbers);
+                    stopwatch.Stop();
+                    msg.Text = "Thời gian thực hiện:  " + stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
             }
             else
             if (rbChon.Checked)
@@ -180,19 +184,21 @@ namespace test
             if (rbNoiBot.Checked)
             {
                 for (i = 0; i < n - 1; i++)
-                    for (int j = i + 1; j < n; j++)
-                        //for (int j = 0; j < n - i - 1; j++)
-                        if (randomArray[i] > randomArray[j])
+                {
+                    for (int j = 0; j < n - i - 1; j++)
+                    {
+                        if (numbers[j] > numbers[j + 1])
                         {
-                            tam = randomArray[i];
-                            randomArray[i] = randomArray[j];
-                            randomArray[j] = tam;
+                            int temp = numbers[j];
+                            numbers[j] = numbers[j + 1];
+                            numbers[j + 1] = temp;
                         }
-
-                // Hiển thị mảng đã sắp xếp
-                tbKetQua.Text = string.Join(" ", randomArray);
-                stopwatch.Stop();
-                msg.Text = "Thời gian thực hiện:  " + stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    }
+                    // Hiển thị mảng đã sắp xếp
+                    tbKetQua.Text = string.Join(" ", numbers);
+                    stopwatch.Stop();
+                    msg.Text = "Thời gian thực hiện:  " + stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
             }
             else if (rbChon.Checked)
             {
