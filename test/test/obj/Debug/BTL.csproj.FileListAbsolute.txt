@@ -15,3 +15,6 @@ D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\obj\Debug
 D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\obj\Debug\BTL.csproj.CoreCompileInputs.cache
 D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\obj\Debug\test.exe
 D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\obj\Debug\test.pdb
+D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\bin\Debug\test.exe.config
+D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\bin\Debug\test.exe
+D:\app\Bài tập\Chuyên đề ngành\BTL_CDTTCN\BTL_CDTTCN\test\test\bin\Debug\test.pdb

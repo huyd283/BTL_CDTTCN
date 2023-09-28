@@ -52,6 +52,8 @@ namespace test
             this.label8 = new System.Windows.Forms.Label();
             this.luuFile = new System.Windows.Forms.Button();
             this.docFile = new System.Windows.Forms.Button();
+            this.lbIndex = new System.Windows.Forms.Label();
+            this.lbMang = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -74,7 +76,7 @@ namespace test
             // 
             // btnTang
             // 
-            this.btnTang.Location = new System.Drawing.Point(296, 256);
+            this.btnTang.Location = new System.Drawing.Point(292, 241);
             this.btnTang.Name = "btnTang";
             this.btnTang.Size = new System.Drawing.Size(132, 32);
             this.btnTang.TabIndex = 2;
@@ -84,7 +86,7 @@ namespace test
             // 
             // btnGiam
             // 
-            this.btnGiam.Location = new System.Drawing.Point(434, 256);
+            this.btnGiam.Location = new System.Drawing.Point(430, 241);
             this.btnGiam.Name = "btnGiam";
             this.btnGiam.Size = new System.Drawing.Size(132, 32);
             this.btnGiam.TabIndex = 3;
@@ -94,7 +96,7 @@ namespace test
             // 
             // tbMang
             // 
-            this.tbMang.Location = new System.Drawing.Point(176, 310);
+            this.tbMang.Location = new System.Drawing.Point(174, 279);
             this.tbMang.Name = "tbMang";
             this.tbMang.Size = new System.Drawing.Size(346, 22);
             this.tbMang.TabIndex = 4;
@@ -102,15 +104,15 @@ namespace test
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 315);
+            this.label2.Location = new System.Drawing.Point(69, 282);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 16);
+            this.label2.Size = new System.Drawing.Size(99, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Mảng";
+            this.label2.Text = "Mảng ban đầu";
             // 
             // btnNhapMang
             // 
-            this.btnNhapMang.Location = new System.Drawing.Point(434, 167);
+            this.btnNhapMang.Location = new System.Drawing.Point(430, 152);
             this.btnNhapMang.Name = "btnNhapMang";
             this.btnNhapMang.Size = new System.Drawing.Size(92, 32);
             this.btnNhapMang.TabIndex = 6;
@@ -120,7 +122,7 @@ namespace test
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(336, 167);
+            this.btnXoa.Location = new System.Drawing.Point(332, 152);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(92, 32);
             this.btnXoa.TabIndex = 8;
@@ -133,7 +135,7 @@ namespace test
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(80, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 16);
+            this.label3.Size = new System.Drawing.Size(53, 17);
             this.label3.TabIndex = 9;
             this.label3.Text = "Số đầu";
             // 
@@ -156,22 +158,22 @@ namespace test
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(80, 117);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 16);
+            this.label4.Size = new System.Drawing.Size(55, 17);
             this.label4.TabIndex = 11;
             this.label4.Text = "Số cuối";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(89, 356);
+            this.label5.Location = new System.Drawing.Point(69, 325);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 16);
+            this.label5.Size = new System.Drawing.Size(57, 17);
             this.label5.TabIndex = 15;
             this.label5.Text = "Kết quả";
             // 
             // tbKetQua
             // 
-            this.tbKetQua.Location = new System.Drawing.Point(176, 351);
+            this.tbKetQua.Location = new System.Drawing.Point(174, 320);
             this.tbKetQua.Name = "tbKetQua";
             this.tbKetQua.Size = new System.Drawing.Size(346, 22);
             this.tbKetQua.TabIndex = 14;
@@ -179,7 +181,7 @@ namespace test
             // msg
             // 
             this.msg.Enabled = false;
-            this.msg.Location = new System.Drawing.Point(92, 406);
+            this.msg.Location = new System.Drawing.Point(70, 558);
             this.msg.Name = "msg";
             this.msg.Size = new System.Drawing.Size(235, 22);
             this.msg.TabIndex = 17;
@@ -189,15 +191,15 @@ namespace test
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(91, 377);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 16);
+            this.label6.Size = new System.Drawing.Size(0, 17);
             this.label6.TabIndex = 18;
             // 
             // rbChon
             // 
             this.rbChon.AutoSize = true;
-            this.rbChon.Location = new System.Drawing.Point(274, 217);
+            this.rbChon.Location = new System.Drawing.Point(270, 202);
             this.rbChon.Name = "rbChon";
-            this.rbChon.Size = new System.Drawing.Size(59, 20);
+            this.rbChon.Size = new System.Drawing.Size(62, 21);
             this.rbChon.TabIndex = 21;
             this.rbChon.TabStop = true;
             this.rbChon.Text = "Chọn";
@@ -206,9 +208,9 @@ namespace test
             // rbChen
             // 
             this.rbChen.AutoSize = true;
-            this.rbChen.Location = new System.Drawing.Point(401, 217);
+            this.rbChen.Location = new System.Drawing.Point(397, 202);
             this.rbChen.Name = "rbChen";
-            this.rbChen.Size = new System.Drawing.Size(59, 20);
+            this.rbChen.Size = new System.Drawing.Size(62, 21);
             this.rbChen.TabIndex = 22;
             this.rbChen.TabStop = true;
             this.rbChen.Text = "Chèn";
@@ -217,9 +219,9 @@ namespace test
             // rbNoiBot
             // 
             this.rbNoiBot.AutoSize = true;
-            this.rbNoiBot.Location = new System.Drawing.Point(525, 217);
+            this.rbNoiBot.Location = new System.Drawing.Point(521, 202);
             this.rbNoiBot.Name = "rbNoiBot";
-            this.rbNoiBot.Size = new System.Drawing.Size(71, 20);
+            this.rbNoiBot.Size = new System.Drawing.Size(74, 21);
             this.rbNoiBot.TabIndex = 23;
             this.rbNoiBot.TabStop = true;
             this.rbNoiBot.Text = "Nổi bọt";
@@ -265,11 +267,31 @@ namespace test
             this.docFile.UseVisualStyleBackColor = true;
             this.docFile.Click += new System.EventHandler(this.docFile_Click);
             // 
+            // lbIndex
+            // 
+            this.lbIndex.AutoSize = true;
+            this.lbIndex.Location = new System.Drawing.Point(71, 465);
+            this.lbIndex.Name = "lbIndex";
+            this.lbIndex.Size = new System.Drawing.Size(43, 17);
+            this.lbIndex.TabIndex = 28;
+            this.lbIndex.Text = "Mảng";
+            // 
+            // lbMang
+            // 
+            this.lbMang.AutoSize = true;
+            this.lbMang.Location = new System.Drawing.Point(71, 511);
+            this.lbMang.Name = "lbMang";
+            this.lbMang.Size = new System.Drawing.Size(41, 17);
+            this.lbMang.TabIndex = 29;
+            this.lbMang.Text = "Index";
+            // 
             // btnNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 474);
+            this.ClientSize = new System.Drawing.Size(1004, 606);
+            this.Controls.Add(this.lbMang);
+            this.Controls.Add(this.lbIndex);
             this.Controls.Add(this.docFile);
             this.Controls.Add(this.luuFile);
             this.Controls.Add(this.label8);
@@ -325,6 +347,8 @@ namespace test
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button luuFile;
         private System.Windows.Forms.Button docFile;
+        private System.Windows.Forms.Label lbIndex;
+        private System.Windows.Forms.Label lbMang;
     }
 }
 
