@@ -113,11 +113,11 @@ namespace test
                 {
                     for (int j = 0; j < n - i - 1; j++)
                     {
-                        if (numbers[j] < numbers[j + 1])
+                        if (randomArray[j] < randomArray[j + 1])
                         {
-                            int temp = numbers[j];
-                            numbers[j] = numbers[j + 1];
-                            numbers[j + 1] = temp;
+                            int temp = randomArray[j];
+                            randomArray[j] = randomArray[j + 1];
+                            randomArray[j + 1] = temp;
                         }
                     }
                     // Hiển thị mảng đã sắp xếp
@@ -187,11 +187,11 @@ namespace test
                 {
                     for (int j = 0; j < n - i - 1; j++)
                     {
-                        if (numbers[j] > numbers[j + 1])
+                        if (randomArray[j] > randomArray[j + 1])
                         {
-                            int temp = numbers[j];
-                            numbers[j] = numbers[j + 1];
-                            numbers[j + 1] = temp;
+                            int temp = randomArray[j];
+                            randomArray[j] = randomArray[j + 1];
+                            randomArray[j + 1] = temp;
                         }
                     }
                     // Hiển thị mảng đã sắp xếp
