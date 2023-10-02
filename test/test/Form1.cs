@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+// test pull nhung
 namespace test
 {
     public partial class btnNhap : Form
@@ -291,6 +291,17 @@ namespace test
             node1[t1] = node1[t2];
             node1[t2] = Temp;
         }
+
+        private void tbMang_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNhap_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnGiam_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
