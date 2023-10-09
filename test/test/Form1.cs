@@ -22,8 +22,7 @@ namespace test
             InitializeComponent();
             random = new Random();
         }
-        int n = 0, i, tam;
-        private List<int> randomArray;
+        int n = 0, i;
         public static int[] a;
         private int kich_Thuoc;
         private int co_Chu;
@@ -159,7 +158,7 @@ namespace test
                 string filePath = saveFileDialog.FileName;
 
                 // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
-                String mang = tbMang.Text;
+                string mang = tbKetQua.Text;
 
                 // Ghi nội dung vào file
                 File.WriteAllText(filePath, mang);
@@ -344,15 +343,6 @@ namespace test
                 wait_time(toc_Do * (500 / s));
             }
         }
-        public void to_left2(Control node, int vt_cu, int vt_moi) // Tên node, vị trí cũ, vị trí mới
-        {
-            int s = 2 * (vt_cu - vt_moi) * (kich_Thuoc + khoang_Cach); // độ dài đường đi
-            for (int i = 0; i < s; i++)
-            {
-                node.Left -= 1;
-                i++;
-            }
-        }
         public void to_right(Control node, int vt_cu, int vt_moi)
         {
             int s = 2 * (vt_moi - vt_cu) * (kich_Thuoc + khoang_Cach); // độ dài đường đi
@@ -361,15 +351,6 @@ namespace test
                 node.Left += 1;
                 i++;
                 wait_time(toc_Do * (500 / s));
-            }
-        }
-        public void to_right2(Control node, int vt_cu, int vt_moi)
-        {
-            int s = 2 * (vt_moi - vt_cu) * (kich_Thuoc + khoang_Cach); // độ dài đường đi
-            for (int i = 0; i < s; i++)
-            {
-                node.Left += 1;
-                i++;
             }
         }
         #endregion
@@ -419,7 +400,7 @@ namespace test
             wait_time(500);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
-                MessageBox.Show("Mời bạn chọn thuật toán.", "OK");
+                MessageBox.Show("Mời bạn chọn thuật toán.");
             }
             else
             {
@@ -536,6 +517,15 @@ namespace test
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
                     }
+                    for (int i = 0; i < n; i++)
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                    foreach (int value in a)
+                    {
+                        tbKetQua.AppendText(value.ToString() + " ");
+                        stopwatch.Stop();
+                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    }
+                    MessageBox.Show("Đã sắp xếp xong.");
                 }
                 else if (cb_Tungbuoc.Checked == false)
                 {
@@ -548,13 +538,11 @@ namespace test
                                 if (a[j] < a[j + 1])
                                 {
                                     int temp = a[j];
+                                    string tam = node1[j].Text;
                                     a[j] = a[j + 1];
-                                    to_right2(node1[j], j, j + 1);
-                                    to_left2(node1[j + 1], j + 1, j);
-                                    swap_button(j, j + 1);
+                                    node1[j].Text = node1[j + 1].Text;
                                     a[j + 1] = temp;
-                                    //swap(ref a[j], ref a[j + 1]);
-                                    //set_node_color(node1[j], Properties.Resources.img_simple);
+                                    node1[j + 1].Text = tam;
                                 }
                             }
                             set_node_color(node1[i], Properties.Resources.img_done);
@@ -577,11 +565,11 @@ namespace test
                             if (i != maxIndex)
                             {
                                 int temp = a[i];
+                                string tam = node1[i].Text;
                                 a[i] = a[maxIndex];
+                                node1[i].Text = node1[maxIndex].Text;
                                 a[maxIndex] = temp;
-                                to_right2(node1[i], i, maxIndex);
-                                to_left2(node1[maxIndex], maxIndex, i);
-                                swap_button(i, maxIndex);
+                                node1[maxIndex].Text = tam;
                             }
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
@@ -595,36 +583,34 @@ namespace test
                             for (int i = 1; i < n; i++)
                             {
                                 x = a[i];
-                                Button node_tam = node1[i];
+                                string y = node1[i].Text;
                                 //set_node_color(node_tam, Properties.Resources.img_pivot);
                                 j = i;
 
                                 while (j > 0 && x > a[j - 1])
                                 {
                                     a[j] = a[j - 1];
-                                    to_right2(node1[j - 1], j - 1, j);
-                                    swap_button(j - 1, j);
+                                    node1[j].Text = node1[j - 1].Text;
                                     j--;
                                 }
                                 if (j != i)
                                 {
                                     a[j] = x;
-                                    to_left2(node_tam, i, j);
-                                    node1[j] = node_tam;
+                                    node1[j].Text = y;
                                 }
                             }
                         }
                     }
+                    for (int i = 0; i < n; i++)
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                    foreach (int value in a)
+                    {
+                        tbKetQua.AppendText(value.ToString() + " ");
+                        stopwatch.Stop();
+                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    }
+                    MessageBox.Show("Đã sắp xếp xong.");
                 }
-                for (int i = 0; i < n; i++)
-                    set_node_color(node1[i], Properties.Resources.img_done);
-                foreach (int value in a)
-                {
-                    tbKetQua.AppendText(value.ToString() + " ");
-                    stopwatch.Stop();
-                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                }
-                MessageBox.Show("Đã sắp xếp xong.");
             }
         }
         private void btnTang_Click(object sender, EventArgs e)
@@ -641,7 +627,7 @@ namespace test
             wait_time(500);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
-                MessageBox.Show("Mời bạn chọn thuật toán.", "OK");
+                MessageBox.Show("Mời bạn chọn thuật toán.");
             }
             else if (cb_Tungbuoc.Checked == true)
             {
@@ -757,9 +743,18 @@ namespace test
                         else
                             wait_time(100 * toc_Do);
                         set_node_color(node1[j], Properties.Resources.img_done);
-                        set_node_color(node1[j + 1], Properties.Resources.img_done);
+                        //set_node_color(node1[j + 1], Properties.Resources.img_done);
                     }
                 }
+                for (int i = 0; i < n; i++)
+                    set_node_color(node1[i], Properties.Resources.img_done);
+                foreach (int value in a)
+                {
+                    tbKetQua.AppendText(value.ToString() + " ");
+                    stopwatch.Stop();
+                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
+                MessageBox.Show("Đã sắp xếp xong.");
             }
             else if (cb_Tungbuoc.Checked == false)
             {
@@ -772,12 +767,11 @@ namespace test
                             if (a[j] > a[j + 1])
                             {
                                 int temp = a[j];
+                                string tam = node1[j].Text;
                                 a[j] = a[j + 1];
-                                to_left2(node1[j + 1], j + 1, j);
-                                to_right2(node1[j], j, j + 1);
-                                swap_button(j, j + 1);
+                                node1[j].Text = node1[j + 1].Text;
                                 a[j + 1] = temp;
-                                //set_node_color(node1[j], Properties.Resources.img_simple);
+                                node1[j + 1].Text = tam;
                             }
                         }
                         set_node_color(node1[i], Properties.Resources.img_done);
@@ -800,11 +794,11 @@ namespace test
                         if (i != minIndex)
                         {
                             int temp = a[i];
+                            string tam = node1[i].Text;
                             a[i] = a[minIndex];
+                            node1[i].Text = node1[minIndex].Text;
                             a[minIndex] = temp;
-                            to_right2(node1[i], i, minIndex);
-                            to_left2(node1[minIndex], minIndex, i);
-                            swap_button(i, minIndex);
+                            node1[minIndex].Text = tam;
                         }
                         set_node_color(node1[i], Properties.Resources.img_done);
                     }
@@ -816,37 +810,33 @@ namespace test
                     for (int i = 1; i < n; i++)
                     {
                         x = a[i];
-                        Button node_tam = node1[i];
-                        //set_node_color(node_tam, Properties.Resources.img_pivot);
+                        string y = node1[i].Text;
                         j = i;
-
                         while (j > 0 && x < a[j - 1])
                         {
                             a[j] = a[j - 1];
-                            to_right2(node1[j - 1], j - 1, j);
-                            swap_button(j - 1, j);
+                            node1[j].Text = node1[j - 1].Text;
                             j--;
                         }
                         if (j != i)
                         {
                             a[j] = x;
-                            to_left2(node_tam, i, j);
-                            node1[j] = node_tam;
+                            node1[j].Text = y;
                         }
                     }
                     for (int i = 0; i < n; i++)
                         set_node_color(node1[i], Properties.Resources.img_done);
                 }
+                for (int i = 0; i < n; i++)
+                    set_node_color(node1[i], Properties.Resources.img_done);
+                foreach (int value in a)
+                {
+                    tbKetQua.AppendText(value.ToString() + " ");
+                    stopwatch.Stop();
+                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
+                MessageBox.Show("Đã sắp xếp xong.");
             }
-            for (int i = 0; i < n; i++)
-                set_node_color(node1[i], Properties.Resources.img_done);
-            foreach (int value in a)
-            {
-                tbKetQua.AppendText(value.ToString() + " ");
-                stopwatch.Stop();
-                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-            }
-            MessageBox.Show("Đã sắp xếp xong.");
         }
     }
 }
