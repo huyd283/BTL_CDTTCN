@@ -621,6 +621,7 @@ namespace test
             stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
+            int uy;
             n = a.Length;
             for (i = 0; i < n; i++)
             {
