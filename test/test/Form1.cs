@@ -23,8 +23,7 @@ namespace test
             random = new Random();
 
         }
-        int n = 0, i, tam;
-        private List<int> randomArray;
+        int n = 0, i;
         public static int[] a;
         private int kich_Thuoc;
         private int co_Chu;
@@ -53,13 +52,11 @@ namespace test
                 Application.DoEvents();
                 this.Invoke((MethodInvoker)delegate
                 {
+                    for (i = 0; i < n; i++)
                     {
-                        for (i = 0; i < n; i++)
-                        {
-                            this.Controls.Remove(node1[i]);
-                            this.Controls.Remove(chiSo[i]);
+                        this.Controls.Remove(node1[i]);
+                        this.Controls.Remove(chiSo[i]);
 
-                        }
                     }
                 });
             }
@@ -105,7 +102,7 @@ namespace test
             co_Chu = 10;
             khoang_Cach = 10;
             le_Node = (770 - kich_Thuoc * size - khoang_Cach * (size - 1)) / 2;
-            
+
 
             // KHởi tạo mảng node
             node1 = new Button[size];
@@ -154,60 +151,159 @@ namespace test
         }
         private void luuFile_Click(object sender, EventArgs e)
         {
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
 
-            // Đặt các thuộc tính cho SaveFileDialog
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            saveFileDialog.Title = "Save a Text File";
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            // Hiển thị SaveFileDialog và kiểm tra kết quả trả về
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
-                string content = tbKetQua.Text;
 
-                // Lưu nội dung vào tập tin đã chọn
-                System.IO.File.WriteAllText(filePath, content);
+                // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
+                string mang = tbKetQua.Text;
 
-                MessageBox.Show("Lưu thành công!");
+                // Ghi nội dung vào file
+                File.WriteAllText(filePath, mang);
+                MessageBox.Show("File opened successfully!");
             }
         }
 
         private void docFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            // Đặt các thuộc tính cho OpenFileDialog
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            openFileDialog.Title = "Open a Text File";
-            //openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            // Hiển thị OpenFileDialog và kiểm tra kết quả trả về
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
 
                 // Đọc toàn bộ nội dung từ tập tin đã chọn
-                string content = System.IO.File.ReadAllText(filePath);
                 string input = null;
                 a = new int[size];
                 tao_Mang(100, Properties.Resources.img_simple);
-                while (content != null && i < size)
+                while (input != System.IO.File.ReadAllText(filePath))
                 {
                     a[i] = Convert.ToInt32(input);
                     node1[i].Text = a[i].ToString();
                     i++;
                 }
-
-                // Hiển thị nội dung trong TextBox
-                tbMang.Text = content;
-
                 MessageBox.Show("File opened successfully!");
             }
         }
 
         #region CÁC HÀM DI CHUYỂN
+        // Hàm đổi chỗ hai nod
+        public void swap_Node(Control node_a, Control node_b)
+        {
+            // Thời gian di chuyển tối đa là 1s
+            // Nếu 2 node cách nhau >= 4 node thì di chuyển 4 lần 0.25s (lên, sang, sang, xuống)
+            // Nếu 2 node cách nhau <=3 node thì chi chuyển 3 lần 0.25s (lên, sang, xuống)
+            Application.DoEvents();
+            this.Invoke((MethodInvoker)delegate
+            {
+                Point pa = node_a.Location;  // Lưu vị trí hai node
+                Point pb = node_b.Location;
+                if (pa != pb)
+                {
+                    // Node_a lên, node_b xuống 100 đơn vị
+                    if (node_a.Location.X < node_b.Location.X)
+                    {
+                        for (int j = 0; j < 100; j++)
+                        {
+                            node_a.Top -= 1;
+                            node_b.Top += 1;
+                            wait_time(2 * toc_Do);  // 250 / 100 = 2.5, làm tròn lên 3
+                        }
+                    }
+
+                    // Node b lên, node a xuống
+                    if (node_a.Location.X > node_b.Location.X)
+                    {
+                        for (int j = 0; j < 100; j++)
+                        {
+                            node_a.Top += 1;
+                            node_b.Top -= 1;
+                            wait_time(2 * toc_Do);
+                        }
+                    }
+
+                    // Node a qua phải, node b qua trái
+                    if (node_a.Location.X < node_b.Location.X)
+                    {
+                        int dodai = node_b.Location.X - node_a.Location.X;  // Hai node cách nhau bao nhiêu độ dài
+                        int step = dodai / (kich_Thuoc + khoang_Cach);      // Hai node cách nhau bao nhiêu ô
+                        int ms = 2;
+                        if (step < 4) // Di chuyen 1 lan
+                        {
+                            ms = (250 / dodai);  // Thời gian wait time
+                        }
+                        else
+                        {
+                            ms = 500 / dodai;
+                        }
+
+                        for (int j = 0; j < dodai; j++)
+                        {
+                            node_a.Left += 1;
+                            node_b.Left -= 1;
+                            wait_time(ms * toc_Do);
+                        }
+                    }
+
+                    // Node a qua trái, node b qua phải
+                    //if (node_a.Location.X > node_b.Location.X)
+                    else
+                    {
+                        int dodai = node_a.Location.X - node_b.Location.X;  // Hai node cách nhau bao nhiêu độ dài
+                        int step = dodai / (kich_Thuoc + khoang_Cach);      // Hai node cách nhau bao nhiêu ô
+                        int ms = 2;
+                        if (step < 3) // Di chuyen 1 lan
+                        {
+                            ms = (250 / dodai);  // Thời gian wait time
+                        }
+                        else
+                        {
+                            ms = 500 / dodai;
+                        }
+
+                        for (int j = 0; j < dodai; j++)
+                        {
+                            node_a.Left -= 1;
+                            node_b.Left += 1;
+                            wait_time(ms * toc_Do);
+                        }
+                    }
+
+                    // Khu vực đưa các node về đến đích
+                    // a xuống, b lên
+                    if (node_b.Location.Y > pa.Y)
+                    {
+                        for (int j = 0; j < 100; j++)
+                        {
+                            node_a.Top += 1;
+                            node_b.Top -= 1;
+                            wait_time(2 * toc_Do);
+                        }
+                    }
+
+                    // a lên, b xuống
+                    if (node_b.Location.Y < pa.Y)
+                    {
+                        for (int j = 0; j < 100; j++)
+                        {
+                            node_a.Top -= 1;
+                            node_b.Top += 1;
+                            wait_time(3 * toc_Do);
+                        }
+                    }
+
+                }
+                wait_time(250 * toc_Do);
+                set_node_color(node_a, Properties.Resources.img_simple);
+                set_node_color(node_b, Properties.Resources.img_simple); // Swap xong cho màu về mặc định
+
+            });
+        }
+        //CÁC HÀM DI CHUYỂN
         // Hàm node đi lên
         public void go_up(Control node, int vitri)
         {
@@ -249,7 +345,6 @@ namespace test
                 wait_time(toc_Do * (500 / s));
             }
         }
-
         public void to_right(Control node, int vt_cu, int vt_moi)
         {
             int s = 2 * (vt_moi - vt_cu) * (kich_Thuoc + khoang_Cach); // độ dài đường đi
@@ -293,26 +388,21 @@ namespace test
             node1[t1] = node1[t2];
             node1[t2] = Temp;
         }
-
-        private void tbMang_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnNhap_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnGiam_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
             stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
+            n = a.Length;
+            for (i = 0; i < n; i++)
+            {
+                set_node_color(node1[i], Properties.Resources.img_simple);
+            }
+            wait_time(500);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
-                MessageBox.Show("Mời bạn chọn thuật toán.", "OK");
+                MessageBox.Show("Mời bạn chọn thuật toán.");
             }
             else
             {
@@ -321,29 +411,27 @@ namespace test
                     if (rbChen.Checked)
                     {
                         int x, j;
-                        n = a.Length;
                         set_node_color(node1[0], Properties.Resources.img_done);
                         for (int i = 1; i < n; i++)
                         {
                             x = a[i];
-                            wait_time(100 * toc_Do);
-
+                            wait_time(150 * toc_Do);
                             Button node_tam = node1[i];
                             set_node_color(node_tam, Properties.Resources.img_pivot);
                             if (x > a[i - 1] && i > 0)
                                 go_up(node_tam, i);
 
                             j = i;
-                            wait_time(toc_Do * 100);
+                            wait_time(toc_Do * 150);
 
                             while (j > 0 && x > a[j - 1])
                             {
                                 a[j] = a[j - 1];
                                 to_right(node1[j - 1], j - 1, j);
                                 swap_button(j - 1, j);
-                                wait_time(toc_Do * 100);
+                                wait_time(toc_Do * 150);
                                 j--;
-                                wait_time(100 * toc_Do);
+                                wait_time(150 * toc_Do);
                             }
                             if (j != i)
                             {
@@ -351,24 +439,97 @@ namespace test
                                 to_left(node_tam, i, j);
                                 go_down(node_tam, j);
                                 node1[j] = node_tam;
-                                wait_time(100 * toc_Do);
+                                wait_time(150 * toc_Do);
                             }
                             else
-                                wait_time(100 * toc_Do);
+                                wait_time(150 * toc_Do);
                             set_node_color(node1[j], Properties.Resources.img_done);
                         }
-                        foreach (int value in a)
-                        {
-                            tbKetQua.AppendText(value.ToString() + " ");
-                            stopwatch.Stop();
-                            msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                        }
-                        MessageBox.Show("Đã sắp xếp xong.");
-                        //stopwatch.Stop();
-                        // msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
+                    else if (rbNoiBot.Checked)
+                    {
+                        for (int i = 0; i < n - 1; i++)
+                        {
+                            for (int j = 0; j < n - i - 1; j++)
+                            {
+                                set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
+                                set_node_color(node1[j + 1], Properties.Resources.img_pivot);
+                                wait_time(toc_Do * 150);
+                                wait_time(toc_Do * 150);
+
+                                if (a[j] < a[j + 1])
+                                {
+                                    swap(ref a[j], ref a[j + 1]);
+                                    swap_Node(node1[j], node1[j + 1]);
+                                    swap_button(j, j + 1);
+                                    // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
+                                    set_node_color(node1[j + 1], Properties.Resources.img_select);
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
+                                    wait_time(250 * toc_Do);
+                                }
+                                else  // Nếu không swap thì đổi màu!
+                                {
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
+                                    set_node_color(node1[j + 1], Properties.Resources.img_select);
+                                    wait_time(150 * toc_Do);
+                                }
+                                if (j + 1 == n - i - 1)
+                                {
+                                    set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                    wait_time(150 * toc_Do);
+                                }
+                            }
+                            set_node_color(node1[i], Properties.Resources.img_done);
+                        }
+                    }
+                    else if (rbChon.Checked)
+                    {
+                        for (i = 0; i < n - 1; i++)
+                        {
+                            int maxIndex = i;
+                            set_node_color(node1[i], Properties.Resources.img_pivot);
+                            wait_time(toc_Do * 250);
+                            // Tìm phần tử lớn nhất trong mảng chưa sắp xếp
+                            for (int j = i + 1; j < n; j++)
+                            {
+                                set_node_color(node1[j], Properties.Resources.img_select);
+                                wait_time(toc_Do * 250);
+                                if (a[j] > a[maxIndex])
+                                {
+                                    maxIndex = j;
+                                    set_node_color(node1[maxIndex], Properties.Resources.img_simple);
+                                    set_node_color(node1[j], Properties.Resources.img_pivot);
+                                    wait_time(toc_Do * 250);
+                                }
+                                else
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
+                                wait_time(toc_Do * 250);
+                            }
+                            if (i != maxIndex)
+                            {
+                                int temp = a[i];
+                                a[i] = a[maxIndex];
+                                a[maxIndex] = temp;
+                                swap_Node(node1[i], node1[maxIndex]);
+                                swap_button(i, maxIndex);
+                                set_node_color(node1[i], Properties.Resources.img_done);
+                                set_node_color(node1[maxIndex], Properties.Resources.img_simple);
+                                wait_time(toc_Do * 250);
+                            }
+                            set_node_color(node1[i], Properties.Resources.img_done);
+                        }
+                    }
+                    for (int i = 0; i < n; i++)
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                    foreach (int value in a)
+                    {
+                        tbKetQua.AppendText(value.ToString() + " ");
+                        stopwatch.Stop();
+                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    }
+                    MessageBox.Show("Đã sắp xếp xong.");
                 }
-                if (cb_Tungbuoc.Checked == false)
+                else if (cb_Tungbuoc.Checked == false)
                 {
                     if (rbNoiBot.Checked)
                     {
@@ -379,67 +540,76 @@ namespace test
                                 if (a[j] < a[j + 1])
                                 {
                                     int temp = a[j];
+                                    string tam = node1[j].Text;
                                     a[j] = a[j + 1];
+                                    node1[j].Text = node1[j + 1].Text;
                                     a[j + 1] = temp;
+                                    node1[j + 1].Text = tam;
                                 }
                             }
-                            foreach (int value in a)
-                            {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                            }
+                            set_node_color(node1[i], Properties.Resources.img_done);
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
                     }
                     else
                     if (rbChon.Checked)
                     {
                         for (i = 0; i < n - 1; i++)
                         {
-                            int minIndex = i;
+                            int maxIndex = i;
                             // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
                             for (int j = i + 1; j < n; j++)
                             {
-                                if (a[j] > a[minIndex])
+                                if (a[j] > a[maxIndex])
                                 {
-                                    minIndex = j;
+                                    maxIndex = j;
                                 }
                             }
-                            if (i != minIndex)
+                            if (i != maxIndex)
                             {
                                 int temp = a[i];
-                                a[i] = a[minIndex];
-                                a[minIndex] = temp;
+                                string tam = node1[i].Text;
+                                a[i] = a[maxIndex];
+                                node1[i].Text = node1[maxIndex].Text;
+                                a[maxIndex] = temp;
+                                node1[maxIndex].Text = tam;
                             }
-                            foreach (int value in a)
-                            {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                            }
+                            set_node_color(node1[i], Properties.Resources.img_done);
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
                     }
                     else if (rbChen.Checked)
                     {
                         for (i = 1; i < n; i++)
                         {
-                            int key = a[i];
-                            int j = i - 1;
-                            while (j >= 0 && a[j] < key)
+                            int x, j;
+                            //set_node_color(node1[0], Properties.Resources.img_done);
+                            for (int i = 1; i < n; i++)
                             {
-                                a[j + 1] = a[j];
-                                j--;
+                                x = a[i];
+                                string y = node1[i].Text;
+                                //set_node_color(node_tam, Properties.Resources.img_pivot);
+                                j = i;
+
+                                while (j > 0 && x > a[j - 1])
+                                {
+                                    a[j] = a[j - 1];
+                                    node1[j].Text = node1[j - 1].Text;
+                                    j--;
+                                }
+                                if (j != i)
+                                {
+                                    a[j] = x;
+                                    node1[j].Text = y;
+                                }
                             }
-                            a[j + 1] = key;
                         }
-                        foreach (int value in a)
-                        {
-                            tbKetQua.AppendText(value.ToString() + " ");
-                            stopwatch.Stop();
-                            msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                        }
+                    }
+                    for (int i = 0; i < n; i++)
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                    foreach (int value in a)
+                    {
+                        tbKetQua.AppendText(value.ToString() + " ");
+                        stopwatch.Stop();
+                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
                     MessageBox.Show("Đã sắp xếp xong.");
                 }
@@ -451,210 +621,228 @@ namespace test
             stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
+            n = a.Length;
+            for (i = 0; i < n; i++)
+            {
+                set_node_color(node1[i], Properties.Resources.img_simple);
+            }
+            wait_time(500);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
-                MessageBox.Show("Mời bạn chọn thuật toán.", "OK");
+                MessageBox.Show("Mời bạn chọn thuật toán.");
             }
-            else
+            else if (cb_Tungbuoc.Checked == true)
             {
-                if (cb_Tungbuoc.Checked == true)
+                if (rbNoiBot.Checked)
                 {
-                    if (rbNoiBot.Checked)
+                    for (int i = 0; i < n - 1; i++)
                     {
-                        for (i = 0; i < n - 1; i++)
+                        for (int j = 0; j < n - i - 1; j++)
                         {
-                            for (int j = 0; j < n - i - 1; j++)
+                            set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
+                            set_node_color(node1[j + 1], Properties.Resources.img_pivot);
+                            wait_time(toc_Do * 150);
+                            wait_time(toc_Do * 150);
+                            if (a[j] > a[j + 1])
                             {
-                                if (a[j] > a[j + 1])
-                                {
-                                    int temp = a[j];
-                                    a[j] = a[j + 1];
-                                    a[j + 1] = temp;
-                                }
+                                swap(ref a[j], ref a[j + 1]);
+                                swap_Node(node1[j], node1[j + 1]);
+                                swap_button(j, j + 1);
+                                // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
+                                set_node_color(node1[j + 1], Properties.Resources.img_select);
+                                set_node_color(node1[j], Properties.Resources.img_simple);
+                                wait_time(250 * toc_Do);
                             }
-                            foreach (int value in a)
+                            else  // Nếu không swap thì đổi màu!
                             {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                                set_node_color(node1[j], Properties.Resources.img_simple);
+                                set_node_color(node1[j + 1], Properties.Resources.img_select);
+                                wait_time(150 * toc_Do);
+                            }
+                            if (j + 1 == n - i - 1)
+                            {
+                                set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                wait_time(150 * toc_Do);
                             }
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
+                        set_node_color(node1[i], Properties.Resources.img_done);
                     }
-                    else if (rbChon.Checked)
+                }
+                else if (rbChon.Checked)
+                {
+                    for (i = 0; i < n - 1; i++)
                     {
-                        for (i = 0; i < n - 1; i++)
+                        int minIndex = i;
+                        set_node_color(node1[i], Properties.Resources.img_pivot);
+                        wait_time(toc_Do * 250);
+                        // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
+                        for (int j = i + 1; j < n; j++)
                         {
-                            int minIndex = i;
-                            // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
-                            for (int j = i + 1; j < n; j++)
+                            set_node_color(node1[j], Properties.Resources.img_select);
+                            wait_time(toc_Do * 250);
+                            if (a[j] < a[minIndex])
                             {
-                                if (a[j] < a[minIndex])
-                                {
-                                    minIndex = j;
-                                }
+                                minIndex = j;
+                                set_node_color(node1[minIndex], Properties.Resources.img_simple);
+                                set_node_color(node1[j], Properties.Resources.img_pivot);
+                                wait_time(toc_Do * 250);
                             }
-                            if (i != minIndex)
-                            {
-                                int temp = a[i];
-                                a[i] = a[minIndex];
-                                a[minIndex] = temp;
-                            }
-                            foreach (int value in a)
-                            {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                            }
+                            else
+                                set_node_color(node1[j], Properties.Resources.img_simple);
+                            wait_time(toc_Do * 250);
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
-                    }
-                    else if (rbChen.Checked)
-                    {
-                        int x, j;
-                        n = int.Parse(tbSoPT.Text);
-                        set_node_color(node1[0], Properties.Resources.img_done);
-                        for (int i = 1; i < n; i++)
+                        if (i != minIndex)
                         {
-                            x = a[i];
-                            wait_time(100 * toc_Do);
+                            int temp = a[i];
+                            a[i] = a[minIndex];
+                            a[minIndex] = temp;
+                            swap_Node(node1[i], node1[minIndex]);
+                            swap_button(i, minIndex);
+                            set_node_color(node1[i], Properties.Resources.img_done);
+                            set_node_color(node1[minIndex], Properties.Resources.img_simple);
+                            wait_time(toc_Do * 250);
+                        }
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                        set_node_color(node1[i + 1], Properties.Resources.img_done);
+                    }
+                }
+                else if (rbChen.Checked)
+                {
+                    int x, j;
+                    n = int.Parse(tbSoPT.Text);
+                    set_node_color(node1[0], Properties.Resources.img_done);
+                    for (int i = 1; i < n; i++)
+                    {
+                        x = a[i];
+                        wait_time(100 * toc_Do);
 
-                            Button node_tam = node1[i];
-                            set_node_color(node_tam, Properties.Resources.img_pivot);
-                            if (x < a[i - 1] && i > 0)
-                                go_up(node_tam, i);
+                        Button node_tam = node1[i];
+                        set_node_color(node_tam, Properties.Resources.img_pivot);
+                        if (x < a[i - 1] && i > 0)
+                            go_up(node_tam, i);
 
-                            j = i;
+                        j = i;
+                        wait_time(toc_Do * 100);
+
+                        while (j > 0 && x < a[j - 1])
+                        {
+                            a[j] = a[j - 1];
+                            to_right(node1[j - 1], j - 1, j);
+                            swap_button(j - 1, j);
                             wait_time(toc_Do * 100);
 
-                            while (j > 0 && x < a[j - 1])
-                            {
-                                a[j] = a[j - 1];
-                                to_right(node1[j - 1], j - 1, j);
-                                swap_button(j - 1, j);
-                                wait_time(toc_Do * 100);
-
-                                j--;
-                                wait_time(100 * toc_Do);
-                            }
-                            if (j != i)
-                            {
-                                a[j] = x;
-                                to_left(node_tam, i, j);
-                                go_down(node_tam, j);
-                                node1[j] = node_tam;
-                                wait_time(100 * toc_Do);
-                            }
-                            else
-                                wait_time(100 * toc_Do);
-                            set_node_color(node1[j], Properties.Resources.img_done);
+                            j--;
+                            wait_time(100 * toc_Do);
                         }
-                        foreach (int value in a)
+                        if (j != i)
                         {
-                            tbKetQua.AppendText(value.ToString() + " ");
-                            stopwatch.Stop();
-                            msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                            a[j] = x;
+                            to_left(node_tam, i, j);
+                            go_down(node_tam, j);
+                            node1[j] = node_tam;
+                            wait_time(100 * toc_Do);
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
+                        else
+                            wait_time(100 * toc_Do);
+                        set_node_color(node1[j], Properties.Resources.img_done);
+                        //set_node_color(node1[j + 1], Properties.Resources.img_done);
                     }
                 }
-                else
-            if (cb_Tungbuoc.Checked == false)
+                for (int i = 0; i < n; i++)
+                    set_node_color(node1[i], Properties.Resources.img_done);
+                foreach (int value in a)
                 {
-                    if (rbNoiBot.Checked)
+                    tbKetQua.AppendText(value.ToString() + " ");
+                    stopwatch.Stop();
+                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
+                MessageBox.Show("Đã sắp xếp xong.");
+            }
+            else if (cb_Tungbuoc.Checked == false)
+            {
+                if (rbNoiBot.Checked)
+                {
+                    for (i = 0; i < n - 1; i++)
                     {
-                        for (i = 0; i < n - 1; i++)
+                        for (int j = 0; j < n - i - 1; j++)
                         {
-                            for (int j = 0; j < n - i - 1; j++)
+                            if (a[j] > a[j + 1])
                             {
-                                if (a[j] > a[j + 1])
-                                {
-                                    int temp = a[j];
-                                    a[j] = a[j + 1];
-                                    a[j + 1] = temp;
-                                }
-                            }
-                            foreach (int value in a)
-                            {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                                int temp = a[j];
+                                string tam = node1[j].Text;
+                                a[j] = a[j + 1];
+                                node1[j].Text = node1[j + 1].Text;
+                                a[j + 1] = temp;
+                                node1[j + 1].Text = tam;
                             }
                         }
-                        MessageBox.Show("Đã sắp xếp xong.");
-                    }
-                    else if (rbChon.Checked)
-                    {
-                        for (i = 0; i < n - 1; i++)
-                        {
-                            int minIndex = i;
-                            // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
-                            for (int j = i + 1; j < n; j++)
-                            {
-                                if (a[j] < a[minIndex])
-                                {
-                                    minIndex = j;
-                                }
-                            }
-                            if (i != minIndex)
-                            {
-                                int temp = a[i];
-                                a[i] = a[minIndex];
-                                a[minIndex] = temp;
-                            }
-                            foreach (int value in a)
-                            {
-                                tbKetQua.AppendText(value.ToString() + " ");
-                                stopwatch.Stop();
-                                msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                            }
-                        }
-                        MessageBox.Show("Đã sắp xếp xong.");
-                    }
-                    else if (rbChen.Checked)
-                    {
-                        int x, j;
-                        n = int.Parse(tbSoPT.Text);
-                        set_node_color(node1[0], Properties.Resources.img_done);
-                        for (int i = 1; i < n; i++)
-                        {
-                            x = a[i];
-
-                            Button node_tam = node1[i];
-                            j = i;
-                            while (j > 0 && x < a[j - 1])
-                            {
-                                a[j] = a[j - 1];
-                                to_right(node1[j - 1], j - 1, j);
-                                swap_button(j - 1, j);
-
-                                j--;
-                            }
-                            if (j != i)
-                            {
-                                a[j] = x;
-                                to_left(node_tam, i, j);
-                                node1[j] = node_tam;
-                            }
-                            else
-                                set_node_color(node1[j], Properties.Resources.img_done);
-                        }
-                        foreach (int value in a)
-                        {
-                            tbKetQua.AppendText(value.ToString() + " ");
-                            stopwatch.Stop();
-                            msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
-                        }
-                        MessageBox.Show("Đã sắp xếp xong.");
+                        set_node_color(node1[i], Properties.Resources.img_done);
                     }
                 }
+                else if (rbChon.Checked)
+                {
+                    for (i = 0; i < n - 1; i++)
+                    {
+                        int minIndex = i;
+                        // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
+                        for (int j = i + 1; j < n; j++)
+                        {
+                            if (a[j] < a[minIndex])
+                            {
+                                minIndex = j;
+                            }
+                        }
+
+                        if (i != minIndex)
+                        {
+                            int temp = a[i];
+                            string tam = node1[i].Text;
+                            a[i] = a[minIndex];
+                            node1[i].Text = node1[minIndex].Text;
+                            a[minIndex] = temp;
+                            node1[minIndex].Text = tam;
+                        }
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                    }
+                }
+                else if (rbChen.Checked)
+                {
+                    int x, j;
+                    //set_node_color(node1[0], Properties.Resources.img_done);
+                    for (int i = 1; i < n; i++)
+                    {
+                        x = a[i];
+                        string y = node1[i].Text;
+                        j = i;
+                        while (j > 0 && x < a[j - 1])
+                        {
+                            a[j] = a[j - 1];
+                            node1[j].Text = node1[j - 1].Text;
+                            j--;
+                        }
+                        if (j != i)
+                        {
+                            a[j] = x;
+                            node1[j].Text = y;
+                        }
+                    }
+                    for (int i = 0; i < n; i++)
+                        set_node_color(node1[i], Properties.Resources.img_done);
+                }
+                for (int i = 0; i < n; i++)
+                    set_node_color(node1[i], Properties.Resources.img_done);
+                foreach (int value in a)
+                {
+                    tbKetQua.AppendText(value.ToString() + " ");
+                    stopwatch.Stop();
+                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                }
+                MessageBox.Show("Đã sắp xếp xong.");
             }
         }
     }
 
 }
-
-
 
 
 
