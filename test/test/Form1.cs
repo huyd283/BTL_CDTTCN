@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-// test pull nhung
+
 namespace test
 {
     public partial class btnNhap : Form
@@ -21,6 +21,7 @@ namespace test
         {
             InitializeComponent();
             random = new Random();
+
         }
         int n = 0, i, tam;
         private List<int> randomArray;
@@ -36,6 +37,7 @@ namespace test
         private int max;
         int toc_Do = 4;
         Boolean da_Tao_Mang = false;
+        
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -649,6 +651,7 @@ namespace test
             }
         }
     }
+
 }
 
 
