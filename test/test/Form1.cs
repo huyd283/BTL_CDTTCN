@@ -21,7 +21,6 @@ namespace test
         {
             InitializeComponent();
             random = new Random();
-
         }
         int n = 0, i;
         public static int[] a;
@@ -36,7 +35,6 @@ namespace test
         private int max;
         int toc_Do = 4;
         Boolean da_Tao_Mang = false;
-        
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -46,6 +44,9 @@ namespace test
             tbSoDau.ResetText();
             tbKetQua.ResetText();
             msg.ResetText();
+            lbl_pivot.ResetText();
+            lbl_left.ResetText();
+            lbl_right.ResetText();
             n = a.Length;
             if (da_Tao_Mang)
             {
@@ -69,6 +70,8 @@ namespace test
         }
         private void btnNhapMang_Click(object sender, EventArgs e)
         {
+            tbMang.ResetText();
+
             if (!string.IsNullOrEmpty(tbSoPT.Text) && !string.IsNullOrEmpty(tbSoDau.Text) && !string.IsNullOrEmpty(tbSoCuoi.Text))
             {
                 size = int.Parse(tbSoPT.Text);
@@ -171,23 +174,39 @@ namespace test
         private void docFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+
+            // Đặt các thuộc tính cho OpenFileDialog
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog.Title = "Open a Text File";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Hiển thị OpenFileDialog và kiểm tra kết quả trả về
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
 
                 // Đọc toàn bộ nội dung từ tập tin đã chọn
-                string input = null;
-                a = new int[size];
-                tao_Mang(100, Properties.Resources.img_simple);
-                while (input != System.IO.File.ReadAllText(filePath))
+                string content = System.IO.File.ReadAllText(filePath);
+                string[] values = content.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Kiểm tra nếu số lượng giá trị đọc được khớp với kích thước mảng
+                if (values.Length == size)
                 {
-                    a[i] = Convert.ToInt32(input);
-                    node1[i].Text = a[i].ToString();
-                    i++;
+                    for (int i = 0; i < size; i++)
+                    {
+                        a[i] = int.Parse(values[i]);
+                        node1[i].Text = a[i].ToString();
+                    }
+
+                    tbMang.Text = content;
+                    MessageBox.Show("File opened successfully!");
                 }
-                MessageBox.Show("File opened successfully!");
+                else
+                {
+                    MessageBox.Show("Số lượng giá trị trong tập tin không khớp với kích thước mảng!", "Lỗi", MessageBoxButtons.OK);
+                }
             }
+
         }
 
         #region CÁC HÀM DI CHUYỂN
@@ -411,10 +430,13 @@ namespace test
                     if (rbChen.Checked)
                     {
                         int x, j;
+
                         set_node_color(node1[0], Properties.Resources.img_done);
+
                         for (int i = 1; i < n; i++)
                         {
                             x = a[i];
+                            lbl_pivot.Text = $"Pivot: {x}";
                             wait_time(150 * toc_Do);
                             Button node_tam = node1[i];
                             set_node_color(node_tam, Properties.Resources.img_pivot);
@@ -432,6 +454,8 @@ namespace test
                                 wait_time(toc_Do * 150);
                                 j--;
                                 wait_time(150 * toc_Do);
+                                lbl_left.Text = $"Left: {a[j - 1]}"; 
+                                lbl_right.Text = $"Right: {j}";
                             }
                             if (j != i)
                             {
@@ -452,6 +476,8 @@ namespace test
                         {
                             for (int j = 0; j < n - i - 1; j++)
                             {
+                                lbl_left.Text = $"Left: {a[j]}"; 
+                                lbl_right.Text = $"Right: {a[j + 1]}";
                                 set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
                                 set_node_color(node1[j + 1], Properties.Resources.img_pivot);
                                 wait_time(toc_Do * 150);
@@ -487,16 +513,24 @@ namespace test
                         for (i = 0; i < n - 1; i++)
                         {
                             int maxIndex = i;
+                            lbl_pivot.Text = $"Pivot: {a[i]}";
+
                             set_node_color(node1[i], Properties.Resources.img_pivot);
+
                             wait_time(toc_Do * 250);
                             // Tìm phần tử lớn nhất trong mảng chưa sắp xếp
                             for (int j = i + 1; j < n; j++)
                             {
+                                lbl_left.Text = $"Left: {a[j]}";
+
                                 set_node_color(node1[j], Properties.Resources.img_select);
+                           
                                 wait_time(toc_Do * 250);
                                 if (a[j] > a[maxIndex])
                                 {
                                     maxIndex = j;
+                                    lbl_right.Text = $"Right: {a[maxIndex]}";
+
                                     set_node_color(node1[maxIndex], Properties.Resources.img_simple);
                                     set_node_color(node1[j], Properties.Resources.img_pivot);
                                     wait_time(toc_Do * 250);
@@ -615,13 +649,13 @@ namespace test
                 }
             }
         }
+
         private void btnTang_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
             stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
-            int uy;
             n = a.Length;
             for (i = 0; i < n; i++)
             {
@@ -665,8 +699,12 @@ namespace test
                                 set_node_color(node1[j + 1], Properties.Resources.img_done);
                                 wait_time(150 * toc_Do);
                             }
+                            lbl_left.Text = $"Left: {a[j]}";
+                            lbl_right.Text = $"Right: {a[j + 1]}";
                         }
                         set_node_color(node1[i], Properties.Resources.img_done);
+                        lbl_pivot.Text = $"Pivot: {a[n - i - 1]}";
+
                     }
                 }
                 else if (rbChon.Checked)
@@ -674,16 +712,22 @@ namespace test
                     for (i = 0; i < n - 1; i++)
                     {
                         int minIndex = i;
+                        lbl_pivot.Text = $"Pivot: {a[i]}";
+
                         set_node_color(node1[i], Properties.Resources.img_pivot);
                         wait_time(toc_Do * 250);
                         // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
                         for (int j = i + 1; j < n; j++)
                         {
+                            lbl_left.Text = $"Left: {a[j]}";
+
                             set_node_color(node1[j], Properties.Resources.img_select);
                             wait_time(toc_Do * 250);
                             if (a[j] < a[minIndex])
                             {
                                 minIndex = j;
+                                lbl_right.Text = $"Right: {a[minIndex]}";
+
                                 set_node_color(node1[minIndex], Properties.Resources.img_simple);
                                 set_node_color(node1[j], Properties.Resources.img_pivot);
                                 wait_time(toc_Do * 250);
@@ -711,10 +755,12 @@ namespace test
                 {
                     int x, j;
                     n = int.Parse(tbSoPT.Text);
+
                     set_node_color(node1[0], Properties.Resources.img_done);
                     for (int i = 1; i < n; i++)
                     {
                         x = a[i];
+                        lbl_pivot.Text = $"Pivot: {x}";
                         wait_time(100 * toc_Do);
 
                         Button node_tam = node1[i];
@@ -734,6 +780,9 @@ namespace test
 
                             j--;
                             wait_time(100 * toc_Do);
+                            lbl_left.Text = $"Left: {a[j - 1]}";
+                            lbl_right.Text = $"Right: {a[j]}";
+                           
                         }
                         if (j != i)
                         {
@@ -742,6 +791,8 @@ namespace test
                             go_down(node_tam, j);
                             node1[j] = node_tam;
                             wait_time(100 * toc_Do);
+                            lbl_left.Text = $"Left: {a[j]}";
+                            lbl_right.Text = $"Right: {a[j - 1]}";
                         }
                         else
                             wait_time(100 * toc_Do);
@@ -841,8 +892,8 @@ namespace test
                 MessageBox.Show("Đã sắp xếp xong.");
             }
         }
+       
     }
-
 }
 
 

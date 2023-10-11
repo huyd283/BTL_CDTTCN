@@ -67,7 +67,9 @@ namespace test
             this.panel3 = new System.Windows.Forms.Panel();
             this.cb_Tungbuoc = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.lb_list_code = new System.Windows.Forms.ListBox();
+            this.lbl_right = new System.Windows.Forms.Label();
+            this.lbl_left = new System.Windows.Forms.Label();
+            this.lbl_pivot = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -123,18 +125,17 @@ namespace test
             // 
             this.tbMang.Enabled = false;
             this.tbMang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbMang.Location = new System.Drawing.Point(196, 590);
+            this.tbMang.Location = new System.Drawing.Point(194, 694);
             this.tbMang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMang.Name = "tbMang";
             this.tbMang.Size = new System.Drawing.Size(345, 27);
             this.tbMang.TabIndex = 4;
-            this.tbMang.TextChanged += new System.EventHandler(this.tbMang_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(25, 593);
+            this.label2.Location = new System.Drawing.Point(23, 697);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 19);
             this.label2.TabIndex = 5;
@@ -205,7 +206,7 @@ namespace test
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(25, 626);
+            this.label5.Location = new System.Drawing.Point(23, 730);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(124, 19);
             this.label5.TabIndex = 15;
@@ -215,7 +216,7 @@ namespace test
             // 
             this.tbKetQua.Enabled = false;
             this.tbKetQua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbKetQua.Location = new System.Drawing.Point(196, 623);
+            this.tbKetQua.Location = new System.Drawing.Point(194, 727);
             this.tbKetQua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbKetQua.Name = "tbKetQua";
             this.tbKetQua.Size = new System.Drawing.Size(345, 27);
@@ -225,7 +226,7 @@ namespace test
             // 
             this.msg.Enabled = false;
             this.msg.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.msg.Location = new System.Drawing.Point(233, 656);
+            this.msg.Location = new System.Drawing.Point(231, 760);
             this.msg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.msg.Name = "msg";
             this.msg.Size = new System.Drawing.Size(161, 27);
@@ -347,7 +348,7 @@ namespace test
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(25, 658);
+            this.label9.Location = new System.Drawing.Point(23, 762);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(148, 19);
             this.label9.TabIndex = 30;
@@ -361,7 +362,7 @@ namespace test
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1817, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1820, 28);
             this.menuStrip1.TabIndex = 31;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -372,7 +373,7 @@ namespace test
             this.ngănXếpToolStripMenuItem,
             this.hàngĐợiToolStripMenuItem});
             this.cấuTrúcToolStripMenuItem.Name = "cấuTrúcToolStripMenuItem";
-            this.cấuTrúcToolStripMenuItem.Size = new System.Drawing.Size(77, 26);
+            this.cấuTrúcToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
             this.cấuTrúcToolStripMenuItem.Text = "Cấu trúc";
             // 
             // mảngToolStripMenuItem
@@ -427,9 +428,6 @@ namespace test
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.rbChon);
@@ -438,7 +436,7 @@ namespace test
             this.panel2.Location = new System.Drawing.Point(969, 47);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(331, 259);
+            this.panel2.Size = new System.Drawing.Size(334, 259);
             this.panel2.TabIndex = 33;
             // 
             // label11
@@ -486,22 +484,44 @@ namespace test
             this.label12.TabIndex = 35;
             this.label12.Text = "Điều khiển";
             // 
-            // lb_list_code
+            // lbl_right
             // 
-            this.lb_list_code.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_list_code.FormattingEnabled = true;
-            this.lb_list_code.ItemHeight = 15;
-            this.lb_list_code.Location = new System.Drawing.Point(969, 395);
-            this.lb_list_code.Name = "lb_list_code";
-            this.lb_list_code.Size = new System.Drawing.Size(342, 304);
-            this.lb_list_code.TabIndex = 54;
+            this.lbl_right.AutoSize = true;
+            this.lbl_right.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.lbl_right.Location = new System.Drawing.Point(965, 468);
+            this.lbl_right.Name = "lbl_right";
+            this.lbl_right.Size = new System.Drawing.Size(98, 23);
+            this.lbl_right.TabIndex = 65;
+            this.lbl_right.Text = "Status 3";
+            // 
+            // lbl_left
+            // 
+            this.lbl_left.AutoSize = true;
+            this.lbl_left.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.lbl_left.Location = new System.Drawing.Point(965, 411);
+            this.lbl_left.Name = "lbl_left";
+            this.lbl_left.Size = new System.Drawing.Size(98, 23);
+            this.lbl_left.TabIndex = 64;
+            this.lbl_left.Text = "Status 2";
+            // 
+            // lbl_pivot
+            // 
+            this.lbl_pivot.AutoSize = true;
+            this.lbl_pivot.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.lbl_pivot.Location = new System.Drawing.Point(965, 358);
+            this.lbl_pivot.Name = "lbl_pivot";
+            this.lbl_pivot.Size = new System.Drawing.Size(98, 23);
+            this.lbl_pivot.TabIndex = 63;
+            this.lbl_pivot.Text = "Status 1";
             // 
             // btnNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1817, 692);
-            this.Controls.Add(this.lb_list_code);
+            this.ClientSize = new System.Drawing.Size(1820, 796);
+            this.Controls.Add(this.lbl_right);
+            this.Controls.Add(this.lbl_left);
+            this.Controls.Add(this.lbl_pivot);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -519,7 +539,6 @@ namespace test
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "btnNhap";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.btnNhap_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -573,7 +592,8 @@ namespace test
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox cb_Tungbuoc;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ListBox lb_list_code;
+        private System.Windows.Forms.Label lbl_right;
+        private System.Windows.Forms.Label lbl_left;
+        private System.Windows.Forms.Label lbl_pivot;
     }
 }
-
