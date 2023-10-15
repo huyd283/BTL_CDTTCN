@@ -780,7 +780,7 @@ namespace test
 
                             j--;
                             wait_time(100 * toc_Do);
-                            lbl_left.Text = $"Left: {a[j - 1]}";
+                           // lbl_left.Text = $"Left: {a[j - 1]}";
                             lbl_right.Text = $"Right: {a[j]}";
                            
                         }

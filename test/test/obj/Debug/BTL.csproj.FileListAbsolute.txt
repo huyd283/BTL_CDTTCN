@@ -38,3 +38,14 @@ C:\Users\Admin\OneDrive\Tài liệu\GitHub\BTL_CDTTCN\test\test\obj\Debug\BTL.
 C:\Users\Admin\OneDrive\Tài liệu\GitHub\BTL_CDTTCN\test\test\obj\Debug\BTL.csproj.CoreCompileInputs.cache
 C:\Users\Admin\OneDrive\Tài liệu\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.exe
 C:\Users\Admin\OneDrive\Tài liệu\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.pdb
+E:\BTL_CN\test\test\bin\Debug\test.exe.config
+E:\BTL_CN\test\test\bin\Debug\test.exe
+E:\BTL_CN\test\test\bin\Debug\test.pdb
+E:\BTL_CN\test\test\obj\Debug\BTL.csproj.AssemblyReference.cache
+E:\BTL_CN\test\test\obj\Debug\test.btnNhap.resources
+E:\BTL_CN\test\test\obj\Debug\test.Properties.Resources.resources
+E:\BTL_CN\test\test\obj\Debug\BTL.csproj.GenerateResource.cache
+E:\BTL_CN\test\test\obj\Debug\BTL.csproj.CoreCompileInputs.cache
+E:\BTL_CN\test\test\obj\Debug\test.exe
+E:\BTL_CN\test\test\obj\Debug\test.pdb
+E:\BTL_CN\test\test\obj\Debug\test.Form2.resources
