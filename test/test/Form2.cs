@@ -21,7 +21,6 @@ namespace test
         }
         public static int[] a;
         int min, max, count;
-        int n = 0;
         private void docfile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -70,8 +69,8 @@ namespace test
                         int randomNumber = random.Next(min, max + 1);
                         stack.Push(randomNumber);
                     }
-                    //int[] array = stack.ToArray();
-                    //Array.Reverse(array);
+                    int[] array = stack.ToArray();
+                    Array.Reverse(array);
 
                     StringBuilder sb = new StringBuilder();
                     foreach (int number in stack)
@@ -101,7 +100,8 @@ namespace test
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string filePath = saveFileDialog.FileName; // Lấy đường dẫn và tên tệp tin
+                // Lấy đường dẫn và tên tệp tin
+                string filePath = saveFileDialog.FileName; 
 
                 // Sử dụng phương thức WriteAllText trong lớp File để ghi nội dung vào tệp tin
                 File.WriteAllText(filePath, content);
@@ -121,175 +121,134 @@ namespace test
             {
                 if (rbChen.Checked)
                 {
-                    try
                     {
-                        // Lấy mảng từ TextBox và chuyển đổi thành mảng số nguyên
-                        int[] arr = Array.ConvertAll(tbMang.Text.Split(' '), int.Parse);
+                        ////char[] c = new char[] { '\r','\n',',' };
+                        //string input = tbMang.Text;
+                        ////string input2 = input.Replace(c[0], ' ');
+                        ////string input3 = input2.Replace(c[1], ' ');
+                        ////string input4 = input3.Trim(' ');
+                        string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        // Sắp xếp mảng tăng dần bằng thuật toán sắp xếp chèn
-                        for (int i = 0; i < arr.Length; i++)
+                        Stack<int> stack = new Stack<int>();
+
+                        // Chèn các phần tử vào stack theo thứ tự tăng dần
+                        foreach (string item in inputArray)
                         {
-                            int current = arr[i];
-                            while (stack.Count > 0 && stack.Peek() > current)
+                            int number = int.Parse(item);
+                            if (stack.Count == 0 || number > stack.Peek())
                             {
-                                arr[i] = stack.Pop();
-                                i--;
+                                stack.Push(number);
                             }
-                            stack.Push(current);
+                            else
+                            {
+                                Stack<int> tempStack = new Stack<int>();
+
+                                while (stack.Count > 0 && number < stack.Peek())
+                                {
+                                    tempStack.Push(stack.Pop());
+                                }
+
+                                stack.Push(number);
+
+                                while (tempStack.Count > 0)
+                                {
+                                    stack.Push(tempStack.Pop());
+                                }
+                            }
                         }
 
-                        // Hiển thị mảng đã sắp xếp trong TextBox
-                        tbKetqua.Text = string.Join(", ", stack);
-                    }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Đầu vào không đúng định dạng. Vui lòng nhập các số nguyên, phân tách bằng dấu phẩy hoặc khoảng trắng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Hiển thị mảng đã sắp xếp
+                        tbKetqua.Text = string.Join(" ", stack.Reverse());
                     }
                 }
                 else if (rbChon.Checked)
                 {
+                    string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    //char[] c = new char[] { '\r','\n',',' };
-                    string input = tbMang.Text;
-                    //string input2 = input.Replace(c[0], ' ');
-                    //string input3 = input2.Replace(c[1], ' ');
-                    //string input4 = input3.Trim();
-                    if (!string.IsNullOrEmpty(input))
+                    Stack<int> stack = new Stack<int>();
+
+                    // Chèn các phần tử vào stack theo thứ tự tăng dần
+                    foreach (string item in inputArray)
                     {
-                        string[] inputArray = input.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-
-                        Stack<int> stack1 = new Stack<int>();
-
-                        for (int i = 0; i < inputArray.Length; i++)
-                        {
-                            int currentElement = int.Parse(inputArray[i]);
-                            stack1.Push(currentElement);
-                        }
-
-                        SelectionSort(stack);
-
-                        int[] sortedArray = stack.ToArray();
-                        Array.Reverse(sortedArray);
-
-                        string result = string.Join(" ", sortedArray);
-                        tbKetqua.Text = result;
+                        stack.Push(int.Parse(item));
                     }
+
+                    // Sắp xếp mảng trong stack
+                    Stack<int> sortedStack = SelectionSort(stack);
+
+                    // Hiển thị mảng đã sắp xếp
+                    tbKetqua.Text = string.Join(" ", sortedStack.Reverse());
                 }
 
                 else if (rbNoibot.Checked)
-                {
+                {   string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    string input = tbMang.Text;
-                    string[] inputArray = input.Split(' ');
-                    if (!string.IsNullOrEmpty(input))
-                    {
+                        Stack<int> stack1 = new Stack<int>();
 
-                        Stack<int> stack = new Stack<int>();
-
-                        for (int i = 0; i < inputArray.Length; i++)
+                        // Chèn các phần tử vào stack theo thứ tự tăng dần
+                        foreach (string item in inputArray)
                         {
-                            int currentElement = int.Parse(inputArray[i]);
-                            stack.Push(currentElement);
+                            stack1.Push(int.Parse(item));
                         }
 
-                        BubbleSort(stack);
+                        BubbleSort(stack1);
 
-                        int[] sortedArray = stack.ToArray();
-                        Array.Reverse(sortedArray);
+                        tbKetqua.Text = string.Join(" ", stack.Reverse());
+                 }
+             }
+        }
+        private static Stack<int> SelectionSort(Stack<int> stack)
+        {
+            Stack<int> tempStack = new Stack<int>();
 
-                        string result = string.Join(" ", sortedArray);
-                        tbKetqua.Text = result;
-                    }
+            while (stack.Count > 0)
+            {
+                int min = stack.Pop();
 
+                while (tempStack.Count > 0 && tempStack.Peek() > min)
+                {
+                    stack.Push(tempStack.Pop());
                 }
 
+                tempStack.Push(min);
             }
+
+            return tempStack;
         }
-        private void InsertionSort(Stack<int> stack)
+        static void BubbleSort(Stack<int> stack)
         {
             int n = stack.Count;
-            int[] array = stack.ToArray();
-            for (int i = 1; i < n; ++i)
-            {
-                int key = array[i];
-                int j = i - 1;
 
-                while (j >= 0 && array[j] > key)
-                {
-                    array[j + 1] = array[j];
-                    j = j - 1;
-                }
-                array[j + 1] = key;
-            }
-            stack.Clear();
-            for (int i = 0; i < n; i++)
-            {
-                stack.Push(array[i]);
-            }
-        }
-        private void SelectionSort(Stack<int> stackt)
-        {
-            //int n = stack.Count;
-
-            for (int i = 0; i < n - 1; i++)
-            {
-                int minIndex = i;
-                Stack<int> tempStack = new Stack<int>();
-
-                for (int j = 0; j < n - i; j++)
-                {
-                    int currentElement = stackt.Pop();
-                    tempStack.Push(currentElement);
-
-                    if (currentElement < stackt.Peek())
-                    {
-                        minIndex = j;
-                    }
-                }
-
-                int minValue = tempStack.Peek();
-                int count = tempStack.Count;
-
-                for (int k = 0; k < count; k++)
-                {
-                    int currentElement = tempStack.Pop();
-
-                    if (k != minIndex)
-                    {
-                        stackt.Push(currentElement);
-                    }
-                    else
-                    {
-                        minValue = currentElement;
-                    }
-                }
-
-                stack.Push(minValue);
-            }
-        }
-        private void BubbleSort(Stack<int> stack)
-        {
-            int n = stack.Count;
+            Stack<int> tempStack = new Stack<int>();
 
             for (int i = 0; i < n - 1; i++)
             {
                 for (int j = 0; j < n - i - 1; j++)
                 {
-                    int x = stack.Pop();
-                    int y = stack.Peek();
+                    int curr = stack.Pop();
+                    int next = stack.Peek();
 
-                    if (x > y)
+                    if (curr > next)
                     {
-                        stack.Push(x);
-                        stack.Push(y);
+                        // Swap elements
+                        stack.Pop();
+                        stack.Push(curr);
+                        stack.Push(next);
                     }
                     else
                     {
-                        stack.Push(y);
-                        stack.Push(x);
+                        stack.Push(curr);
                     }
                 }
+
+                // Di chuyển phần tử nhỏ nhất lên đỉnh stack trung gian
+                tempStack.Push(stack.Pop());
+            }
+
+            // Đẩy các phần tử từ stack trung gian trở lại stack ban đầu
+            while (tempStack.Count > 0)
+            {
+                stack.Push(tempStack.Pop());
             }
         }
     }

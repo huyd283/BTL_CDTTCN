@@ -105,7 +105,7 @@
             // 
             this.btnGiam.Location = new System.Drawing.Point(345, 102);
             this.btnGiam.Name = "btnGiam";
-            this.btnGiam.Size = new System.Drawing.Size(126, 33);
+            this.btnGiam.Size = new System.Drawing.Size(151, 33);
             this.btnGiam.TabIndex = 18;
             this.btnGiam.Text = "Sắp Xếp Giảm";
             this.btnGiam.UseVisualStyleBackColor = true;
@@ -114,10 +114,11 @@
             // 
             this.btnTang.Location = new System.Drawing.Point(345, 33);
             this.btnTang.Name = "btnTang";
-            this.btnTang.Size = new System.Drawing.Size(126, 33);
+            this.btnTang.Size = new System.Drawing.Size(151, 33);
             this.btnTang.TabIndex = 17;
             this.btnTang.Text = "Sắp Xếp Tăng";
             this.btnTang.UseVisualStyleBackColor = true;
+            this.btnTang.Click += new System.EventHandler(this.btnTang_Click);
             // 
             // gbNew
             // 
@@ -156,6 +157,7 @@
             this.nhapMang.TabIndex = 12;
             this.nhapMang.Text = "Nhập Mảng";
             this.nhapMang.UseVisualStyleBackColor = true;
+            this.nhapMang.Click += new System.EventHandler(this.nhapMang_Click);
             // 
             // label4
             // 
@@ -216,6 +218,7 @@
             this.luuFlie.TabIndex = 1;
             this.luuFlie.Text = "Lưu File";
             this.luuFlie.UseVisualStyleBackColor = true;
+            this.luuFlie.Click += new System.EventHandler(this.luuFlie_Click);
             // 
             // docfile
             // 
@@ -225,6 +228,7 @@
             this.docfile.TabIndex = 0;
             this.docfile.Text = "Đọc File";
             this.docfile.UseVisualStyleBackColor = true;
+            this.docfile.Click += new System.EventHandler(this.docfile_Click);
             // 
             // tbKetqua
             // 
