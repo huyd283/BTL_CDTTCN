@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace test
     public partial class Form2 : Form
     {
         private Stack<int> stack;
+        Stopwatch stopwatch = new Stopwatch();
 
         public Form2()
         {
@@ -113,6 +115,8 @@ namespace test
         private void btnTang_Click(object sender, EventArgs e)
         {
             tbKetqua.Clear();
+            stopwatch.Restart();
+            stopwatch.Start();
             if (!rbChen.Checked && !rbChon.Checked && !rbNoibot.Checked)
             {
                 MessageBox.Show("Mời bạn chọn thuật toán.");
@@ -159,6 +163,8 @@ namespace test
 
                         // Hiển thị mảng đã sắp xếp
                         tbKetqua.Text = string.Join(" ", stack.Reverse());
+                        timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                        MessageBox.Show("Đã sắp xếp xong.");
                     }
                 }
                 else if (rbChon.Checked)
@@ -178,78 +184,173 @@ namespace test
 
                     // Hiển thị mảng đã sắp xếp
                     tbKetqua.Text = string.Join(" ", sortedStack.Reverse());
+                    timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    MessageBox.Show("Đã sắp xếp xong.");
                 }
 
                 else if (rbNoibot.Checked)
                 {   string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        Stack<int> stack1 = new Stack<int>();
+                    Stack<int> stack = new Stack<int>();
+
+                    // Chèn các phần tử vào stack theo thứ tự tăng dần
+                    foreach (string item in inputArray)
+                    {
+                        stack.Push(int.Parse(item));
+                    }
+
+                    Stack<int> sortedStack = BubbleSort(stack);
+
+                    tbKetqua.Text = string.Join(" ", sortedStack.Reverse());
+                    timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    MessageBox.Show("Đã sắp xếp xong.");
+                }
+             }
+        }
+
+        private void btnGiam_Click(object sender, EventArgs e)
+        {
+            stopwatch.Restart();
+            stopwatch.Start();
+            tbKetqua.Clear();
+            if (!rbChen.Checked && !rbChon.Checked && !rbNoibot.Checked)
+            {
+                MessageBox.Show("Mời bạn chọn thuật toán.");
+            }
+            else
+            {
+                if (rbChen.Checked)
+                {
+                    {
+                        ////char[] c = new char[] { '\r','\n',',' };
+                        //string input = tbMang.Text;
+                        ////string input2 = input.Replace(c[0], ' ');
+                        ////string input3 = input2.Replace(c[1], ' ');
+                        ////string input4 = input3.Trim(' ');
+                        string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        Stack<int> stack = new Stack<int>();
 
                         // Chèn các phần tử vào stack theo thứ tự tăng dần
                         foreach (string item in inputArray)
                         {
-                            stack1.Push(int.Parse(item));
+                            int number = int.Parse(item);
+                            if (stack.Count == 0 || number > stack.Peek())
+                            {
+                                stack.Push(number);
+                            }
+                            else
+                            {
+                                Stack<int> tempStack = new Stack<int>();
+
+                                while (stack.Count > 0 && number < stack.Peek())
+                                {
+                                    tempStack.Push(stack.Pop());
+                                }
+
+                                stack.Push(number);
+
+                                while (tempStack.Count > 0)
+                                {
+                                    stack.Push(tempStack.Pop());
+                                }
+                            }
                         }
 
-                        BubbleSort(stack1);
+                        // Hiển thị mảng đã sắp xếp
+                        tbKetqua.Text = string.Join(" ", stack);
+                        timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                        MessageBox.Show("Đã sắp xếp xong.");
+                    }
+                }
+                else if (rbChon.Checked)
+                {
+                    string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        tbKetqua.Text = string.Join(" ", stack.Reverse());
-                 }
-             }
+                    Stack<int> stack = new Stack<int>();
+
+                    // Chèn các phần tử vào stack theo thứ tự tăng dần
+                    foreach (string item in inputArray)
+                    {
+                        stack.Push(int.Parse(item));
+                    }
+
+                    // Sắp xếp mảng trong stack
+                    Stack<int> sortedStack = SelectionSort(stack);
+
+                    // Hiển thị mảng đã sắp xếp
+                    tbKetqua.Text = string.Join(" ", sortedStack);
+                    timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    MessageBox.Show("Đã sắp xếp xong.");
+                }
+
+                else if (rbNoibot.Checked)
+                {
+                    string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    Stack<int> stack = new Stack<int>();
+
+                    // Chèn các phần tử vào stack theo thứ tự tăng dần
+                    foreach (string item in inputArray)
+                    {
+                        stack.Push(int.Parse(item));
+                    }
+
+                    Stack<int> sortedStack = BubbleSort(stack);
+
+                    tbKetqua.Text = string.Join(" ", sortedStack);
+                    timeload.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    MessageBox.Show("Đã sắp xếp xong.");
+
+                }
+            }
         }
+
         private static Stack<int> SelectionSort(Stack<int> stack)
         {
-            Stack<int> tempStack = new Stack<int>();
+            int[] array = stack.ToArray();
 
-            while (stack.Count > 0)
+            for (int i = 0; i < array.Length - 1; i++)
             {
-                int min = stack.Pop();
+                int minIndex = i;
 
-                while (tempStack.Count > 0 && tempStack.Peek() > min)
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    stack.Push(tempStack.Pop());
+                    if (array[j] < array[minIndex])
+                    {
+                        minIndex = j;
+                    }
                 }
 
-                tempStack.Push(min);
+                int temp = array[minIndex];
+                array[minIndex] = array[i];
+                array[i] = temp;
             }
 
-            return tempStack;
+            stack = new Stack<int>(array);
+
+            return stack;
         }
-        static void BubbleSort(Stack<int> stack)
+        private static Stack<int> BubbleSort(Stack<int> stack)
         {
-            int n = stack.Count;
+            int[] array = stack.ToArray();
 
-            Stack<int> tempStack = new Stack<int>();
-
-            for (int i = 0; i < n - 1; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
-                for (int j = 0; j < n - i - 1; j++)
+                for (int j = 0; j < array.Length - i - 1; j++)
                 {
-                    int curr = stack.Pop();
-                    int next = stack.Peek();
-
-                    if (curr > next)
+                    if (array[j] > array[j + 1])
                     {
-                        // Swap elements
-                        stack.Pop();
-                        stack.Push(curr);
-                        stack.Push(next);
-                    }
-                    else
-                    {
-                        stack.Push(curr);
+                        int temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
                     }
                 }
-
-                // Di chuyển phần tử nhỏ nhất lên đỉnh stack trung gian
-                tempStack.Push(stack.Pop());
             }
 
-            // Đẩy các phần tử từ stack trung gian trở lại stack ban đầu
-            while (tempStack.Count > 0)
-            {
-                stack.Push(tempStack.Pop());
-            }
+            stack = new Stack<int>(array);
+
+            return stack;
         }
     }
 

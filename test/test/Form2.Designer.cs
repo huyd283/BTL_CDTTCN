@@ -49,6 +49,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbMang = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.timeload = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.gbNew.SuspendLayout();
             this.SuspendLayout();
@@ -109,6 +112,7 @@
             this.btnGiam.TabIndex = 18;
             this.btnGiam.Text = "Sắp Xếp Giảm";
             this.btnGiam.UseVisualStyleBackColor = true;
+            this.btnGiam.Click += new System.EventHandler(this.btnGiam_Click);
             // 
             // btnTang
             // 
@@ -233,48 +237,80 @@
             // tbKetqua
             // 
             this.tbKetqua.Enabled = false;
-            this.tbKetqua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbKetqua.Location = new System.Drawing.Point(215, 566);
+            this.tbKetqua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbKetqua.Location = new System.Drawing.Point(364, 591);
             this.tbKetqua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbKetqua.Name = "tbKetqua";
-            this.tbKetqua.Size = new System.Drawing.Size(345, 27);
+            this.tbKetqua.Size = new System.Drawing.Size(431, 35);
             this.tbKetqua.TabIndex = 26;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(25, 561);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(174, 586);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 32);
+            this.label5.Size = new System.Drawing.Size(95, 28);
             this.label5.TabIndex = 25;
             this.label5.Text = "Kết Quả";
             // 
             // tbMang
             // 
             this.tbMang.Enabled = false;
-            this.tbMang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbMang.Location = new System.Drawing.Point(215, 488);
+            this.tbMang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMang.Location = new System.Drawing.Point(364, 513);
             this.tbMang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMang.Name = "tbMang";
-            this.tbMang.Size = new System.Drawing.Size(345, 27);
+            this.tbMang.Size = new System.Drawing.Size(431, 35);
             this.tbMang.TabIndex = 24;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 488);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(174, 513);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 32);
+            this.label1.Size = new System.Drawing.Size(68, 28);
             this.label1.TabIndex = 23;
             this.label1.Text = "Mảng";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 16);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "label6";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(177, 664);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(163, 22);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Thời gian thực hiện";
+            // 
+            // timeload
+            // 
+            this.timeload.Enabled = false;
+            this.timeload.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeload.Location = new System.Drawing.Point(364, 664);
+            this.timeload.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.timeload.Name = "timeload";
+            this.timeload.Size = new System.Drawing.Size(229, 28);
+            this.timeload.TabIndex = 31;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1645, 717);
+            this.Controls.Add(this.timeload);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbNew);
             this.Controls.Add(this.tbKetqua);
@@ -315,5 +351,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbMang;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox timeload;
     }
 }
