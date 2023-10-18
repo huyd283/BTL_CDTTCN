@@ -1,6 +1,6 @@
 ﻿namespace test
 {
-    partial class Form2
+    partial class Stack
     {
         /// <summary>
         /// Required designer variable.

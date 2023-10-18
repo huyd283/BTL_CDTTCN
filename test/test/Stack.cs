@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace test
 {
-    public partial class Form2 : Form
+    public partial class Stack : Form
     {
         private Stack<int> stack;
         Stopwatch stopwatch = new Stopwatch();
 
-        public Form2()
+        public Stack()
         {
             InitializeComponent();
         }

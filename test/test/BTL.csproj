@@ -47,25 +47,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Array.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Array.Designer.cs">
+      <DependentUpon>Array.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="Stack.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="Stack.Designer.cs">
+      <DependentUpon>Stack.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Queue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue.Designer.cs">
+      <DependentUpon>Queue.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Array.resx">
+      <DependentUpon>Array.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="Queue.resx">
+      <DependentUpon>Queue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stack.resx">
+      <DependentUpon>Stack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

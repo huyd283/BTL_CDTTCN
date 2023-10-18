@@ -75,7 +75,7 @@ namespace test
 
         private void ngănXếpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form2 nx = new Form2();
+            Stack nx = new Stack();
             nx.ShowDialog();
         }
 
