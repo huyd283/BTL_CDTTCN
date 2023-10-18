@@ -47,7 +47,6 @@ E:\BTL_CN\test\test\obj\Debug\BTL.csproj.GenerateResource.cache
 E:\BTL_CN\test\test\obj\Debug\BTL.csproj.CoreCompileInputs.cache
 E:\BTL_CN\test\test\obj\Debug\test.exe
 E:\BTL_CN\test\test\obj\Debug\test.pdb
-E:\BTL_CN\test\test\obj\Debug\test.Form2.resources
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\bin\Debug\test.exe.config
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\bin\Debug\test.exe
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\bin\Debug\test.pdb
@@ -60,3 +59,5 @@ D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.exe
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.pdb
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.Mang.resources
 E:\BTL_CN\test\test\obj\Debug\test.Mang.resources
+E:\BTL_CN\test\test\obj\Debug\test.Queue.resources
+E:\BTL_CN\test\test\obj\Debug\test.Stack.resources
