@@ -306,8 +306,40 @@ namespace test
             }
         }
 
+
+
         private static Stack<int> SelectionSort(Stack<int> stack)
         {
+            //Stack<int> sortedStack = new Stack<int>();
+
+            //while (stack.Count > 0)
+            //{
+            //    int min = int.MaxValue;
+
+            //    // Tìm phần tử nhỏ nhất trong stack
+            //    while (stack.Count > 0)
+            //    {
+            //        int current = stack.Pop();
+            //        if (current < min)
+            //        {
+            //            min = current;
+            //        }
+            //        sortedStack.Push(current);
+            //    }
+
+            //    // Đẩy các phần tử lớn hơn phần tử nhỏ nhất vào stack
+            //    while (sortedStack.Count > 0 && sortedStack.Peek() >= min)
+            //    {
+            //        int current = sortedStack.Pop();
+            //        if (current != min)
+            //        {
+            //            stack.Push(current);
+            //        }
+            //    }
+
+            //    // Đẩy phần tử nhỏ nhất vào stack
+            //    stack.Push(min);
+            //}
             int[] array = stack.ToArray();
 
             for (int i = 0; i < array.Length - 1; i++)
@@ -333,6 +365,27 @@ namespace test
         }
         private static Stack<int> BubbleSort(Stack<int> stack)
         {
+            //int n = stack.Count;
+
+            //for (int i = 0; i < n - 1; i++)
+            //{
+            //    for (int j = 0; j < n - i - 1; j++)
+            //    {
+            //        int first = stack.Pop();
+            //        int second = stack.Peek();
+
+            //        if (first > second)
+            //        {
+            //            stack.Pop();
+            //            stack.Push(first);
+            //            stack.Push(second);
+            //        }
+            //        else
+            //        {
+            //            stack.Push(first);
+            //        }
+            //    }
+            //}
             int[] array = stack.ToArray();
 
             for (int i = 0; i < array.Length - 1; i++)
@@ -352,6 +405,19 @@ namespace test
 
             return stack;
         }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            tbMang.ResetText();
+            tbKetqua.ResetText();
+            tbMin.ResetText();
+            tbMax.ResetText();
+            tbSoPT.ResetText();
+            timeload.ResetText();
+            rbChen.Checked = false;
+            rbChon.Checked = false;
+            rbNoibot.Checked = false;
+            //tbKetqua.ResetText();
+            //tbKetqua.ResetText();
+        }
     }
-
 }

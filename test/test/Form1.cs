@@ -697,6 +697,12 @@ namespace test
                 }
             }
         }
+
+        private void btnNhap_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnTang_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
