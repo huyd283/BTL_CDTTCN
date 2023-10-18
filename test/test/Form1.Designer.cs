@@ -614,7 +614,6 @@ namespace test
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Mang";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.btnNhap_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
