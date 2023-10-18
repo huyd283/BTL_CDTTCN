@@ -36,7 +36,6 @@ namespace test
         int toc_Do = 4;
         Boolean da_Tao_Mang = false;
         Code code_C = new Code();
-        static bool isInterrupted = false;
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -166,7 +165,6 @@ namespace test
         }
         private void luuFile_Click(object sender, EventArgs e)
         {
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
 
@@ -176,9 +174,8 @@ namespace test
 
                 // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
                 string mang = tbKetQua.Text;
-
                 // Ghi nội dung vào file
-                File.WriteAllText(filePath, mang);
+                File.WriteAllText(filePath, mang );
                 MessageBox.Show("File opened successfully!");
             }
         }
@@ -192,10 +189,12 @@ namespace test
                 string filePath = openFileDialog.FileName;
                 string content = File.ReadAllText(filePath);
                 string[] numbersString = content.Split(' ');
-                a = new int[numbersString.Length];
+                size = numbersString.Length;
+                a = new int[size];
                 tao_Mang(100, Properties.Resources.img_simple);
                 for (int i = 0; i < size; i++)
                 {
+                    a[i] = int.Parse(numbersString[i].Trim());
                     node1[i].Text = a[i].ToString();
                 }
                 MessageBox.Show("File opened successfully!");
@@ -390,7 +389,6 @@ namespace test
         {
             Application.DoEvents();
             Thread.Sleep(milisecond);
-
         }
 
         // Hàm đổi giá trị của hai node
