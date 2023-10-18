@@ -60,3 +60,15 @@ D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\BTL.csproj.CoreCom
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.exe
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.pdb
 D:\app\Bài tập\Chuyên đề ngành\V4\test\test\obj\Debug\test.Mang.resources
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\bin\Debug\test.exe.config
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\bin\Debug\test.exe
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\bin\Debug\test.pdb
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\BTL.csproj.AssemblyReference.cache
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.Mang.resources
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.Queue.resources
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.Stack.resources
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.Properties.Resources.resources
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\BTL.csproj.GenerateResource.cache
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\BTL.csproj.CoreCompileInputs.cache
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.exe
+C:\Users\84584\OneDrive\Documents\GitHub\BTL_CDTTCN\test\test\obj\Debug\test.pdb
