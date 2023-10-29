@@ -392,6 +392,7 @@ namespace test
             this.hàngĐợiToolStripMenuItem1.Name = "hàngĐợiToolStripMenuItem1";
             this.hàngĐợiToolStripMenuItem1.Size = new System.Drawing.Size(85, 24);
             this.hàngĐợiToolStripMenuItem1.Text = "Hàng đợi";
+            this.hàngĐợiToolStripMenuItem1.Click += new System.EventHandler(this.hàngĐợiToolStripMenuItem1_Click);
             // 
             // panel1
             // 
@@ -569,7 +570,7 @@ namespace test
             this.label13.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(426, 39);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(254, 32);
+            this.label13.Size = new System.Drawing.Size(253, 32);
             this.label13.TabIndex = 70;
             this.label13.Text = "CẤU TRÚC MẢNG";
             // 

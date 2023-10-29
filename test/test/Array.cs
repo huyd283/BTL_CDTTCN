@@ -116,7 +116,9 @@ namespace test
             co_Chu = 10;
             khoang_Cach = 10;
             le_Node = (770 - kich_Thuoc * size - khoang_Cach * (size - 1)) / 2;
-
+            //Control mycontrol = new Control();
+            //mycontrol.Width = 400;
+            //mycontrol.Height = 300;
 
             // KHởi tạo mảng node
             node1 = new Button[size];
@@ -138,6 +140,7 @@ namespace test
                 node1[i].BackgroundImage = img_nen;
                 node1[i].BackgroundImageLayout = ImageLayout.Stretch;
                 node1[i].FlatAppearance.BorderSize = 0;
+
                 this.Controls.Add(node1[i]);
 
                 // Tạo nhãn chỉ sổ
@@ -150,8 +153,15 @@ namespace test
 
                 chiSo[i].Location = new Point(le_Node + (kich_Thuoc + khoang_Cach) * i, 470 + khoang_Cach * 3);
                 chiSo[i].Font = new System.Drawing.Font("Arial", co_Chu - 4, FontStyle.Bold);
+                
                 this.Controls.Add(chiSo[i]);
             }
+            //if (size > 20)
+            //{
+            //    mycontrol.Scale(new Size(2, 2));
+                
+            //}
+
             da_Tao_Mang = true; //Xác nhận đã tạo mảng                                        
             btnNhapMang.Enabled = true;//Cho phép các nút điều khiển có tác dụng khi đã tạo mảng
             docFile.Enabled = true;
@@ -1001,6 +1011,13 @@ namespace test
         {
             Thread.Sleep(10000);
         }
+
+        private void hàngĐợiToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Queue hd = new Queue();
+            hd.ShowDialog();
+        }
+
         public void Refresh()
         {
             wait_time(300 * toc_Do);
