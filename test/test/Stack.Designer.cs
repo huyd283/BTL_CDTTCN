@@ -336,7 +336,7 @@
             this.btnGiam.Name = "btnGiam";
             this.btnGiam.Size = new System.Drawing.Size(156, 32);
             this.btnGiam.TabIndex = 3;
-            this.btnGiam.Text = "Sắp xếp giảm";
+            this.btnGiam.Text = "Sắp xếp giảm dan   ";
             this.btnGiam.UseVisualStyleBackColor = true;
             this.btnGiam.Click += new System.EventHandler(this.btnGiam_Click);
             // 
@@ -349,6 +349,8 @@
             this.btnXoa.Size = new System.Drawing.Size(156, 32);
             this.btnXoa.TabIndex = 8;
             this.btnXoa.Text = "Reset";
+
+
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
