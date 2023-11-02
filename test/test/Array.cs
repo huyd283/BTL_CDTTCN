@@ -17,6 +17,7 @@ namespace test
     {
         private Random random;
         Stopwatch stopwatch = new Stopwatch();
+        private string filePath;
         public Mang()
         {
             InitializeComponent();
@@ -183,13 +184,38 @@ namespace test
                 string filePath = saveFileDialog.FileName;
 
                 // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
-                string mang = tbKetQua.Text;
+                string mang = (" Array " + tbKetQua.Text);
                 // Ghi nội dung vào file
                 File.WriteAllText(filePath, mang );
                 MessageBox.Show("File opened successfully!");
             }
         }
+        private void Save_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text Files|*.txt";
+            openFileDialog.Title = "Chọn một file để lưu dữ liệu";
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filePath = openFileDialog.FileName;
+                MessageBox.Show("File đã được chọn: " + filePath);
+            }
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    string data = ("Array: " + msg.Text); // Dữ liệu cần lưu
+                    writer.WriteLine(data);
+                }
+
+                MessageBox.Show("Dữ liệu đã được lưu vào file.");
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một file trước khi lưu dữ liệu.");
+            }
+        }
         private void docFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

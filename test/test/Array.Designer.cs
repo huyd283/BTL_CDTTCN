@@ -76,6 +76,7 @@ namespace test
             this.lb_Code = new System.Windows.Forms.ListBox();
             this.label13 = new System.Windows.Forms.Label();
             this.lb_Status5 = new System.Windows.Forms.Label();
+            this.Save = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -397,6 +398,7 @@ namespace test
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Save);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.tbSoDau);
             this.panel1.Controls.Add(this.label3);
@@ -584,6 +586,18 @@ namespace test
             this.lb_Status5.TabIndex = 71;
             this.lb_Status5.Text = "Status 5";
             // 
+            // Save
+            // 
+            this.Save.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Save.Location = new System.Drawing.Point(379, 202);
+            this.Save.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(144, 32);
+            this.Save.TabIndex = 34;
+            this.Save.Text = "Save Time";
+            this.Save.UseVisualStyleBackColor = true;
+            this.Save.Click += new System.EventHandler(this.Save_Click);
+            // 
             // Mang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -677,5 +691,6 @@ namespace test
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lb_Status5;
         private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button Save;
     }
 }

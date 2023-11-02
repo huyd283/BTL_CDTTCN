@@ -16,7 +16,7 @@ namespace test
     {
         private Stack<int> stack;
         Stopwatch stopwatch = new Stopwatch();
-
+        private string filePath;
         public Stack()
         {
             InitializeComponent();
@@ -111,7 +111,32 @@ namespace test
                 MessageBox.Show("Lưu thành công!");
             }
         }
+        private void Save_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text Files|*.txt";
+            openFileDialog.Title = "Chọn một file để lưu dữ liệu";
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filePath = openFileDialog.FileName;
+                MessageBox.Show("File đã được chọn: " + filePath);
+            }
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    string data = ("Stack: " + timeload.Text); // Dữ liệu cần lưu
+                    writer.WriteLine(data);
+                }
+
+                MessageBox.Show("Dữ liệu đã được lưu vào file.");
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một file trước khi lưu dữ liệu.");
+            }
+        }
         private void btnTang_Click(object sender, EventArgs e)
         {
             tbKetqua.Clear();
@@ -363,6 +388,8 @@ namespace test
 
             return stack;
         }
+
+
         private static Stack<int> BubbleSort(Stack<int> stack)
         {
             //int n = stack.Count;

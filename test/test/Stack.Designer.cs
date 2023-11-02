@@ -58,6 +58,7 @@
             this.lbMang = new System.Windows.Forms.Label();
             this.lbIndex = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.Save = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbNew.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -112,6 +113,7 @@
             // gbNew
             // 
             this.gbNew.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.gbNew.Controls.Add(this.Save);
             this.gbNew.Controls.Add(this.msgE);
             this.gbNew.Controls.Add(this.nhapMang);
             this.gbNew.Controls.Add(this.label4);
@@ -203,7 +205,7 @@
             // 
             // luuFlie
             // 
-            this.luuFlie.Location = new System.Drawing.Point(471, 100);
+            this.luuFlie.Location = new System.Drawing.Point(471, 90);
             this.luuFlie.Name = "luuFlie";
             this.luuFlie.Size = new System.Drawing.Size(84, 29);
             this.luuFlie.TabIndex = 1;
@@ -381,7 +383,17 @@
             this.label6.Size = new System.Drawing.Size(0, 19);
             this.label6.TabIndex = 36;
             // 
-            // Form2
+            // Save
+            // 
+            this.Save.Location = new System.Drawing.Point(471, 161);
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(84, 29);
+            this.Save.TabIndex = 14;
+            this.Save.Text = "Save Time";
+            this.Save.UseVisualStyleBackColor = true;
+            this.Save.Click += new System.EventHandler(this.Save_Click);
+            // 
+            // Stack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -398,7 +410,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbMang);
             this.Controls.Add(this.label1);
-            this.Name = "Form2";
+            this.Name = "Stack";
             this.Text = "Form2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -443,5 +455,6 @@
         private System.Windows.Forms.Label lbMang;
         private System.Windows.Forms.Label lbIndex;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button Save;
     }
 }
