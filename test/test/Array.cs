@@ -22,6 +22,7 @@ namespace test
         {
             InitializeComponent();
             random = new Random();
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
         int n = 0, i;
         public static int[] a;
@@ -37,6 +38,7 @@ namespace test
         int toc_Do = 4;
         Boolean da_Tao_Mang = false;
         Code code_C = new Code();
+        private Image img = Properties.Resources.img_simple;
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -90,10 +92,14 @@ namespace test
                 min = int.Parse(tbSoDau.Text);
                 max = int.Parse(tbSoCuoi.Text);
                 a = new int[size];
-                tao_Mang(100, Properties.Resources.img_simple);
+                Thread thrd = new Thread(tao_Mang);
+                object obj = new Tuple<int>(size);
+                thrd.Start(obj);
+                //tao_Mang(100, Properties.Resources.img_simple);
                 for (int i = 0; i < size; i++)
                 {
                     a[i] = random.Next(min, max);
+                    MessageBox.Show("Mảng: " + a[i]);
                     node1[i].Text = a[i].ToString();
                 }
                 foreach (int value in a)
@@ -111,8 +117,11 @@ namespace test
             else
                 MessageBox.Show("Bạn cần nhập số cuối", "Lỗi", MessageBoxButtons.OK);
         }
-        private void tao_Mang(int kc, System.Drawing.Image img_nen)
+        //private void tao_Mang(int kc, System.Drawing.Image img_nen)
+        private void tao_Mang(object s)
         {
+            Tuple<int> temp = s as Tuple<int>;
+            int size = temp.Item1;
             kich_Thuoc = 40;
             co_Chu = 10;
             khoang_Cach = 10;
@@ -124,8 +133,15 @@ namespace test
             // KHởi tạo mảng node
             node1 = new Button[size];
             chiSo = new Label[size];
-            lbIndex.Visible = true;
-            lbMang.Visible = true;
+            Application.DoEvents();
+            this.Invoke((MethodInvoker)delegate
+            {
+                for (i = 0; i < n; i++)
+                {
+                    lbIndex.Visible = true;
+                    lbMang.Visible = true;
+                }
+            });
             for (int i = 0; i < size; i++)
             {
                 node1[i] = new Button();
@@ -138,11 +154,14 @@ namespace test
                 node1[i].Font = new Font(this.Font, FontStyle.Bold);
                 node1[i].Font = new System.Drawing.Font("Arial", co_Chu, FontStyle.Bold);
                 node1[i].FlatStyle = FlatStyle.Flat;
-                node1[i].BackgroundImage = img_nen;
+                node1[i].BackgroundImage = img;
                 node1[i].BackgroundImageLayout = ImageLayout.Stretch;
                 node1[i].FlatAppearance.BorderSize = 0;
-
-                this.Controls.Add(node1[i]);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    //perform on the UI thread
+                    this.Controls.Add(node1[i]);
+                });
 
                 // Tạo nhãn chỉ sổ
                 chiSo[i] = new Label();
@@ -154,8 +173,11 @@ namespace test
 
                 chiSo[i].Location = new Point(le_Node + (kich_Thuoc + khoang_Cach) * i, 470 + khoang_Cach * 3);
                 chiSo[i].Font = new System.Drawing.Font("Arial", co_Chu - 4, FontStyle.Bold);
-                
-                this.Controls.Add(chiSo[i]);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    //perform on the UI thread
+                    this.Controls.Add(chiSo[i]);
+                });
             }
             //if (size > 20)
             //{
@@ -171,8 +193,12 @@ namespace test
             rbChen.Enabled = true;
             rbNoiBot.Enabled = true;
 
-            btnTang.Enabled = true;
-            btnGiam.Enabled = true;
+            Application.DoEvents();
+            this.Invoke((MethodInvoker)delegate
+            {
+                btnTang.Enabled = true;
+                btnGiam.Enabled = true;
+            });
         }
         private void luuFile_Click(object sender, EventArgs e)
         {
@@ -227,10 +253,14 @@ namespace test
                 string[] numbersString = content.Split(' ');
                 size = numbersString.Length;
                 a = new int[size];
-                tao_Mang(100, Properties.Resources.img_simple);
+                Thread thrd = new Thread(tao_Mang);
+                object obj = new Tuple<int,Image>(size,img);
+                thrd.Start(obj);
+                //tao_Mang(100, Properties.Resources.img_simple);
                 for (int i = 0; i < size; i++)
                 {
                     a[i] = int.Parse(numbersString[i].Trim());
+                    MessageBox.Show("Mảng " + a[i]);
                     node1[i].Text = a[i].ToString();
                 }
                 MessageBox.Show("File opened successfully!");
@@ -455,186 +485,194 @@ namespace test
             {
                 if (cb_Tungbuoc.Checked == true)
                 {
-                    if (rbChen.Checked)
+                    if (n < 2)
                     {
-                        code_C.SXChenGiam(lb_Code);
-                        wait_time(300 * toc_Do);
-                        int x, j;
-                        set_node_color(node1[0], Properties.Resources.img_done);
-                        lb_Code.SelectedIndex = 3;
-                        for (int i = 1; i < n; i++)
-                        {
-                            Refresh();
-                            lb_i.Text = "i= " + i;
-                            wait_time(500 * toc_Do);
-                            lb_Code.SelectedIndex = 5;
-                            x = a[i];
-                            lb_status1.Text = "x = a[" + i + "] = " + a[i].ToString();
-                            wait_time(500 * toc_Do);
-                            Button node_tam = node1[i];
-                            set_node_color(node_tam, Properties.Resources.img_pivot);
-                            if (x > a[i - 1] && i > 0)
-                                go_up(node_tam, i);
-                            j = i;
-                            lb_Code.SelectedIndex = 6;
-                            lb_j.Text = "j = " + i;
-                            wait_time(150 * toc_Do);
-                            lb_status2.Text = "a[j-1] = a["+(j-1)+"] = " + a[j - 1].ToString();
-                            wait_time(500 * toc_Do);
-                            lb_Code.SelectedIndex = 7;
-                            wait_time(500 * toc_Do);
-                            while (j > 0 && x > a[j - 1])
-                            {
-                                lb_Code.SelectedIndex = 9;
-                                lb_status3.Text = "a[j]= a[j-1]= a[" + (j - 1) + "] = " + a[j - 1].ToString();
-                                wait_time(500 * toc_Do);
-                                a[j] = a[j - 1];
-                                to_right(node1[j - 1], j - 1, j);
-                                swap_button(j - 1, j);
-                                wait_time(toc_Do * 150);
-                                lb_Code.SelectedIndex = 10;
-                                wait_time(500 * toc_Do);
-                                j--;
-                            }
-                            if (j != i)
-                            {
-                                lb_Code.SelectedIndex = 12;
-                                lb_status4.Text = "a[j] = x = " + x;
-                                wait_time(500 * toc_Do);
-                                a[j] = x;
-                                to_left(node_tam, i, j);
-                                go_down(node_tam, j);
-                                node1[j] = node_tam;
-                                wait_time(150 * toc_Do);
-                            }
-                            else
-                                wait_time(300 * toc_Do);
-                            set_node_color(node1[j], Properties.Resources.img_done);
-                        }
+                        MessageBox.Show("Số lượng phần tử nhỏ hơn 2 nên không thực hiện được");
+                        return;
                     }
-                    else if (rbNoiBot.Checked)
+                    else
                     {
-                        code_C.SXNoiBotGiam(lb_Code);
-                        wait_time(300 * toc_Do);
-                        lb_Code.SelectedIndex = 3;
-                        for (int i = 0; i < n - 1; i++)
+                        if (rbChen.Checked)
                         {
-                            Refresh();
-                            lb_i.Text = "i = " + i;
-                            wait_time(500 * toc_Do);
-                            for (int j = 0; j < n - i - 1; j++)
+                            code_C.SXChenGiam(lb_Code);
+                            wait_time(300 * toc_Do);
+                            int x, j;
+                            set_node_color(node1[0], Properties.Resources.img_done);
+                            lb_Code.SelectedIndex = 3;
+                            for (int i = 1; i < n; i++)
                             {
+                                Refresh();
+                                lb_i.Text = "i= " + i;
+                                wait_time(500 * toc_Do);
                                 lb_Code.SelectedIndex = 5;
-                                lb_j.Text = "j = " + j;
+                                x = a[i];
+                                lb_status1.Text = "x = a[" + i + "] = " + a[i].ToString();
                                 wait_time(500 * toc_Do);
-                                lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
-                                wait_time(toc_Do * 200);
-                                lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
-                                wait_time(toc_Do * 500);
-                                set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
-                                set_node_color(node1[j + 1], Properties.Resources.img_pivot);
-                                wait_time(toc_Do * 150);
+                                Button node_tam = node1[i];
+                                set_node_color(node_tam, Properties.Resources.img_pivot);
+                                if (x > a[i - 1] && i > 0)
+                                    go_up(node_tam, i);
+                                j = i;
                                 lb_Code.SelectedIndex = 6;
+                                lb_j.Text = "j = " + i;
+                                wait_time(150 * toc_Do);
+                                lb_status2.Text = "a[j-1] = a[" + (j - 1) + "] = " + a[j - 1].ToString();
                                 wait_time(500 * toc_Do);
-                                if (a[j] < a[j + 1])
-                                {
-                                    int temp;
-                                    temp = a[j];
-                                    a[j] = a[j + 1];
-                                    a[j + 1] = temp;
-
-                                    lb_Code.SelectedIndex = 8;
-                                    lb_status3.Text = "temp = a[j] = a[" + j + "] = " + a[j+1].ToString();
-                                    wait_time(500 * toc_Do);
-                                    lb_Code.SelectedIndex = 9;
-                                    lb_status4.Text = "a[j] = a[j+1] = a[" + (j + 1) + "] = " + a[j].ToString();
-                                    wait_time(toc_Do * 500);
-                                    lb_Code.SelectedIndex = 10;
-                                    lb_Status5.Text = "a[j+1] = temp = " + temp;
-                                    wait_time(500 * toc_Do);
-                                    swap_Node(node1[j], node1[j + 1]);
-                                    swap_button(j, j + 1);
-                                    // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
-                                    set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                    set_node_color(node1[j], Properties.Resources.img_simple);
-                                    wait_time(250 * toc_Do);
-                                }
-                                else  // Nếu không swap thì đổi màu!
-                                {
-                                    set_node_color(node1[j], Properties.Resources.img_simple);
-                                    set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                    wait_time(150 * toc_Do);
-                                }
-                                if (j + 1 == n - i - 1)
-                                {
-                                    set_node_color(node1[j], Properties.Resources.img_done);
-                                    wait_time(150 * toc_Do);
-                                }
-                            }
-                        }
-                    }
-                    else if (rbChon.Checked)
-                    {
-                        code_C.SXChonGiam(lb_Code);
-                        lb_Code.SelectedIndex = 3;
-                        wait_time(300 * toc_Do);
-                        for (i = 0; i < n - 1; i++)
-                        {
-                            Refresh();
-                            lb_Code.SelectedIndex = 5;
-                            lb_i.Text = "i = " + i;
-                            wait_time(toc_Do * 500);
-                            int maxIndex = i;
-                            set_node_color(node1[i], Properties.Resources.img_pivot);
-                            wait_time(toc_Do * 250);
-                            lb_status1.Text = "a[maxIndex] = a[i] = a[" + i + "] = " + a[i].ToString();
-                            wait_time(toc_Do * 300);
-                            // Tìm phần tử lớn nhất trong mảng chưa sắp xếp
-                            lb_Code.SelectedIndex = 6;
-                            for (int j = i + 1; j < n; j++)
-                            {
-                                lb_j.Text = "j = " + j;
-                                wait_time(toc_Do * 500);
-                                set_node_color(node1[j], Properties.Resources.img_select);
                                 lb_Code.SelectedIndex = 7;
-                                wait_time(toc_Do * 300);
-                                //lb_status2.Text = "a[j] = a[" + i + "] = " + a[i].ToString();
-                                wait_time(toc_Do * 500);
-                                if (a[j] > a[maxIndex])
+                                wait_time(500 * toc_Do);
+                                while (j > 0 && x > a[j - 1])
                                 {
-                                    lb_Code.SelectedIndex = 8;
-                                    wait_time(toc_Do * 500);
-                                    maxIndex = j;
-                                    lb_status2.Text = "a[maxIndex] = a[" + j.ToString() + "] =" + a[j].ToString();
-                                    set_node_color(node1[maxIndex], Properties.Resources.img_simple);
-                                    set_node_color(node1[j], Properties.Resources.img_pivot);
-                                    wait_time(toc_Do * 250);
+                                    lb_Code.SelectedIndex = 9;
+                                    lb_status3.Text = "a[j]= a[j-1]= a[" + (j - 1) + "] = " + a[j - 1].ToString();
+                                    wait_time(500 * toc_Do);
+                                    a[j] = a[j - 1];
+                                    to_right(node1[j - 1], j - 1, j);
+                                    swap_button(j - 1, j);
+                                    wait_time(toc_Do * 150);
+                                    lb_Code.SelectedIndex = 10;
+                                    wait_time(500 * toc_Do);
+                                    j--;
+                                }
+                                if (j != i)
+                                {
+                                    lb_Code.SelectedIndex = 12;
+                                    lb_status4.Text = "a[j] = x = " + x;
+                                    wait_time(500 * toc_Do);
+                                    a[j] = x;
+                                    to_left(node_tam, i, j);
+                                    go_down(node_tam, j);
+                                    node1[j] = node_tam;
+                                    wait_time(150 * toc_Do);
                                 }
                                 else
-                                    set_node_color(node1[j], Properties.Resources.img_simple);
-                                wait_time(toc_Do * 250);
+                                    wait_time(300 * toc_Do);
+                                set_node_color(node1[j], Properties.Resources.img_done);
                             }
-                            if (i != maxIndex)
+                        }
+                        else if (rbNoiBot.Checked)
+                        {
+                            code_C.SXNoiBotGiam(lb_Code);
+                            wait_time(300 * toc_Do);
+                            lb_Code.SelectedIndex = 3;
+                            for (int i = 0; i < n - 1; i++)
                             {
-                                int temp = a[i];
-                                a[i] = a[maxIndex];
-                                a[maxIndex] = temp;
-                                lb_Code.SelectedIndex = 9;
-                                lb_status3.Text = "temp = a[" + i + "] = " + a[maxIndex].ToString();
-                                wait_time(toc_Do * 500);
-                                lb_Code.SelectedIndex = 10;
-                                lb_status4.Text = "a[" + i + "] = a[maxIndex] = " + a[i].ToString();
-                                wait_time(toc_Do * 500);
-                                lb_Code.SelectedIndex = 11;
-                                lb_Status5.Text = "a[maxIndex] = temp = a["+maxIndex+"] = " + temp.ToString();
-                                wait_time(toc_Do * 500);
-                                swap_Node(node1[i], node1[maxIndex]);
-                                swap_button(i, maxIndex);
-                                set_node_color(node1[i], Properties.Resources.img_done);
-                                set_node_color(node1[maxIndex], Properties.Resources.img_simple);
-                                wait_time(toc_Do * 250);
+                                Refresh();
+                                lb_i.Text = "i = " + i;
+                                wait_time(500 * toc_Do);
+                                for (int j = 0; j < n - i - 1; j++)
+                                {
+                                    lb_Code.SelectedIndex = 5;
+                                    lb_j.Text = "j = " + j;
+                                    wait_time(500 * toc_Do);
+                                    lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
+                                    wait_time(toc_Do * 200);
+                                    lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
+                                    wait_time(toc_Do * 500);
+                                    set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
+                                    set_node_color(node1[j + 1], Properties.Resources.img_pivot);
+                                    wait_time(toc_Do * 150);
+                                    lb_Code.SelectedIndex = 6;
+                                    wait_time(500 * toc_Do);
+                                    if (a[j] < a[j + 1])
+                                    {
+                                        int temp;
+                                        temp = a[j];
+                                        a[j] = a[j + 1];
+                                        a[j + 1] = temp;
+
+                                        lb_Code.SelectedIndex = 8;
+                                        lb_status3.Text = "temp = a[j] = a[" + j + "] = " + a[j + 1].ToString();
+                                        wait_time(500 * toc_Do);
+                                        lb_Code.SelectedIndex = 9;
+                                        lb_status4.Text = "a[j] = a[j+1] = a[" + (j + 1) + "] = " + a[j].ToString();
+                                        wait_time(toc_Do * 500);
+                                        lb_Code.SelectedIndex = 10;
+                                        lb_Status5.Text = "a[j+1] = temp = " + temp;
+                                        wait_time(500 * toc_Do);
+                                        swap_Node(node1[j], node1[j + 1]);
+                                        swap_button(j, j + 1);
+                                        // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
+                                        set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                        set_node_color(node1[j], Properties.Resources.img_simple);
+                                        wait_time(250 * toc_Do);
+                                    }
+                                    else  // Nếu không swap thì đổi màu!
+                                    {
+                                        set_node_color(node1[j], Properties.Resources.img_simple);
+                                        set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                        wait_time(150 * toc_Do);
+                                    }
+                                    if (j + 1 == n - i - 1)
+                                    {
+                                        set_node_color(node1[j], Properties.Resources.img_done);
+                                        wait_time(150 * toc_Do);
+                                    }
+                                }
                             }
-                            set_node_color(node1[i], Properties.Resources.img_done);
+                        }
+                        else if (rbChon.Checked)
+                        {
+                            code_C.SXChonGiam(lb_Code);
+                            lb_Code.SelectedIndex = 3;
+                            wait_time(300 * toc_Do);
+                            for (i = 0; i < n - 1; i++)
+                            {
+                                Refresh();
+                                lb_Code.SelectedIndex = 5;
+                                lb_i.Text = "i = " + i;
+                                wait_time(toc_Do * 500);
+                                int maxIndex = i;
+                                set_node_color(node1[i], Properties.Resources.img_pivot);
+                                wait_time(toc_Do * 250);
+                                lb_status1.Text = "a[maxIndex] = a[i] = a[" + i + "] = " + a[i].ToString();
+                                wait_time(toc_Do * 300);
+                                // Tìm phần tử lớn nhất trong mảng chưa sắp xếp
+                                lb_Code.SelectedIndex = 6;
+                                for (int j = i + 1; j < n; j++)
+                                {
+                                    lb_j.Text = "j = " + j;
+                                    wait_time(toc_Do * 500);
+                                    set_node_color(node1[j], Properties.Resources.img_select);
+                                    lb_Code.SelectedIndex = 7;
+                                    wait_time(toc_Do * 300);
+                                    //lb_status2.Text = "a[j] = a[" + i + "] = " + a[i].ToString();
+                                    wait_time(toc_Do * 500);
+                                    if (a[j] > a[maxIndex])
+                                    {
+                                        lb_Code.SelectedIndex = 8;
+                                        wait_time(toc_Do * 500);
+                                        maxIndex = j;
+                                        lb_status2.Text = "a[maxIndex] = a[" + j.ToString() + "] =" + a[j].ToString();
+                                        set_node_color(node1[maxIndex], Properties.Resources.img_simple);
+                                        set_node_color(node1[j], Properties.Resources.img_pivot);
+                                        wait_time(toc_Do * 250);
+                                    }
+                                    else
+                                        set_node_color(node1[j], Properties.Resources.img_simple);
+                                    wait_time(toc_Do * 250);
+                                }
+                                if (i != maxIndex)
+                                {
+                                    int temp = a[i];
+                                    a[i] = a[maxIndex];
+                                    a[maxIndex] = temp;
+                                    lb_Code.SelectedIndex = 9;
+                                    lb_status3.Text = "temp = a[" + i + "] = " + a[maxIndex].ToString();
+                                    wait_time(toc_Do * 500);
+                                    lb_Code.SelectedIndex = 10;
+                                    lb_status4.Text = "a[" + i + "] = a[maxIndex] = " + a[i].ToString();
+                                    wait_time(toc_Do * 500);
+                                    lb_Code.SelectedIndex = 11;
+                                    lb_Status5.Text = "a[maxIndex] = temp = a[" + maxIndex + "] = " + temp.ToString();
+                                    wait_time(toc_Do * 500);
+                                    swap_Node(node1[i], node1[maxIndex]);
+                                    swap_button(i, maxIndex);
+                                    set_node_color(node1[i], Properties.Resources.img_done);
+                                    set_node_color(node1[maxIndex], Properties.Resources.img_simple);
+                                    wait_time(toc_Do * 250);
+                                }
+                                set_node_color(node1[i], Properties.Resources.img_done);
+                            }
                         }
                     }
                     for (int i = 0; i < n; i++)
@@ -757,187 +795,195 @@ namespace test
             }
             else if (cb_Tungbuoc.Checked == true)
             {
-                if (rbNoiBot.Checked)
+                if (n < 2)
                 {
-                    code_C.SXNoiBotTang(lb_Code);
-                    wait_time(300 * toc_Do);
-                    lb_Code.SelectedIndex = 3;
-                    for (int i = 0; i < n - 1; i++)
+                    MessageBox.Show("Số lượng phần tử nhỏ hơn 2 nên không thực hiện được");
+                    return;
+                }
+                else
+                {
+                    if (rbNoiBot.Checked)
                     {
-                        Refresh();
-                        lb_i.Text = "i = " + i;
-                        wait_time(500 * toc_Do);
-                        for (int j = 0; j < n - i - 1; j++)
+                        code_C.SXNoiBotTang(lb_Code);
+                        wait_time(300 * toc_Do);
+                        lb_Code.SelectedIndex = 3;
+                        for (int i = 0; i < n - 1; i++)
                         {
-                            lb_Code.SelectedIndex = 5;
-                            lb_j.Text = "j = " + j;
+                            Refresh();
+                            lb_i.Text = "i = " + i;
                             wait_time(500 * toc_Do);
-                            lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
-                            wait_time(toc_Do * 200);
-                            lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
-                            wait_time(toc_Do * 500);
-                            set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
-                            set_node_color(node1[j + 1], Properties.Resources.img_pivot);
-                            wait_time(toc_Do * 150);
-                            lb_Code.SelectedIndex = 6;
-                            wait_time(500 * toc_Do);
-                            if (a[j] > a[j + 1])
+                            for (int j = 0; j < n - i - 1; j++)
                             {
-                                int temp;
-                                temp = a[j];
-                                a[j] = a[j + 1];
-                                a[j + 1] = temp;
-
-                                lb_Code.SelectedIndex = 8;
-                                lb_status3.Text = "temp = a[j] = a[" + j + "] = " + a[j + 1].ToString();
+                                lb_Code.SelectedIndex = 5;
+                                lb_j.Text = "j = " + j;
                                 wait_time(500 * toc_Do);
-                                lb_Code.SelectedIndex = 9;
-                                lb_status4.Text = "a[j] = a[j+1] = a[" + (j + 1) + "] = " + a[j].ToString();
+                                lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
+                                wait_time(toc_Do * 200);
+                                lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
                                 wait_time(toc_Do * 500);
-                                lb_Code.SelectedIndex = 10;
-                                lb_Status5.Text = "a[j+1] = temp = " + temp;
+                                set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
+                                set_node_color(node1[j + 1], Properties.Resources.img_pivot);
+                                wait_time(toc_Do * 150);
+                                lb_Code.SelectedIndex = 6;
                                 wait_time(500 * toc_Do);
-                                swap_Node(node1[j], node1[j + 1]);
-                                swap_button(j, j + 1);
-                                // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
-                                set_node_color(node1[j + 1], Properties.Resources.img_select);
-                                set_node_color(node1[j], Properties.Resources.img_simple);
-                                wait_time(250 * toc_Do);
-                            }
-                            else  // Nếu không swap thì đổi màu!
-                            {
-                                set_node_color(node1[j], Properties.Resources.img_simple);
-                                set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                wait_time(150 * toc_Do);
-                            }
-                            if (j + 1 == n - i - 1)
-                            {
-                                set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                wait_time(150 * toc_Do);
+                                if (a[j] > a[j + 1])
+                                {
+                                    int temp;
+                                    temp = a[j];
+                                    a[j] = a[j + 1];
+                                    a[j + 1] = temp;
+
+                                    lb_Code.SelectedIndex = 8;
+                                    lb_status3.Text = "temp = a[j] = a[" + j + "] = " + a[j + 1].ToString();
+                                    wait_time(500 * toc_Do);
+                                    lb_Code.SelectedIndex = 9;
+                                    lb_status4.Text = "a[j] = a[j+1] = a[" + (j + 1) + "] = " + a[j].ToString();
+                                    wait_time(toc_Do * 500);
+                                    lb_Code.SelectedIndex = 10;
+                                    lb_Status5.Text = "a[j+1] = temp = " + temp;
+                                    wait_time(500 * toc_Do);
+                                    swap_Node(node1[j], node1[j + 1]);
+                                    swap_button(j, j + 1);
+                                    // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
+                                    set_node_color(node1[j + 1], Properties.Resources.img_select);
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
+                                    wait_time(250 * toc_Do);
+                                }
+                                else  // Nếu không swap thì đổi màu!
+                                {
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
+                                    set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                    wait_time(150 * toc_Do);
+                                }
+                                if (j + 1 == n - i - 1)
+                                {
+                                    set_node_color(node1[j + 1], Properties.Resources.img_done);
+                                    wait_time(150 * toc_Do);
+                                }
                             }
                         }
                     }
-                }
-                else if (rbChon.Checked)
-                {
-                    code_C.SXNoiBotTang(lb_Code);
-                    wait_time(300 * toc_Do);
-                    lb_Code.SelectedIndex = 3;
-                    for (i = 0; i < n - 1; i++)
+                    else if (rbChon.Checked)
                     {
-                        Refresh();
-                        lb_Code.SelectedIndex = 5;
-                        lb_i.Text = "i = " + i;
-                        wait_time(toc_Do * 500);
-                        int minIndex = i;
-                        set_node_color(node1[i], Properties.Resources.img_pivot);
-                        wait_time(toc_Do * 250);
-                        lb_status1.Text = "a[maxIndex] = a[i] = a[" + i + "] = " + a[i].ToString();
-                        wait_time(toc_Do * 300);
-                        // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
-                        lb_Code.SelectedIndex = 6;
-                        for (int j = i + 1; j < n; j++)
+                        code_C.SXNoiBotTang(lb_Code);
+                        wait_time(300 * toc_Do);
+                        lb_Code.SelectedIndex = 3;
+                        for (i = 0; i < n - 1; i++)
                         {
-                            lb_j.Text = "j = " + j;
+                            Refresh();
+                            lb_Code.SelectedIndex = 5;
+                            lb_i.Text = "i = " + i;
                             wait_time(toc_Do * 500);
-                            set_node_color(node1[j], Properties.Resources.img_select);
-                            lb_Code.SelectedIndex = 7;
+                            int minIndex = i;
+                            set_node_color(node1[i], Properties.Resources.img_pivot);
+                            wait_time(toc_Do * 250);
+                            lb_status1.Text = "a[maxIndex] = a[i] = a[" + i + "] = " + a[i].ToString();
                             wait_time(toc_Do * 300);
-                            if (a[j] < a[minIndex])
+                            // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
+                            lb_Code.SelectedIndex = 6;
+                            for (int j = i + 1; j < n; j++)
                             {
-                                lb_Code.SelectedIndex = 8;
+                                lb_j.Text = "j = " + j;
                                 wait_time(toc_Do * 500);
-                                minIndex = j;
-                                lb_status2.Text = "a[minIndex] = a[" + j.ToString() + "] =" + a[j].ToString();
-                                set_node_color(node1[minIndex], Properties.Resources.img_simple);
-                                set_node_color(node1[j], Properties.Resources.img_pivot);
+                                set_node_color(node1[j], Properties.Resources.img_select);
+                                lb_Code.SelectedIndex = 7;
+                                wait_time(toc_Do * 300);
+                                if (a[j] < a[minIndex])
+                                {
+                                    lb_Code.SelectedIndex = 8;
+                                    wait_time(toc_Do * 500);
+                                    minIndex = j;
+                                    lb_status2.Text = "a[minIndex] = a[" + j.ToString() + "] =" + a[j].ToString();
+                                    set_node_color(node1[minIndex], Properties.Resources.img_simple);
+                                    set_node_color(node1[j], Properties.Resources.img_pivot);
+                                    wait_time(toc_Do * 250);
+                                }
+                                else
+                                    set_node_color(node1[j], Properties.Resources.img_simple);
                                 wait_time(toc_Do * 250);
                             }
-                            else
-                                set_node_color(node1[j], Properties.Resources.img_simple);
-                            wait_time(toc_Do * 250);
-                        }
-                        if (i != minIndex)
-                        {
-                            int temp = a[i];
-                            a[i] = a[minIndex];
-                            a[minIndex] = temp;
-                            lb_Code.SelectedIndex = 9;
-                            lb_status3.Text = "temp = a[" + i + "] = " + a[minIndex].ToString();
-                            wait_time(toc_Do * 500);
-                            lb_Code.SelectedIndex = 10;
-                            lb_status4.Text = "a[" + i + "] = a[minIndex] = " + a[i].ToString();
-                            wait_time(toc_Do * 500);
-                            lb_Code.SelectedIndex = 11;
-                            lb_Status5.Text = "a[minIndex] = temp = a[" + minIndex + "] = " + temp.ToString();
-                            wait_time(toc_Do * 500);
-                            swap_Node(node1[i], node1[minIndex]);
-                            swap_button(i, minIndex);
+                            if (i != minIndex)
+                            {
+                                int temp = a[i];
+                                a[i] = a[minIndex];
+                                a[minIndex] = temp;
+                                lb_Code.SelectedIndex = 9;
+                                lb_status3.Text = "temp = a[" + i + "] = " + a[minIndex].ToString();
+                                wait_time(toc_Do * 500);
+                                lb_Code.SelectedIndex = 10;
+                                lb_status4.Text = "a[" + i + "] = a[minIndex] = " + a[i].ToString();
+                                wait_time(toc_Do * 500);
+                                lb_Code.SelectedIndex = 11;
+                                lb_Status5.Text = "a[minIndex] = temp = a[" + minIndex + "] = " + temp.ToString();
+                                wait_time(toc_Do * 500);
+                                swap_Node(node1[i], node1[minIndex]);
+                                swap_button(i, minIndex);
+                                set_node_color(node1[i], Properties.Resources.img_done);
+                                set_node_color(node1[minIndex], Properties.Resources.img_simple);
+                                wait_time(toc_Do * 250);
+                            }
                             set_node_color(node1[i], Properties.Resources.img_done);
-                            set_node_color(node1[minIndex], Properties.Resources.img_simple);
-                            wait_time(toc_Do * 250);
                         }
-                        set_node_color(node1[i], Properties.Resources.img_done);
                     }
-                }
-                else if (rbChen.Checked)
-                {
-                    code_C.SXChenTang(lb_Code);
-                    wait_time(300 * toc_Do);
-                    int x, j;
-                    set_node_color(node1[0], Properties.Resources.img_done);
-                    lb_Code.SelectedIndex = 3;
-                    for (int i = 1; i < n; i++)
+                    else if (rbChen.Checked)
                     {
-                        Refresh();
-                        lb_i.Text = "i= " + i;
-                        wait_time(500 * toc_Do);
-                        lb_Code.SelectedIndex = 5;
-                        x = a[i];
-                        lb_status1.Text = "x = a[" + i + "] = " + a[i].ToString();
-                        wait_time(500 * toc_Do);
-                        Button node_tam = node1[i];
-                        set_node_color(node_tam, Properties.Resources.img_pivot);
-                        if (x < a[i - 1] && i > 0)
-                            go_up(node_tam, i);
-                        j = i;
-                        lb_Code.SelectedIndex = 6;
-                        lb_j.Text = "j = " + i;
-                        wait_time(150 * toc_Do);
-                        lb_status2.Text = "a[j-1] = a[" + (j - 1) + "] = " + a[j - 1].ToString();
-                        wait_time(500 * toc_Do);
-                        lb_Code.SelectedIndex = 7;
-                        wait_time(toc_Do * 500);
-
-                        while (j > 0 && x < a[j - 1])
+                        code_C.SXChenTang(lb_Code);
+                        wait_time(300 * toc_Do);
+                        int x, j;
+                        set_node_color(node1[0], Properties.Resources.img_done);
+                        lb_Code.SelectedIndex = 3;
+                        for (int i = 1; i < n; i++)
                         {
-                            lb_Code.SelectedIndex = 9;
-                            lb_status3.Text = "a[j]= a[j-1]= a[" + (j - 1) + "] = " + a[j - 1].ToString();
+                            Refresh();
+                            lb_i.Text = "i= " + i;
                             wait_time(500 * toc_Do);
-                            a[j] = a[j - 1];
-                            to_right(node1[j - 1], j - 1, j);
-                            swap_button(j - 1, j);
-                            wait_time(toc_Do * 100);
-                            lb_Code.SelectedIndex = 10;
+                            lb_Code.SelectedIndex = 5;
+                            x = a[i];
+                            lb_status1.Text = "x = a[" + i + "] = " + a[i].ToString();
                             wait_time(500 * toc_Do);
-                            j--;                           
-                        }
-                        if (j != i)
-                        {
-                            lb_Code.SelectedIndex = 12;
-                            lb_status4.Text = "a[j] = x = " + x;
-                            wait_time(500 * toc_Do);
-                            a[j] = x;
-                            to_left(node_tam, i, j);
-                            go_down(node_tam, j);
-                            node1[j] = node_tam;
+                            Button node_tam = node1[i];
+                            set_node_color(node_tam, Properties.Resources.img_pivot);
+                            if (x < a[i - 1] && i > 0)
+                                go_up(node_tam, i);
+                            j = i;
+                            lb_Code.SelectedIndex = 6;
+                            lb_j.Text = "j = " + i;
                             wait_time(150 * toc_Do);
+                            lb_status2.Text = "a[j-1] = a[" + (j - 1) + "] = " + a[j - 1].ToString();
+                            wait_time(500 * toc_Do);
+                            lb_Code.SelectedIndex = 7;
+                            wait_time(toc_Do * 500);
 
+                            while (j > 0 && x < a[j - 1])
+                            {
+                                lb_Code.SelectedIndex = 9;
+                                lb_status3.Text = "a[j]= a[j-1]= a[" + (j - 1) + "] = " + a[j - 1].ToString();
+                                wait_time(500 * toc_Do);
+                                a[j] = a[j - 1];
+                                to_right(node1[j - 1], j - 1, j);
+                                swap_button(j - 1, j);
+                                wait_time(toc_Do * 100);
+                                lb_Code.SelectedIndex = 10;
+                                wait_time(500 * toc_Do);
+                                j--;
+                            }
+                            if (j != i)
+                            {
+                                lb_Code.SelectedIndex = 12;
+                                lb_status4.Text = "a[j] = x = " + x;
+                                wait_time(500 * toc_Do);
+                                a[j] = x;
+                                to_left(node_tam, i, j);
+                                go_down(node_tam, j);
+                                node1[j] = node_tam;
+                                wait_time(150 * toc_Do);
+
+                            }
+                            else
+                                wait_time(100 * toc_Do);
+                            set_node_color(node1[j], Properties.Resources.img_done);
+                            //set_node_color(node1[j + 1], Properties.Resources.img_done);
                         }
-                        else
-                            wait_time(100 * toc_Do);
-                        set_node_color(node1[j], Properties.Resources.img_done);
-                        //set_node_color(node1[j + 1], Properties.Resources.img_done);
                     }
                 }
                 for (int i = 0; i < n; i++)
