@@ -95,11 +95,18 @@ namespace test
                 Thread thrd = new Thread(tao_Mang);
                 object obj = new Tuple<int>(size);
                 thrd.Start(obj);
+                Button[] node1 = new Button[size];
                 //tao_Mang(100, Properties.Resources.img_simple);
                 for (int i = 0; i < size; i++)
                 {
                     a[i] = random.Next(min, max);
-                    MessageBox.Show("Mảng: " + a[i]);
+                    // Kiểm tra và gán giá trị cho node1[i] trước khi sử dụng
+                    if (node1[i] == null)
+                    {
+                        node1[i] = new Button();
+                        // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
+                        node1[i].Text = "";
+                    }
                     node1[i].Text = a[i].ToString();
                 }
                 foreach (int value in a)
@@ -121,7 +128,10 @@ namespace test
         private void tao_Mang(object s)
         {
             Tuple<int> temp = s as Tuple<int>;
-            int size = temp.Item1;
+            if (temp != null)
+            {
+                int size = temp.Item1;
+            }
             kich_Thuoc = 40;
             co_Chu = 10;
             khoang_Cach = 10;
@@ -182,9 +192,9 @@ namespace test
             //if (size > 20)
             //{
             //    mycontrol.Scale(new Size(2, 2));
-                
-            //}
 
+            //}
+            MessageBox.Show("File opened successfully!");
             da_Tao_Mang = true; //Xác nhận đã tạo mảng                                        
             btnNhapMang.Enabled = true;//Cho phép các nút điều khiển có tác dụng khi đã tạo mảng
             docFile.Enabled = true;
@@ -256,14 +266,19 @@ namespace test
                 Thread thrd = new Thread(tao_Mang);
                 object obj = new Tuple<int,Image>(size,img);
                 thrd.Start(obj);
-                //tao_Mang(100, Properties.Resources.img_simple);
+                Button[] node1 = new Button[size];
+                    //tao_Mang(100, Properties.Resources.img_simple);
                 for (int i = 0; i < size; i++)
                 {
                     a[i] = int.Parse(numbersString[i].Trim());
-                    MessageBox.Show("Mảng " + a[i]);
+                    if (node1[i] == null)
+                    {
+                        node1[i] = new Button();
+                        // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
+                        node1[i].Text = "";
+                    }
                     node1[i].Text = a[i].ToString();
                 }
-                MessageBox.Show("File opened successfully!");
                 tbMang.Text = content;
             }
         }
@@ -437,9 +452,18 @@ namespace test
         // Hàm set màu node
         public void set_node_color(Control t, System.Drawing.Image img_nen)
         {
-            t.BackgroundImage = img_nen;
-            t.BackgroundImageLayout = ImageLayout.Stretch;
-            t.Refresh();
+            if (img_nen != null)
+            {
+                t.BackgroundImage = img_nen;
+                t.BackgroundImageLayout = ImageLayout.Stretch;
+                //t.Refresh();
+            }
+            else
+            {
+                t.BackgroundImage = img;
+                t.BackgroundImageLayout = ImageLayout.Stretch;
+                t.Refresh();
+            }
         }
 
         // Hàm đổi giá trị phần tử mảng
@@ -476,7 +500,6 @@ namespace test
             {
                 set_node_color(node1[i], Properties.Resources.img_simple);
             }
-            wait_time(500);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
                 MessageBox.Show("Mời bạn chọn thuật toán.");
