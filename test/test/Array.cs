@@ -85,13 +85,17 @@ namespace test
         private void btnNhapMang_Click(object sender, EventArgs e)
         {
             tbMang.ResetText();
-
             if (!string.IsNullOrEmpty(tbSoPT.Text) && !string.IsNullOrEmpty(tbSoDau.Text) && !string.IsNullOrEmpty(tbSoCuoi.Text))
             {
                 size = int.Parse(tbSoPT.Text);
                 min = int.Parse(tbSoDau.Text);
                 max = int.Parse(tbSoCuoi.Text);
                 a = new int[size];
+                if (size > 1000)
+                {
+                    MessageBox.Show("Số phần tử không nhập quá 1000, mời bạn nhập lại!");
+                    return;
+                }
                 Thread thrd = new Thread(tao_Mang);
                 object obj = new Tuple<int>(size);
                 thrd.Start(obj);
@@ -530,7 +534,6 @@ namespace test
         private void btnGiam_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
-            stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
             n = a.Length;
@@ -560,6 +563,7 @@ namespace test
                             int x, j;
                             set_node_color(node1[0], Properties.Resources.img_done);
                             lb_Code.SelectedIndex = 3;
+                            stopwatch.Start();
                             for (int i = 1; i < n; i++)
                             {
                                 Refresh();
@@ -606,8 +610,9 @@ namespace test
                                     wait_time(150 * toc_Do);
                                 }
                                 else
-                                    wait_time(300 * toc_Do);
+                                wait_time(300 * toc_Do);
                                 set_node_color(node1[j], Properties.Resources.img_done);
+                                stopwatch.Stop();
                             }
                         }
                         else if (rbNoiBot.Checked)
@@ -615,6 +620,7 @@ namespace test
                             code_C.SXNoiBotGiam(lb_Code);
                             wait_time(300 * toc_Do);
                             lb_Code.SelectedIndex = 3;
+                            stopwatch.Start();
                             for (int i = 0; i < n - 1; i++)
                             {
                                 Refresh();
@@ -665,10 +671,12 @@ namespace test
                                     }
                                     if (j + 1 == n - i - 1)
                                     {
+                                        
                                         set_node_color(node1[j], Properties.Resources.img_done);
                                         wait_time(150 * toc_Do);
                                     }
                                 }
+                                stopwatch.Stop();
                             }
                         }
                         else if (rbChon.Checked)
@@ -676,6 +684,7 @@ namespace test
                             code_C.SXChonGiam(lb_Code);
                             lb_Code.SelectedIndex = 3;
                             wait_time(300 * toc_Do);
+                            stopwatch.Start();
                             for (i = 0; i < n - 1; i++)
                             {
                                 Refresh();
@@ -728,12 +737,14 @@ namespace test
                                     wait_time(toc_Do * 500);
                                     swap_Node(node1[i], node1[maxIndex]);
                                     swap_button(i, maxIndex);
+                                    stopwatch.Stop();
                                     set_node_color(node1[i], Properties.Resources.img_done);
                                     set_node_color(node1[maxIndex], Properties.Resources.img_simple);
                                     wait_time(toc_Do * 250);
                                 }
                                 set_node_color(node1[i], Properties.Resources.img_done);
                             }
+                            stopwatch.Stop();
                         }
                     }
                     for (int i = 0; i < n; i++)
@@ -750,6 +761,7 @@ namespace test
                 {
                     if (rbNoiBot.Checked)
                     {
+                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             for (int j = 0; j < n - i - 1; j++)
@@ -759,17 +771,20 @@ namespace test
                                     int temp = a[j];
                                     string tam = node1[j].Text;
                                     a[j] = a[j + 1];
+                                    
                                     node1[j].Text = node1[j + 1].Text;
                                     a[j + 1] = temp;
                                     node1[j + 1].Text = tam;
                                 }
                             }
+                            stopwatch.Stop();
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
                     }
                     else
                     if (rbChon.Checked)
                     {
+                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             int maxIndex = i;
@@ -786,15 +801,17 @@ namespace test
                                 int temp = a[i];
                                 string tam = node1[i].Text;
                                 a[i] = a[maxIndex];
-                                node1[i].Text = node1[maxIndex].Text;
                                 a[maxIndex] = temp;
+                                node1[i].Text = node1[maxIndex].Text;
                                 node1[maxIndex].Text = tam;
                             }
+                            stopwatch.Stop();
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
                     }
                     else if (rbChen.Checked)
                     {
+                        stopwatch.Start();
                         for (i = 1; i < n; i++)
                         {
                             int x, j;
@@ -818,6 +835,7 @@ namespace test
                                     node1[j].Text = y;
                                 }
                             }
+                            stopwatch.Stop();
                         }
                     }
                     for (int i = 0; i < n; i++)
@@ -825,7 +843,7 @@ namespace test
                     foreach (int value in a)
                     {
                         tbKetQua.AppendText(value.ToString() + " ");
-                        stopwatch.Stop();
+                        //stopwatch.Stop();
                         msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
                     MessageBox.Show("Đã sắp xếp xong.");
@@ -841,7 +859,7 @@ namespace test
         private void btnTang_Click(object sender, EventArgs e)
         {
             stopwatch.Restart();
-            stopwatch.Start();
+            //stopwatch.Start();
             tbKetQua.Clear();
             msg.Clear();
             n = a.Length;
@@ -868,6 +886,7 @@ namespace test
                         code_C.SXNoiBotTang(lb_Code);
                         wait_time(300 * toc_Do);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (int i = 0; i < n - 1; i++)
                         {
                             Refresh();
@@ -922,6 +941,7 @@ namespace test
                                     wait_time(150 * toc_Do);
                                 }
                             }
+                            stopwatch.Stop();
                         }
                     }
                     else if (rbChon.Checked)
@@ -929,6 +949,7 @@ namespace test
                         code_C.SXNoiBotTang(lb_Code);
                         wait_time(300 * toc_Do);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             Refresh();
@@ -983,6 +1004,7 @@ namespace test
                                 set_node_color(node1[minIndex], Properties.Resources.img_simple);
                                 wait_time(toc_Do * 250);
                             }
+                            stopwatch.Stop();
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
                     }
@@ -993,6 +1015,7 @@ namespace test
                         int x, j;
                         set_node_color(node1[0], Properties.Resources.img_done);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (int i = 1; i < n; i++)
                         {
                             Refresh();
@@ -1041,7 +1064,8 @@ namespace test
 
                             }
                             else
-                                wait_time(100 * toc_Do);
+                                stopwatch.Stop();
+                            wait_time(100 * toc_Do);
                             set_node_color(node1[j], Properties.Resources.img_done);
                             //set_node_color(node1[j + 1], Properties.Resources.img_done);
                         }
@@ -1052,7 +1076,7 @@ namespace test
                 foreach (int value in a)
                 {
                     tbKetQua.AppendText(value.ToString() + " ");
-                    stopwatch.Stop();
+                    //stopwatch.Stop();
                     msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
                 MessageBox.Show("Đã sắp xếp xong.");
@@ -1061,6 +1085,7 @@ namespace test
             {
                 if (rbNoiBot.Checked)
                 {
+                    stopwatch.Start();
                     for (i = 0; i < n - 1; i++)
                     {
                         for (int j = 0; j < n - i - 1; j++)
@@ -1075,11 +1100,13 @@ namespace test
                                 node1[j + 1].Text = tam;
                             }
                         }
+                        stopwatch.Stop();
                         set_node_color(node1[i], Properties.Resources.img_done);
                     }
                 }
                 else if (rbChon.Checked)
                 {
+                    stopwatch.Start();
                     for (i = 0; i < n - 1; i++)
                     {
                         int minIndex = i;
@@ -1097,16 +1124,18 @@ namespace test
                             int temp = a[i];
                             string tam = node1[i].Text;
                             a[i] = a[minIndex];
-                            node1[i].Text = node1[minIndex].Text;
                             a[minIndex] = temp;
+                            node1[i].Text = node1[minIndex].Text;
                             node1[minIndex].Text = tam;
                         }
+                        stopwatch.Stop();
                         set_node_color(node1[i], Properties.Resources.img_done);
                     }
                 }
                 else if (rbChen.Checked)
                 {
                     int x, j;
+                    stopwatch.Start();
                     //set_node_color(node1[0], Properties.Resources.img_done);
                     for (int i = 1; i < n; i++)
                     {
@@ -1125,6 +1154,7 @@ namespace test
                             node1[j].Text = y;
                         }
                     }
+                    stopwatch.Stop();
                     for (int i = 0; i < n; i++)
                         set_node_color(node1[i], Properties.Resources.img_done);
                 }
@@ -1133,7 +1163,7 @@ namespace test
                 foreach (int value in a)
                 {
                     tbKetQua.AppendText(value.ToString() + " ");
-                    stopwatch.Stop();
+                    //stopwatch.Stop();
                     msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
                 MessageBox.Show("Đã sắp xếp xong.");
