@@ -260,37 +260,67 @@ namespace test
                 MessageBox.Show("Vui lòng chọn một file trước khi lưu dữ liệu.");
             }
         }
+        private bool IsFileContentValid(string content)
+        {
+            // Kiểm tra xem chuỗi có chứa ký tự không phải là số và không phải khoảng trắng hay không
+            return content.Trim().Split(' ').All(str => int.TryParse(str, out _));
+        }
+
         private void docFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                string content = File.ReadAllText(filePath);
-                string[] numbersString = content.Split(' ');
-                size = numbersString.Length;
-                a = new int[size];
-                Thread thrd = new Thread(tao_Mang);
-                object obj = new Tuple<int,Image>(size,img);
-                thrd.Start(obj);
-                Button[] node1 = new Button[size];
-                    //tao_Mang(100, Properties.Resources.img_simple);
-                for (int i = 0; i < size; i++)
+               
+                if (File.Exists(filePath))
                 {
-                    a[i] = int.Parse(numbersString[i].Trim());
-                    if (node1[i] == null)
+                    string content = File.ReadAllText(filePath);
+
+                    // Kiểm tra xem tất cả các ký tự trong tệp có đúng định dạng hay không
+                    if (IsFileContentValid(content))
                     {
-                        node1[i] = new Button();
-                        // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
-                        node1[i].Text = "";
+                        string[] numbersString = content.Split(' ');
+                        size = numbersString.Length;
+                        a = new int[size];
+                        Thread thrd = new Thread(tao_Mang);
+                        object obj = new Tuple<int,Image>(size,img);
+                        thrd.Start(obj);
+                        Button[] node1 = new Button[size];
+
+                        //tao_Mang(100, Properties.Resources.img_simple);
+
+                        for (int i = 0; i < size; i++)
+                        {
+                                    if (!int.TryParse(numbersString[i].Trim(), out a[i]))
+                                    {
+                                        return;
+                                    }
+                                    if (node1[i] == null)
+                    {
+                                    node1[i] = new Button();
+                                    // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
+                                    node1[i].Text = "";
                     }
-                    node1[i].Text = a[i].ToString();
+                                    node1[i].Text = a[i].ToString();
+                        }
+
+                        MessageBox.Show("File opened successfully!");
+                        tbMang.Text = content;
+                    }
+                    else
+                    {
+                        MessageBox.Show("File is not formatted correctly or is empty");
+                    }
                 }
-                tbMang.Text = content;
+                else
+                {
+                    MessageBox.Show("File not found.");
+                }
             }
         }
-
         #region CÁC HÀM DI CHUYỂN
         // Hàm đổi chỗ hai nod
         public void swap_Node(Control node_a, Control node_b)
