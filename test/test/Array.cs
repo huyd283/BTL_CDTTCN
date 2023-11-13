@@ -97,9 +97,16 @@ namespace test
                 thrd.Start(obj);
                 Button[] node1 = new Button[size];
                 //tao_Mang(100, Properties.Resources.img_simple);
+                 HashSet<int> uniqueValues = new HashSet<int>();
+
                 for (int i = 0; i < size; i++)
                 {
-                    a[i] = random.Next(min, max);
+                    int generatedValue;
+                    do
+                    {
+                        generatedValue = random.Next(min, max);
+                    }
+                    while (!uniqueValues.Add(generatedValue));
                     // Kiểm tra và gán giá trị cho node1[i] trước khi sử dụng
                     if (node1[i] == null)
                     {
@@ -107,6 +114,7 @@ namespace test
                         // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
                         node1[i].Text = "";
                     }
+                    a[i] = generatedValue;
                     node1[i].Text = a[i].ToString();
                 }
                 foreach (int value in a)
@@ -194,7 +202,7 @@ namespace test
             //    mycontrol.Scale(new Size(2, 2));
 
             //}
-            MessageBox.Show("File opened successfully!");
+            //MessageBox.Show("File opened successfully!");
             da_Tao_Mang = true; //Xác nhận đã tạo mảng                                        
             btnNhapMang.Enabled = true;//Cho phép các nút điều khiển có tác dụng khi đã tạo mảng
             docFile.Enabled = true;
