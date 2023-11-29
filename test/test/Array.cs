@@ -35,46 +35,12 @@ namespace test
         private int size;
         private int min;
         private int max;
+        Panel framePanel = new Panel();
         int toc_Do = 4;
         Boolean da_Tao_Mang = false;
         Code code_C = new Code();
         private Image img = Properties.Resources.img_simple;
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            tbSoPT.ResetText();
-            tbMang.Clear();
-            tbSoCuoi.ResetText();
-            tbSoDau.ResetText();
-            tbKetQua.ResetText();
-            msg.ResetText();
-            lb_status1.ResetText();
-            lb_status2.ResetText();
-            lb_status3.ResetText();
-            lb_i.ResetText();
-            lb_j.ResetText();
-            lb_Code.ResetText();
-            n = a.Length;
-            if (da_Tao_Mang)
-            {
-                Application.DoEvents();
-                this.Invoke((MethodInvoker)delegate
-                {
-                    for (i = 0; i < n; i++)
-                    {
-                        this.Controls.Remove(node1[i]);
-                        this.Controls.Remove(chiSo[i]);
-
-                    }
-                });
-            }
-            da_Tao_Mang = false;
-            btnTang.Enabled = false;
-            btnGiam.Enabled = false;
-            rbChen.Checked = false;
-            rbChon.Checked = false;
-            rbNoiBot.Checked = false;
-        }
 
         private void ngănXếpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -92,14 +58,27 @@ namespace test
                 min = int.Parse(tbSoDau.Text);
                 max = int.Parse(tbSoCuoi.Text);
                 a = new int[size];
+                if (size > 1000)
+                {
+                    MessageBox.Show("Số phần tử không nhập quá 1000, mời bạn nhập lại!");
+                    return;
+                }
                 Thread thrd = new Thread(tao_Mang);
                 object obj = new Tuple<int>(size);
                 thrd.Start(obj);
+                HashSet<int> uniqueValues = new HashSet<int>();
+
                 Button[] node1 = new Button[size];
-                //tao_Mang(100, Properties.Resources.img_simple);
+                    
                 for (int i = 0; i < size; i++)
                 {
-                    a[i] = random.Next(min, max);
+                    //a[i] = random.Next(min, max);
+                    int generatedValue;
+                    do
+                    {
+                        generatedValue = random.Next(min, max);
+                    }
+                    while (!uniqueValues.Add(generatedValue));
                     // Kiểm tra và gán giá trị cho node1[i] trước khi sử dụng
                     if (node1[i] == null)
                     {
@@ -107,6 +86,7 @@ namespace test
                         // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
                         node1[i].Text = "";
                     }
+                    a[i] = generatedValue;
                     node1[i].Text = a[i].ToString();
                 }
                 foreach (int value in a)
@@ -131,84 +111,109 @@ namespace test
             if (temp != null)
             {
                 int size = temp.Item1;
-            }
-            kich_Thuoc = 40;
-            co_Chu = 10;
-            khoang_Cach = 10;
-            le_Node = (770 - kich_Thuoc * size - khoang_Cach * (size - 1)) / 2;
-            //Control mycontrol = new Control();
-            //mycontrol.Width = 400;
-            //mycontrol.Height = 300;
+                kich_Thuoc = 40;
+                co_Chu = 10;
+                khoang_Cach = 10;
+                le_Node = (770 - kich_Thuoc * size - khoang_Cach * (size - 1)) / 2;
 
-            // KHởi tạo mảng node
-            node1 = new Button[size];
-            chiSo = new Label[size];
-            Application.DoEvents();
-            this.Invoke((MethodInvoker)delegate
-            {
-                for (i = 0; i < n; i++)
-                {
-                    lbIndex.Visible = true;
-                    lbMang.Visible = true;
-                }
-            });
-            for (int i = 0; i < size; i++)
-            {
-                node1[i] = new Button();
-                node1[i].Text = a[i].ToString();
-                node1[i].TextAlign = ContentAlignment.MiddleCenter;
-                node1[i].Width = kich_Thuoc;
-                node1[i].Height = kich_Thuoc;
-                node1[i].Location = new Point(le_Node + (kich_Thuoc + khoang_Cach) * i, 450);
-                node1[i].ForeColor = Color.Black;
-                node1[i].Font = new Font(this.Font, FontStyle.Bold);
-                node1[i].Font = new System.Drawing.Font("Arial", co_Chu, FontStyle.Bold);
-                node1[i].FlatStyle = FlatStyle.Flat;
-                node1[i].BackgroundImage = img;
-                node1[i].BackgroundImageLayout = ImageLayout.Stretch;
-                node1[i].FlatAppearance.BorderSize = 0;
+                // KHởi tạo mảng node
+                node1 = new Button[size];
+                chiSo = new Label[size];
+                Application.DoEvents();
                 this.Invoke((MethodInvoker)delegate
                 {
-                    //perform on the UI thread
-                    this.Controls.Add(node1[i]);
+                    for (int i = 0; i < size; i++)
+                    {
+                        lbIndex.Visible = true;
+                        lbMang.Visible = true;
+                    }
                 });
 
-                // Tạo nhãn chỉ sổ
-                chiSo[i] = new Label();
-                chiSo[i].TextAlign = ContentAlignment.MiddleCenter;
-                chiSo[i].Text = i.ToString();
-                chiSo[i].Width = kich_Thuoc;
-                chiSo[i].Height = kich_Thuoc;
-                chiSo[i].ForeColor = Color.Black;
-
-                chiSo[i].Location = new Point(le_Node + (kich_Thuoc + khoang_Cach) * i, 470 + khoang_Cach * 3);
-                chiSo[i].Font = new System.Drawing.Font("Arial", co_Chu - 4, FontStyle.Bold);
                 this.Invoke((MethodInvoker)delegate
                 {
-                    //perform on the UI thread
-                    this.Controls.Add(chiSo[i]);
+                    framePanel.Location = new Point(130, 420); // Đặt vị trí của framePanel
+                    framePanel.Size = new Size(750, 80); 
+                    framePanel.BorderStyle = BorderStyle.Fixed3D;
+                    framePanel.AutoScroll = true;
+                    //GroupBox frameGroupBox = new GroupBox();
+                    //frameGroupBox.Text = "Frame";
+                    //frameGroupBox.Location = new Point(50, 50); // Đặt vị trí của frameGroupBox
+                    //frameGroupBox.Size = new Size(framePanel.Width - 100, framePanel.Height - 100); // Đặt kích thước của frameGroupBox
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        node1[i] = new Button();
+                        node1[i].Text = a[i].ToString();
+                        node1[i].TextAlign = ContentAlignment.MiddleCenter;
+                        node1[i].Width = kich_Thuoc;
+                        node1[i].Height = kich_Thuoc;
+                        node1[i].Location = new Point((kich_Thuoc + khoang_Cach) * i, 0); // Đặt vị trí của node trong frameGroupBox
+                        node1[i].ForeColor = Color.Black;
+                        node1[i].Font = new Font(this.Font, FontStyle.Bold);
+                        node1[i].Font = new System.Drawing.Font("Arial", co_Chu, FontStyle.Bold);
+                        node1[i].FlatStyle = FlatStyle.Flat;
+                        node1[i].BackgroundImage = img;
+                        node1[i].BackgroundImageLayout = ImageLayout.Stretch;
+                        node1[i].FlatAppearance.BorderSize = 0;
+
+                        framePanel.Controls.Add(node1[i]);
+                    }
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        chiSo[i] = new Label();
+                        chiSo[i].TextAlign = ContentAlignment.MiddleCenter;
+                        chiSo[i].Text = i.ToString();
+                        chiSo[i].Width = kich_Thuoc;
+                        chiSo[i].Height = kich_Thuoc;
+                        chiSo[i].ForeColor = Color.Black;
+                        chiSo[i].Location = new Point((kich_Thuoc + khoang_Cach) * i, kich_Thuoc + khoang_Cach); // Đặt vị trí của nhãn trong frameGroupBox
+                        chiSo[i].Font = new System.Drawing.Font("Arial", co_Chu - 4, FontStyle.Bold);
+
+                        framePanel.Controls.Add(chiSo[i]);
+                    }
+
+                    //framePanel.Controls.Add(frameGroupBox);
+                    this.Controls.Add(framePanel);
                 });
-            }
-            //if (size > 20)
-            //{
-            //    mycontrol.Scale(new Size(2, 2));
 
-            //}
-            MessageBox.Show("File opened successfully!");
-            da_Tao_Mang = true; //Xác nhận đã tạo mảng                                        
-            btnNhapMang.Enabled = true;//Cho phép các nút điều khiển có tác dụng khi đã tạo mảng
-            docFile.Enabled = true;
+                MessageBox.Show("File Create Successfully!");
+                da_Tao_Mang = true; //Xác nhận đã tạo mảng                                        
+                btnNhapMang.Enabled = true;//Cho phép các nút điều khiển có tác dụng khi đã tạo mảng
+                docFile.Enabled = true;
+                rbChon.Enabled = true;
+                rbChen.Enabled = true;
+                rbNoiBot.Enabled = true;
 
-            rbChon.Enabled = true;
-            rbChen.Enabled = true;
-            rbNoiBot.Enabled = true;
-
-            Application.DoEvents();
-            this.Invoke((MethodInvoker)delegate
-            {
                 btnTang.Enabled = true;
                 btnGiam.Enabled = true;
-            });
+            }
+
+        }
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            tbSoPT.ResetText();
+            tbMang.Clear();
+            tbSoCuoi.ResetText();
+            tbSoDau.ResetText();
+            tbKetQua.ResetText();
+            msg.ResetText();
+            lb_status1.ResetText();
+            lb_status2.ResetText();
+            lb_status3.ResetText();
+            lb_i.ResetText();
+            lb_j.ResetText();
+            lb_Code.ResetText();
+            n = a.Length;
+            //framePanel
+            framePanel.Controls.Clear();
+
+            da_Tao_Mang = false;
+            btnTang.Enabled = false;
+            btnGiam.Enabled = false;
+            rbChen.Checked = false;
+            rbChon.Checked = false;
+            rbNoiBot.Checked = false;
         }
         private void luuFile_Click(object sender, EventArgs e)
         {
@@ -220,7 +225,7 @@ namespace test
                 string filePath = saveFileDialog.FileName;
 
                 // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
-                string mang = (" Array " + tbKetQua.Text);
+                string mang = (tbKetQua.Text);
                 // Ghi nội dung vào file
                 File.WriteAllText(filePath, mang );
                 MessageBox.Show("File opened successfully!");
@@ -252,6 +257,11 @@ namespace test
                 MessageBox.Show("Vui lòng chọn một file trước khi lưu dữ liệu.");
             }
         }
+        private bool IsFileContentValid(string content)
+        {
+            // Kiểm tra xem chuỗi có chứa ký tự không phải là số và không phải khoảng trắng hay không
+            return content.Trim().Split(' ').All(str => int.TryParse(str, out _));
+        }
         private void docFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -259,27 +269,49 @@ namespace test
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                string content = File.ReadAllText(filePath);
-                string[] numbersString = content.Split(' ');
-                size = numbersString.Length;
-                a = new int[size];
-                Thread thrd = new Thread(tao_Mang);
-                object obj = new Tuple<int,Image>(size,img);
-                thrd.Start(obj);
-                Button[] node1 = new Button[size];
-                    //tao_Mang(100, Properties.Resources.img_simple);
-                for (int i = 0; i < size; i++)
+
+                if (File.Exists(filePath))
                 {
-                    a[i] = int.Parse(numbersString[i].Trim());
-                    if (node1[i] == null)
+                    string content = File.ReadAllText(filePath);
+
+                    // Kiểm tra xem tất cả các ký tự trong tệp có đúng định dạng hay không
+                    if (IsFileContentValid(content))
                     {
-                        node1[i] = new Button();
-                        // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
-                        node1[i].Text = "";
+                        string[] numbersString = content.Split(' ');
+                        size = numbersString.Length;
+                        a = new int[size];
+                        Thread thrd = new Thread(tao_Mang);
+                        object obj = new Tuple<int, Image>(size, img);
+                        thrd.Start(obj);
+                        Button[] node1 = new Button[size];
+
+                        for (int i = 0; i < size; i++)
+                        {
+                            if (!int.TryParse(numbersString[i].Trim(), out a[i]))
+                            {
+                                return;
+                            }
+                            if (node1[i] == null)
+                            {
+                                node1[i] = new Button();
+                                // Gán text mặc định cho button (hoặc có thể bỏ qua nếu không cần thiết)
+                                node1[i].Text = "";
+                            }
+                            node1[i].Text = a[i].ToString();
+                        }
+
+                        MessageBox.Show("File opened successfully!");
+                        tbMang.Text = content;
                     }
-                    node1[i].Text = a[i].ToString();
+                    else
+                    {
+                        MessageBox.Show("File is not formatted correctly or is empty");
+                    }
                 }
-                tbMang.Text = content;
+                else
+                {
+                    MessageBox.Show("File not found.");
+                }
             }
         }
 
@@ -1127,68 +1159,3 @@ namespace test
         
     }
 }
-
-
-
-/*private void btnXoa_Click(object sender, EventArgs e)
-        {
-            KhungNhap.ResetText();
-            KhungXuat.Clear();
-            KhungXuat.ResetText();
-            n = 0;
-            s = " ";
-        }
-
-        private void btnNhapMang_Click(object sender, EventArgs e)
-        {
-            s = KhungNhap.Text;
-            i = s.LastIndexOf(" ");
-            while (i != -1)
-            {
-                s1 = s.Substring(i);
-                s = s.Substring(0, i);
-                a[n] = Convert.ToInt32(s1);
-                n++;
-                i = s.LastIndexOf(" ");
-            }
-            a[n] = Convert.ToInt32(s);
-            s = " ";
-            for (i = n; i >= 0; i--)
-                s = s + " " + a[i].ToString();
-            KhungXuat.Text = s.Trim();
-        }
-
-        private void btnGiam_Click(object sender, EventArgs e)
-        {
-            for (i = 0; i < n; i++)
-                for (int j = i + 1; j <= n; j++)
-                    if (a[i] < a[j])
-                    {
-                        tam = a[i];
-                        a[i] = a[j];
-                        a[j] = tam;
-                    }
-            s = " ";
-            for (i = 0; i <= n; i++)
-                s = s + " " + a[i].ToString();
-            KhungXuat.Text = s.Trim();
-        }
-
-
-        private void btnTang_Click(object sender, EventArgs e)
-        {
-            for (i = 0; i < n; i++)
-                for (int j = i + 1; j <= n; j++)
-                    if (a[i] > a[j])
-                    {
-                        tam = a[i];
-                        a[i] = a[j];
-                        a[j] = tam;
-                    }
-            s = " ";
-            for (i = 0; i <= n; i++)
-                s = s + " " + a[i].ToString();
-            KhungXuat.Text = s.Trim();
-
-        }
-    }*/
