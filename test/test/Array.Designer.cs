@@ -130,11 +130,13 @@ namespace test
             // 
             // tbMang
             // 
-            this.tbMang.Enabled = false;
             this.tbMang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMang.ForeColor = System.Drawing.Color.White;
+            this.tbMang.HideSelection = false;
             this.tbMang.Location = new System.Drawing.Point(187, 839);
             this.tbMang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMang.Name = "tbMang";
+            this.tbMang.ReadOnly = true;
             this.tbMang.Size = new System.Drawing.Size(368, 27);
             this.tbMang.TabIndex = 4;
             // 
@@ -293,7 +295,7 @@ namespace test
             this.label7.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(75, 57);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 22);
+            this.label7.Size = new System.Drawing.Size(83, 20);
             this.label7.TabIndex = 24;
             this.label7.Text = "Nhập Tay";
             // 
@@ -303,7 +305,7 @@ namespace test
             this.label8.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(377, 57);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 22);
+            this.label8.Size = new System.Drawing.Size(84, 20);
             this.label8.TabIndex = 25;
             this.label8.Text = "Nhập File";
             // 
@@ -371,7 +373,7 @@ namespace test
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1114, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1114, 30);
             this.menuStrip1.TabIndex = 31;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -436,7 +438,7 @@ namespace test
             this.label10.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(138, 10);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(274, 32);
+            this.label10.Size = new System.Drawing.Size(273, 32);
             this.label10.TabIndex = 33;
             this.label10.Text = "Tạo dữ liệu cho mảng";
             // 
@@ -459,7 +461,7 @@ namespace test
             this.label11.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(35, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(148, 32);
+            this.label11.Size = new System.Drawing.Size(147, 32);
             this.label11.TabIndex = 34;
             this.label11.Text = "Thuật toán";
             // 
@@ -494,7 +496,7 @@ namespace test
             this.cb_Tungbuoc.Location = new System.Drawing.Point(48, 58);
             this.cb_Tungbuoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cb_Tungbuoc.Name = "cb_Tungbuoc";
-            this.cb_Tungbuoc.Size = new System.Drawing.Size(160, 21);
+            this.cb_Tungbuoc.Size = new System.Drawing.Size(148, 20);
             this.cb_Tungbuoc.TabIndex = 36;
             this.cb_Tungbuoc.Text = "Thực hiện từng bước";
             this.cb_Tungbuoc.UseVisualStyleBackColor = true;
@@ -505,7 +507,7 @@ namespace test
             this.label12.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(63, 9);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 32);
+            this.label12.Size = new System.Drawing.Size(144, 32);
             this.label12.TabIndex = 35;
             this.label12.Text = "Điều khiển";
             // 
@@ -584,7 +586,7 @@ namespace test
             this.label13.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(426, 39);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(254, 32);
+            this.label13.Size = new System.Drawing.Size(253, 32);
             this.label13.TabIndex = 70;
             this.label13.Text = "CẤU TRÚC MẢNG";
             // 
