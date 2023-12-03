@@ -279,9 +279,13 @@ namespace test
                         string[] numbersString = content.Split(' ');
                         size = numbersString.Length;
                         a = new int[size];
-                        Thread thrd = new Thread(tao_Mang);
+                        /*Thread thrd = new Thread(tao_Mang);
                         object obj = new Tuple<int, Image>(size, img);
+                        thrd.Start(obj);*/
+                        Thread thrd = new Thread(tao_Mang);
+                        object obj = new Tuple<int>(size);
                         thrd.Start(obj);
+                        HashSet<int> uniqueValues = new HashSet<int>();
                         Button[] node1 = new Button[size];
 
                         for (int i = 0; i < size; i++)
@@ -298,8 +302,6 @@ namespace test
                             }
                             node1[i].Text = a[i].ToString();
                         }
-
-                        MessageBox.Show("File opened successfully!");
                         tbMang.Text = content;
                     }
                     else
@@ -554,7 +556,6 @@ namespace test
                     {
                         MessageBox.Show("Ban can nhap thoi gian", "OK");
                     }*/
-                    tbTocDo.Enabled = true;
                     if (n < 2)
                     {
                         MessageBox.Show("Số lượng phần tử nhỏ hơn 2 nên không thực hiện được");
@@ -631,6 +632,7 @@ namespace test
                                 Refresh();
                                 lb_i.Text = "i = " + i;
                                 wait_time(5 * toc_Do);
+                                stopwatch.Start();
                                 for (int j = 0; j < n - i - 1; j++)
                                 {
                                     lb_Code.SelectedIndex = 5;
@@ -663,6 +665,7 @@ namespace test
                                         wait_time(5 * toc_Do);
                                         swap_Node(node1[j], node1[j + 1]);
                                         swap_button(j, j + 1);
+                                        stopwatch.Stop();
                                         // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
                                         set_node_color(node1[j + 1], Properties.Resources.img_done);
                                         set_node_color(node1[j], Properties.Resources.img_simple);
@@ -687,6 +690,7 @@ namespace test
                             code_C.SXChonGiam(lb_Code);
                             lb_Code.SelectedIndex = 3;
                             wait_time(toc_Do);
+                            stopwatch.Start();
                             for (i = 0; i < n - 1; i++)
                             {
                                 Refresh();
@@ -739,6 +743,7 @@ namespace test
                                     wait_time(toc_Do * 5);
                                     swap_Node(node1[i], node1[maxIndex]);
                                     swap_button(i, maxIndex);
+                                    stopwatch.Stop();
                                     set_node_color(node1[i], Properties.Resources.img_done);
                                     set_node_color(node1[maxIndex], Properties.Resources.img_simple);
                                     wait_time(toc_Do * 5);
@@ -776,7 +781,6 @@ namespace test
                                     node1[j + 1].Text = tam;
                                 }
                             }
-                            
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
                     }
@@ -883,11 +887,13 @@ namespace test
                         code_C.SXNoiBotTang(lb_Code);
                         wait_time(4 * toc_Do);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (int i = 0; i < n - 1; i++)
                         {
                             Refresh();
                             lb_i.Text = "i = " + i;
                             wait_time(5 * toc_Do);
+                            
                             for (int j = 0; j < n - i - 1; j++)
                             {
                                 lb_Code.SelectedIndex = 5;
@@ -920,6 +926,7 @@ namespace test
                                     wait_time(5 * toc_Do);
                                     swap_Node(node1[j], node1[j + 1]);
                                     swap_button(j, j + 1);
+                                    stopwatch.Stop();
                                     // Sau khi swap button nó tự đổi màu, nên mình phài đặt màu lại
                                     set_node_color(node1[j + 1], Properties.Resources.img_select);
                                     set_node_color(node1[j], Properties.Resources.img_simple);
@@ -944,6 +951,7 @@ namespace test
                         code_C.SXNoiBotTang(lb_Code);
                         wait_time(toc_Do);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             Refresh();
@@ -994,6 +1002,7 @@ namespace test
                                 wait_time(toc_Do * 5);
                                 swap_Node(node1[i], node1[minIndex]);
                                 swap_button(i, minIndex);
+                                stopwatch.Stop();
                                 set_node_color(node1[i], Properties.Resources.img_done);
                                 set_node_color(node1[minIndex], Properties.Resources.img_simple);
                                 wait_time(toc_Do * 4);
@@ -1008,6 +1017,7 @@ namespace test
                         int x, j;
                         set_node_color(node1[0], Properties.Resources.img_done);
                         lb_Code.SelectedIndex = 3;
+                        stopwatch.Start();
                         for (int i = 1; i < n; i++)
                         {
                             Refresh();
@@ -1052,8 +1062,8 @@ namespace test
                                 to_left(node_tam, i, j);
                                 go_down(node_tam, j);
                                 node1[j] = node_tam;
+                                stopwatch.Stop();
                                 wait_time(2*toc_Do);
-
                             }
                             else
                                 wait_time(2*toc_Do);
