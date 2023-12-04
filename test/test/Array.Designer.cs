@@ -65,7 +65,8 @@ namespace test
             this.panel2 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnPause = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbTocDo = new System.Windows.Forms.TextBox();
             this.cb_Tungbuoc = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.lb_status3 = new System.Windows.Forms.Label();
@@ -106,7 +107,7 @@ namespace test
             // 
             this.btnTang.Enabled = false;
             this.btnTang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTang.Location = new System.Drawing.Point(60, 93);
+            this.btnTang.Location = new System.Drawing.Point(53, 125);
             this.btnTang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTang.Name = "btnTang";
             this.btnTang.Size = new System.Drawing.Size(156, 32);
@@ -119,7 +120,7 @@ namespace test
             // 
             this.btnGiam.Enabled = false;
             this.btnGiam.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGiam.Location = new System.Drawing.Point(60, 132);
+            this.btnGiam.Location = new System.Drawing.Point(53, 164);
             this.btnGiam.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGiam.Name = "btnGiam";
             this.btnGiam.Size = new System.Drawing.Size(156, 32);
@@ -165,7 +166,7 @@ namespace test
             // btnXoa
             // 
             this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoa.Location = new System.Drawing.Point(60, 170);
+            this.btnXoa.Location = new System.Drawing.Point(53, 202);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(156, 32);
@@ -245,7 +246,7 @@ namespace test
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(68, 591);
+            this.label6.Location = new System.Drawing.Point(68, 604);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 19);
             this.label6.TabIndex = 18;
@@ -295,7 +296,7 @@ namespace test
             this.label7.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(75, 57);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 20);
+            this.label7.Size = new System.Drawing.Size(89, 22);
             this.label7.TabIndex = 24;
             this.label7.Text = "Nhập Tay";
             // 
@@ -305,7 +306,7 @@ namespace test
             this.label8.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(377, 57);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 20);
+            this.label8.Size = new System.Drawing.Size(90, 22);
             this.label8.TabIndex = 25;
             this.label8.Text = "Nhập File";
             // 
@@ -337,7 +338,7 @@ namespace test
             // 
             this.lbIndex.AutoSize = true;
             this.lbIndex.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIndex.Location = new System.Drawing.Point(25, 554);
+            this.lbIndex.Location = new System.Drawing.Point(25, 567);
             this.lbIndex.Name = "lbIndex";
             this.lbIndex.Size = new System.Drawing.Size(47, 19);
             this.lbIndex.TabIndex = 28;
@@ -347,7 +348,7 @@ namespace test
             // 
             this.lbMang.AutoSize = true;
             this.lbMang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMang.Location = new System.Drawing.Point(27, 591);
+            this.lbMang.Location = new System.Drawing.Point(27, 604);
             this.lbMang.Name = "lbMang";
             this.lbMang.Size = new System.Drawing.Size(46, 19);
             this.lbMang.TabIndex = 29;
@@ -373,7 +374,7 @@ namespace test
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1114, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1114, 28);
             this.menuStrip1.TabIndex = 31;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -438,7 +439,7 @@ namespace test
             this.label10.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(138, 10);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(273, 32);
+            this.label10.Size = new System.Drawing.Size(274, 32);
             this.label10.TabIndex = 33;
             this.label10.Text = "Tạo dữ liệu cho mảng";
             // 
@@ -461,16 +462,17 @@ namespace test
             this.label11.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(35, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(147, 32);
+            this.label11.Size = new System.Drawing.Size(148, 32);
             this.label11.TabIndex = 34;
             this.label11.Text = "Thuật toán";
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.btnPause);
+            this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.cb_Tungbuoc);
             this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.tbTocDo);
             this.panel3.Controls.Add(this.btnTang);
             this.panel3.Controls.Add(this.btnGiam);
             this.panel3.Controls.Add(this.btnXoa);
@@ -480,15 +482,24 @@ namespace test
             this.panel3.Size = new System.Drawing.Size(267, 245);
             this.panel3.TabIndex = 34;
             // 
-            // btnPause
+            // label14
             // 
-            this.btnPause.Location = new System.Drawing.Point(101, 212);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(75, 23);
-            this.btnPause.TabIndex = 37;
-            this.btnPause.Text = "Pause";
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(48, 87);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 19);
+            this.label14.TabIndex = 35;
+            this.label14.Text = "Tốc độ";
+            // 
+            // tbTocDo
+            // 
+            this.tbTocDo.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTocDo.Location = new System.Drawing.Point(111, 84);
+            this.tbTocDo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbTocDo.Name = "tbTocDo";
+            this.tbTocDo.Size = new System.Drawing.Size(97, 25);
+            this.tbTocDo.TabIndex = 35;
             // 
             // cb_Tungbuoc
             // 
@@ -496,7 +507,7 @@ namespace test
             this.cb_Tungbuoc.Location = new System.Drawing.Point(48, 58);
             this.cb_Tungbuoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cb_Tungbuoc.Name = "cb_Tungbuoc";
-            this.cb_Tungbuoc.Size = new System.Drawing.Size(148, 20);
+            this.cb_Tungbuoc.Size = new System.Drawing.Size(160, 21);
             this.cb_Tungbuoc.TabIndex = 36;
             this.cb_Tungbuoc.Text = "Thực hiện từng bước";
             this.cb_Tungbuoc.UseVisualStyleBackColor = true;
@@ -507,7 +518,7 @@ namespace test
             this.label12.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(63, 9);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(144, 32);
+            this.label12.Size = new System.Drawing.Size(145, 32);
             this.label12.TabIndex = 35;
             this.label12.Text = "Điều khiển";
             // 
@@ -515,7 +526,7 @@ namespace test
             // 
             this.lb_status3.AutoSize = true;
             this.lb_status3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_status3.Location = new System.Drawing.Point(754, 345);
+            this.lb_status3.Location = new System.Drawing.Point(753, 334);
             this.lb_status3.Name = "lb_status3";
             this.lb_status3.Size = new System.Drawing.Size(98, 23);
             this.lb_status3.TabIndex = 65;
@@ -525,7 +536,7 @@ namespace test
             // 
             this.lb_status2.AutoSize = true;
             this.lb_status2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_status2.Location = new System.Drawing.Point(298, 403);
+            this.lb_status2.Location = new System.Drawing.Point(297, 392);
             this.lb_status2.Name = "lb_status2";
             this.lb_status2.Size = new System.Drawing.Size(98, 23);
             this.lb_status2.TabIndex = 64;
@@ -535,7 +546,7 @@ namespace test
             // 
             this.lb_status1.AutoSize = true;
             this.lb_status1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_status1.Location = new System.Drawing.Point(298, 362);
+            this.lb_status1.Location = new System.Drawing.Point(297, 351);
             this.lb_status1.Name = "lb_status1";
             this.lb_status1.Size = new System.Drawing.Size(98, 23);
             this.lb_status1.TabIndex = 63;
@@ -545,7 +556,7 @@ namespace test
             // 
             this.lb_i.AutoSize = true;
             this.lb_i.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_i.Location = new System.Drawing.Point(35, 362);
+            this.lb_i.Location = new System.Drawing.Point(34, 351);
             this.lb_i.Name = "lb_i";
             this.lb_i.Size = new System.Drawing.Size(21, 23);
             this.lb_i.TabIndex = 66;
@@ -555,7 +566,7 @@ namespace test
             // 
             this.lb_j.AutoSize = true;
             this.lb_j.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_j.Location = new System.Drawing.Point(35, 403);
+            this.lb_j.Location = new System.Drawing.Point(34, 392);
             this.lb_j.Name = "lb_j";
             this.lb_j.Size = new System.Drawing.Size(21, 23);
             this.lb_j.TabIndex = 67;
@@ -565,7 +576,7 @@ namespace test
             // 
             this.lb_status4.AutoSize = true;
             this.lb_status4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_status4.Location = new System.Drawing.Point(754, 378);
+            this.lb_status4.Location = new System.Drawing.Point(753, 367);
             this.lb_status4.Name = "lb_status4";
             this.lb_status4.Size = new System.Drawing.Size(98, 23);
             this.lb_status4.TabIndex = 68;
@@ -575,7 +586,7 @@ namespace test
             // 
             this.lb_Code.FormattingEnabled = true;
             this.lb_Code.ItemHeight = 16;
-            this.lb_Code.Location = new System.Drawing.Point(618, 751);
+            this.lb_Code.Location = new System.Drawing.Point(618, 766);
             this.lb_Code.Name = "lb_Code";
             this.lb_Code.Size = new System.Drawing.Size(470, 180);
             this.lb_Code.TabIndex = 69;
@@ -586,7 +597,7 @@ namespace test
             this.label13.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(426, 39);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(253, 32);
+            this.label13.Size = new System.Drawing.Size(254, 32);
             this.label13.TabIndex = 70;
             this.label13.Text = "CẤU TRÚC MẢNG";
             // 
@@ -594,7 +605,7 @@ namespace test
             // 
             this.lb_Status5.AutoSize = true;
             this.lb_Status5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.lb_Status5.Location = new System.Drawing.Point(754, 413);
+            this.lb_Status5.Location = new System.Drawing.Point(753, 402);
             this.lb_Status5.Name = "lb_Status5";
             this.lb_Status5.Size = new System.Drawing.Size(98, 23);
             this.lb_Status5.TabIndex = 71;
@@ -604,7 +615,7 @@ namespace test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1114, 943);
+            this.ClientSize = new System.Drawing.Size(1114, 949);
             this.Controls.Add(this.lb_Status5);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.lb_Code);
@@ -692,7 +703,8 @@ namespace test
         private System.Windows.Forms.ListBox lb_Code;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lb_Status5;
-        private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tbTocDo;
     }
 }
