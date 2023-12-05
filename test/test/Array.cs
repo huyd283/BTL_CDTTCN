@@ -132,7 +132,7 @@ namespace test
                 this.Invoke((MethodInvoker)delegate
                 {
                     framePanel.Location = new Point(130, 360); // Đặt vị trí của framePanel
-                    framePanel.Size = new Size(750, 250); 
+                    framePanel.Size = new Size(750, 200); 
                     framePanel.BorderStyle = BorderStyle.Fixed3D;
                     framePanel.AutoScroll = true;
                     //GroupBox frameGroupBox = new GroupBox();
@@ -197,7 +197,7 @@ namespace test
             tbSoCuoi.ResetText();
             tbSoDau.ResetText();
             tbKetQua.ResetText();
-            msg.ResetText();
+            msgtimeArray.ResetText();
             lb_status1.ResetText();
             lb_status2.ResetText();
             lb_status3.ResetText();
@@ -246,7 +246,7 @@ namespace test
             {
                 using (StreamWriter writer = new StreamWriter(filePath, true))
                 {
-                    string data = ("Array: " + msg.Text); // Dữ liệu cần lưu
+                    string data = ("Array: " + msgtimeArray.Text); // Dữ liệu cần lưu
                     writer.WriteLine(data);
                 }
                 MessageBox.Show("Dữ liệu đã được lưu vào file.");
@@ -531,7 +531,7 @@ namespace test
         {
             stopwatch.Restart();
             tbKetQua.Clear();
-            msg.Clear();
+            msgtimeArray.Clear();
             n = a.Length;
             for (i = 0; i < n; i++)
             {
@@ -757,7 +757,7 @@ namespace test
                     foreach (int value in a)
                     {
                         tbKetQua.AppendText(value.ToString() + " ");
-                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                        msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
                     MessageBox.Show("Đã sắp xếp xong.");
                 }
@@ -845,7 +845,7 @@ namespace test
                     foreach (int value in a)
                     {
                         tbKetQua.AppendText(value.ToString() + " ");
-                        msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                        msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
                     MessageBox.Show("Đã sắp xếp xong.");
                 }
@@ -856,7 +856,7 @@ namespace test
         {
             stopwatch.Restart();
             tbKetQua.Clear();
-            msg.Clear();
+            msgtimeArray.Clear();
             n = a.Length;
             for (i = 0; i < n; i++)
             {
@@ -1077,7 +1077,7 @@ namespace test
                 foreach (int value in a)
                 {
                     tbKetQua.AppendText(value.ToString() + " ");
-                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
                 MessageBox.Show("Đã sắp xếp xong.");
             }
@@ -1164,32 +1164,131 @@ namespace test
                 foreach (int value in a)
                 {
                     tbKetQua.AppendText(value.ToString() + " ");
-                    msg.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                    msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
                 MessageBox.Show("Đã sắp xếp xong.");
             }
         }
 
-        /*private void btnPause_Click(object sender, EventArgs e)
+        private void Array()
         {
-            Thread.Sleep(10000);
-        }*/
 
+            string[] array = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 1; i < n; i++)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    if (string.Compare(array[j - 1], array[j]) > 0)
+                    {
+                        string temp = array[j];
+                        array[j] = array[j - 1];
+                        array[j - 1] = temp;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        private void Stack()
+        {
+            string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Stack<int> stack = new Stack<int>();
+
+            // Chèn các phần tử vào stack theo thứ tự tăng dần
+            foreach (string item in inputArray)
+            {
+                int number = int.Parse(item);
+                if (stack.Count == 0 || number > stack.Peek())
+                {
+                    stack.Push(number);
+                }
+                else
+                {
+                    Stack<int> tempStack = new Stack<int>();
+
+                    while (stack.Count > 0 && number < stack.Peek())
+                    {
+                        tempStack.Push(stack.Pop());
+                    }
+
+                    stack.Push(number);
+
+                    while (tempStack.Count > 0)
+                    {
+                        stack.Push(tempStack.Pop());
+                    }
+                }
+            }
+        }
+        private void Queue()
+        {
+
+        }
+        private void btnCalcuTime_click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbSoPT.Text) && !string.IsNullOrEmpty(tbSoDau.Text) && !string.IsNullOrEmpty(tbSoCuoi.Text))
+            {
+
+                Stopwatch stopwatch = new Stopwatch();
+
+                stopwatch.Start();
+
+                Array();
+
+                TimeSpan elapsedTime1 = stopwatch.Elapsed;
+                msgtimeArray.Text = elapsedTime1.ToString() + "ms";
+
+                stopwatch.Reset();
+                stopwatch.Start();
+
+                Stack();
+
+                TimeSpan elapsedTime2 = stopwatch.Elapsed;
+                msgtimeStack.Text = elapsedTime2.ToString() + "ms";
+
+                stopwatch.Reset();
+                stopwatch.Start();
+
+                // Gọi hàm thực hiện công việc 3
+                Queue();
+
+                // Tính thời gian đã trôi qua sau khi thực hiện công việc 3
+                TimeSpan elapsedTime3 = stopwatch.Elapsed;
+
+                //msgtimeQueue.Text = elapsedTime3.ToString() + " ms";
+
+                // Dừng 
+                stopwatch.Stop();
+            }
+            else
+            if (string.IsNullOrEmpty(tbSoPT.Text))
+                MessageBox.Show("Bạn cần nhập kích thước", "Lỗi", MessageBoxButtons.OK);
+            else if (string.IsNullOrEmpty(tbSoDau.Text))
+                MessageBox.Show("Bạn cần nhập số đầu", "Lỗi", MessageBoxButtons.OK);
+            else
+                MessageBox.Show("Bạn cần nhập số cuối", "Lỗi", MessageBoxButtons.OK);
+        }
         private void hàngĐợiToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Queue hd = new Queue();
             hd.ShowDialog();
         }
-/*
-        private void cb_Tungbuoc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cb_Tungbuoc.Checked = true)
-            {
-                tbTocDo.Enabled = true;
-            }
-            else
-                tbTocDo.Enabled = false;
-        }
+
+
+        /*
+       private void cb_Tungbuoc_CheckedChanged(object sender, EventArgs e)
+       {
+           if (cb_Tungbuoc.Checked = true)
+           {
+               tbTocDo.Enabled = true;
+           }
+           else
+               tbTocDo.Enabled = false;
+       }
 */
         public void Refresh()
         {

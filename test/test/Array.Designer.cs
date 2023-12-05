@@ -43,7 +43,7 @@ namespace test
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tbKetQua = new System.Windows.Forms.TextBox();
-            this.msg = new System.Windows.Forms.TextBox();
+            this.msgtimeArray = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.rbChon = new System.Windows.Forms.RadioButton();
             this.rbChen = new System.Windows.Forms.RadioButton();
@@ -63,12 +63,13 @@ namespace test
             this.Save = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCalcuTime = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.tbTocDo = new System.Windows.Forms.TextBox();
             this.cb_Tungbuoc = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.tbTocDo = new System.Windows.Forms.TextBox();
             this.lb_status3 = new System.Windows.Forms.Label();
             this.lb_status2 = new System.Windows.Forms.Label();
             this.lb_status1 = new System.Windows.Forms.Label();
@@ -78,6 +79,11 @@ namespace test
             this.lb_Code = new System.Windows.Forms.ListBox();
             this.label13 = new System.Windows.Forms.Label();
             this.lb_Status5 = new System.Windows.Forms.Label();
+            this.msgtimeQueue = new System.Windows.Forms.TextBox();
+            this.msgtimeStack = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -134,7 +140,7 @@ namespace test
             this.tbMang.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbMang.ForeColor = System.Drawing.Color.White;
             this.tbMang.HideSelection = false;
-            this.tbMang.Location = new System.Drawing.Point(187, 839);
+            this.tbMang.Location = new System.Drawing.Point(187, 886);
             this.tbMang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMang.Name = "tbMang";
             this.tbMang.ReadOnly = true;
@@ -145,7 +151,7 @@ namespace test
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 842);
+            this.label2.Location = new System.Drawing.Point(16, 889);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 19);
             this.label2.TabIndex = 5;
@@ -216,7 +222,7 @@ namespace test
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(16, 875);
+            this.label5.Location = new System.Drawing.Point(16, 922);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(124, 19);
             this.label5.TabIndex = 15;
@@ -226,21 +232,21 @@ namespace test
             // 
             this.tbKetQua.Enabled = false;
             this.tbKetQua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbKetQua.Location = new System.Drawing.Point(187, 872);
+            this.tbKetQua.Location = new System.Drawing.Point(187, 919);
             this.tbKetQua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbKetQua.Name = "tbKetQua";
             this.tbKetQua.Size = new System.Drawing.Size(368, 27);
             this.tbKetQua.TabIndex = 14;
             // 
-            // msg
+            // msgtimeArray
             // 
-            this.msg.Enabled = false;
-            this.msg.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.msg.Location = new System.Drawing.Point(224, 905);
-            this.msg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.msg.Name = "msg";
-            this.msg.Size = new System.Drawing.Size(184, 27);
-            this.msg.TabIndex = 17;
+            this.msgtimeArray.Enabled = false;
+            this.msgtimeArray.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msgtimeArray.Location = new System.Drawing.Point(20, 838);
+            this.msgtimeArray.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.msgtimeArray.Name = "msgtimeArray";
+            this.msgtimeArray.Size = new System.Drawing.Size(152, 27);
+            this.msgtimeArray.TabIndex = 17;
             // 
             // label6
             // 
@@ -296,7 +302,7 @@ namespace test
             this.label7.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(75, 57);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 22);
+            this.label7.Size = new System.Drawing.Size(83, 20);
             this.label7.TabIndex = 24;
             this.label7.Text = "Nhập Tay";
             // 
@@ -306,7 +312,7 @@ namespace test
             this.label8.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(377, 57);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 22);
+            this.label8.Size = new System.Drawing.Size(84, 20);
             this.label8.TabIndex = 25;
             this.label8.Text = "Nhập File";
             // 
@@ -358,7 +364,7 @@ namespace test
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(16, 907);
+            this.label9.Location = new System.Drawing.Point(215, 766);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(148, 19);
             this.label9.TabIndex = 30;
@@ -439,13 +445,14 @@ namespace test
             this.label10.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(138, 10);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(274, 32);
+            this.label10.Size = new System.Drawing.Size(273, 32);
             this.label10.TabIndex = 33;
             this.label10.Text = "Tạo dữ liệu cho mảng";
             // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnCalcuTime);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.rbChon);
             this.panel2.Controls.Add(this.rbChen);
@@ -456,13 +463,25 @@ namespace test
             this.panel2.Size = new System.Drawing.Size(221, 245);
             this.panel2.TabIndex = 33;
             // 
+            // btnCalcuTime
+            // 
+            this.btnCalcuTime.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalcuTime.Location = new System.Drawing.Point(26, 145);
+            this.btnCalcuTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCalcuTime.Name = "btnCalcuTime";
+            this.btnCalcuTime.Size = new System.Drawing.Size(156, 32);
+            this.btnCalcuTime.TabIndex = 35;
+            this.btnCalcuTime.Text = "So sánh thời gian";
+            this.btnCalcuTime.UseVisualStyleBackColor = true;
+            this.btnCalcuTime.Click += new System.EventHandler(this.btnCalcuTime_click);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(35, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(148, 32);
+            this.label11.Size = new System.Drawing.Size(147, 32);
             this.label11.TabIndex = 34;
             this.label11.Text = "Thuật toán";
             // 
@@ -492,22 +511,13 @@ namespace test
             this.label14.TabIndex = 35;
             this.label14.Text = "Tốc độ";
             // 
-            // tbTocDo
-            // 
-            this.tbTocDo.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTocDo.Location = new System.Drawing.Point(111, 84);
-            this.tbTocDo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbTocDo.Name = "tbTocDo";
-            this.tbTocDo.Size = new System.Drawing.Size(97, 25);
-            this.tbTocDo.TabIndex = 35;
-            // 
             // cb_Tungbuoc
             // 
             this.cb_Tungbuoc.AutoSize = true;
             this.cb_Tungbuoc.Location = new System.Drawing.Point(48, 58);
             this.cb_Tungbuoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cb_Tungbuoc.Name = "cb_Tungbuoc";
-            this.cb_Tungbuoc.Size = new System.Drawing.Size(160, 21);
+            this.cb_Tungbuoc.Size = new System.Drawing.Size(148, 20);
             this.cb_Tungbuoc.TabIndex = 36;
             this.cb_Tungbuoc.Text = "Thực hiện từng bước";
             this.cb_Tungbuoc.UseVisualStyleBackColor = true;
@@ -518,9 +528,18 @@ namespace test
             this.label12.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(63, 9);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 32);
+            this.label12.Size = new System.Drawing.Size(144, 32);
             this.label12.TabIndex = 35;
             this.label12.Text = "Điều khiển";
+            // 
+            // tbTocDo
+            // 
+            this.tbTocDo.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTocDo.Location = new System.Drawing.Point(111, 84);
+            this.tbTocDo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbTocDo.Name = "tbTocDo";
+            this.tbTocDo.Size = new System.Drawing.Size(97, 25);
+            this.tbTocDo.TabIndex = 35;
             // 
             // lb_status3
             // 
@@ -597,7 +616,7 @@ namespace test
             this.label13.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(426, 39);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(254, 32);
+            this.label13.Size = new System.Drawing.Size(253, 32);
             this.label13.TabIndex = 70;
             this.label13.Text = "CẤU TRÚC MẢNG";
             // 
@@ -611,11 +630,66 @@ namespace test
             this.lb_Status5.TabIndex = 71;
             this.lb_Status5.Text = "Status 5";
             // 
+            // msgtimeQueue
+            // 
+            this.msgtimeQueue.Enabled = false;
+            this.msgtimeQueue.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msgtimeQueue.Location = new System.Drawing.Point(403, 838);
+            this.msgtimeQueue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.msgtimeQueue.Name = "msgtimeQueue";
+            this.msgtimeQueue.Size = new System.Drawing.Size(152, 27);
+            this.msgtimeQueue.TabIndex = 72;
+            // 
+            // msgtimeStack
+            // 
+            this.msgtimeStack.Enabled = false;
+            this.msgtimeStack.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msgtimeStack.Location = new System.Drawing.Point(211, 838);
+            this.msgtimeStack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.msgtimeStack.Name = "msgtimeStack";
+            this.msgtimeStack.Size = new System.Drawing.Size(152, 27);
+            this.msgtimeStack.TabIndex = 73;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(459, 791);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 19);
+            this.label15.TabIndex = 74;
+            this.label15.Text = "Queue";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(264, 791);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(46, 19);
+            this.label16.TabIndex = 75;
+            this.label16.Text = "Stack";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(80, 791);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(47, 19);
+            this.label17.TabIndex = 76;
+            this.label17.Text = "Array";
+            // 
             // Mang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1114, 949);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.msgtimeStack);
+            this.Controls.Add(this.msgtimeQueue);
             this.Controls.Add(this.lb_Status5);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.lb_Code);
@@ -632,7 +706,7 @@ namespace test
             this.Controls.Add(this.lbMang);
             this.Controls.Add(this.lbIndex);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.msg);
+            this.Controls.Add(this.msgtimeArray);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbKetQua);
             this.Controls.Add(this.label2);
@@ -671,7 +745,7 @@ namespace test
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbKetQua;
-        private System.Windows.Forms.TextBox msg;
+        private System.Windows.Forms.TextBox msgtimeArray;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton rbChon;
         private System.Windows.Forms.RadioButton rbChen;
@@ -706,5 +780,11 @@ namespace test
         private System.Windows.Forms.Button Save;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbTocDo;
+        private System.Windows.Forms.TextBox msgtimeQueue;
+        private System.Windows.Forms.TextBox msgtimeStack;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btnCalcuTime;
     }
 }
