@@ -41,7 +41,7 @@ namespace test
         Boolean da_Tao_Mang = false;
         Code code_C = new Code();
         private Image img = Properties.Resources.img_simple;
-        
+
 
         private void ngănXếpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -69,7 +69,7 @@ namespace test
                 HashSet<int> uniqueValues = new HashSet<int>();
 
                 Button[] node1 = new Button[size];
-                    
+
                 for (int i = 0; i < size; i++)
                 {
                     //a[i] = random.Next(min, max);
@@ -132,7 +132,7 @@ namespace test
                 this.Invoke((MethodInvoker)delegate
                 {
                     framePanel.Location = new Point(130, 360); // Đặt vị trí của framePanel
-                    framePanel.Size = new Size(750, 200); 
+                    framePanel.Size = new Size(750, 200);
                     framePanel.BorderStyle = BorderStyle.Fixed3D;
                     framePanel.AutoScroll = true;
                     //GroupBox frameGroupBox = new GroupBox();
@@ -227,7 +227,7 @@ namespace test
                 // Lấy nội dung cần ghi từ TextBox hoặc từ dữ liệu khác
                 string mang = (tbKetQua.Text);
                 // Ghi nội dung vào file
-                File.WriteAllText(filePath, mang );
+                File.WriteAllText(filePath, mang);
                 MessageBox.Show("File opened successfully!");
             }
         }
@@ -338,7 +338,7 @@ namespace test
                         {
                             node_a.Top -= 1;
                             node_b.Top += 1;
-                            wait_time(toc_Do/10);  // 250 / 100 = 2.5, làm tròn lên 3
+                            wait_time(toc_Do / 10);  // 250 / 100 = 2.5, làm tròn lên 3
                         }
                     }
 
@@ -349,7 +349,7 @@ namespace test
                         {
                             node_a.Top += 1;
                             node_b.Top -= 1;
-                            wait_time(toc_Do/10);
+                            wait_time(toc_Do / 10);
                         }
                     }
 
@@ -372,7 +372,7 @@ namespace test
                         {
                             node_a.Left += 1;
                             node_b.Left -= 1;
-                            wait_time(toc_Do/10);
+                            wait_time(toc_Do / 10);
                         }
                     }
 
@@ -396,7 +396,7 @@ namespace test
                         {
                             node_a.Left -= 1;
                             node_b.Left += 1;
-                            wait_time(toc_Do/10);
+                            wait_time(toc_Do / 10);
                         }
                     }
 
@@ -408,7 +408,7 @@ namespace test
                         {
                             node_a.Top += 1;
                             node_b.Top -= 1;
-                            wait_time(toc_Do/10);
+                            wait_time(toc_Do / 10);
                         }
                     }
 
@@ -419,7 +419,7 @@ namespace test
                         {
                             node_a.Top -= 1;
                             node_b.Top += 1;
-                            wait_time(toc_Do/10);
+                            wait_time(toc_Do / 10);
                         }
                     }
 
@@ -434,7 +434,7 @@ namespace test
         // Hàm node đi lên
         public void go_up(Control node, int vitri)
         {
-            toc_Do =int.Parse(tbTocDo.Text);
+            toc_Do = int.Parse(tbTocDo.Text);
             Application.DoEvents();
             this.Invoke((MethodInvoker)delegate
             {
@@ -532,6 +532,8 @@ namespace test
             stopwatch.Restart();
             tbKetQua.Clear();
             msgtimeArray.Clear();
+            msgtimeStack.Clear();
+            msgtimeQueue.Clear();
             n = a.Length;
             for (i = 0; i < n; i++)
             {
@@ -566,7 +568,7 @@ namespace test
                         if (rbChen.Checked)
                         {
                             code_C.SXChenGiam(lb_Code);
-                            wait_time(2*toc_Do);
+                            wait_time(2 * toc_Do);
                             int x, j;
                             set_node_color(node1[0], Properties.Resources.img_done);
                             lb_Code.SelectedIndex = 3;
@@ -639,12 +641,12 @@ namespace test
                                     lb_j.Text = "j = " + j;
                                     wait_time(5 * toc_Do);
                                     lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
-                                    wait_time(2*toc_Do);
+                                    wait_time(2 * toc_Do);
                                     lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
                                     wait_time(toc_Do * 5);
                                     set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
                                     set_node_color(node1[j + 1], Properties.Resources.img_pivot);
-                                    wait_time(2*toc_Do);
+                                    wait_time(2 * toc_Do);
                                     lb_Code.SelectedIndex = 6;
                                     wait_time(5 * toc_Do);
                                     if (a[j] < a[j + 1])
@@ -675,12 +677,12 @@ namespace test
                                     {
                                         set_node_color(node1[j], Properties.Resources.img_simple);
                                         set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                        wait_time(toc_Do*2);
+                                        wait_time(toc_Do * 2);
                                     }
                                     if (j + 1 == n - i - 1)
                                     {
                                         set_node_color(node1[j], Properties.Resources.img_done);
-                                        wait_time(2*toc_Do);
+                                        wait_time(2 * toc_Do);
                                     }
                                 }
                             }
@@ -765,7 +767,6 @@ namespace test
                 {
                     if (rbNoiBot.Checked)
                     {
-                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             for (int j = 0; j < n - i - 1; j++)
@@ -775,7 +776,6 @@ namespace test
                                     int temp = a[j];
                                     a[j] = a[j + 1];
                                     a[j + 1] = temp;
-                                    stopwatch.Stop();
                                     string tam = node1[j].Text;
                                     node1[j].Text = node1[j + 1].Text;
                                     node1[j + 1].Text = tam;
@@ -783,11 +783,12 @@ namespace test
                             }
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
+                        MangNoiBotGiam();
+                        StackNoiBotGiam();
                     }
                     else
                     if (rbChon.Checked)
                     {
-                        stopwatch.Start();
                         for (i = 0; i < n - 1; i++)
                         {
                             int maxIndex = i;
@@ -803,49 +804,47 @@ namespace test
                             {
                                 int temp = a[i];
                                 a[i] = a[maxIndex];
-                                a[maxIndex] = temp;
-                                stopwatch.Stop();
+                                a[maxIndex] = temp; ;
                                 string tam = node1[i].Text;
                                 node1[i].Text = node1[maxIndex].Text;
                                 node1[maxIndex].Text = tam;
                             }
                             set_node_color(node1[i], Properties.Resources.img_done);
                         }
+                        MangChonGiam();
+                        StackChonGiam();
                     }
                     else if (rbChen.Checked)
                     {
-                        stopwatch.Start();
-                        for (i = 1; i < n; i++)
+                        int x, j;
+                        //set_node_color(node1[0], Properties.Resources.img_done);
+                        for (int i = 1; i < n; i++)
                         {
-                            int x, j;
-                            //set_node_color(node1[0], Properties.Resources.img_done);
-                            for (int i = 1; i < n; i++)
+                            x = a[i];
+                            string y = node1[i].Text;
+                            //set_node_color(node_tam, Properties.Resources.img_pivot);
+                            j = i;
+                            while (j > 0 && x > a[j - 1])
                             {
-                                x = a[i];
-                                string y = node1[i].Text;
-                                //set_node_color(node_tam, Properties.Resources.img_pivot);
-                                j = i;
-                                while (j > 0 && x > a[j - 1])
-                                {
-                                    a[j] = a[j - 1];
-                                    node1[j].Text = node1[j - 1].Text;
-                                    j--;
-                                }
-                                if (j != i)
-                                {
-                                    a[j] = x;
-                                    stopwatch.Stop();
-                                    node1[j].Text = y;
-                                }
+                                a[j] = a[j - 1];
+                                node1[j].Text = node1[j - 1].Text;
+                                j--;
+                            }
+                            if (j != i)
+                            {
+                                a[j] = x;
+                                node1[j].Text = y;
                             }
                         }
+                        MangChenGiam();
+                        StackChenGiam();
                     }
                     for (int i = 0; i < n; i++)
                         set_node_color(node1[i], Properties.Resources.img_done);
                     foreach (int value in a)
                     {
                         tbKetQua.AppendText(value.ToString() + " ");
-                        msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
+                        // msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                     }
                     MessageBox.Show("Đã sắp xếp xong.");
                 }
@@ -854,15 +853,18 @@ namespace test
 
         private void btnTang_Click(object sender, EventArgs e)
         {
+            stopwatch.Reset();
             stopwatch.Restart();
             tbKetQua.Clear();
             msgtimeArray.Clear();
+            msgtimeStack.Clear();
+            msgtimeQueue.Clear();
             n = a.Length;
             for (i = 0; i < n; i++)
             {
                 set_node_color(node1[i], Properties.Resources.img_simple);
             }
-            wait_time(2*toc_Do);
+            wait_time(2 * toc_Do);
             if (!rbChen.Checked && !rbChon.Checked && !rbNoiBot.Checked)
             {
                 MessageBox.Show("Mời bạn chọn thuật toán.");
@@ -893,19 +895,19 @@ namespace test
                             Refresh();
                             lb_i.Text = "i = " + i;
                             wait_time(5 * toc_Do);
-                            
+
                             for (int j = 0; j < n - i - 1; j++)
                             {
                                 lb_Code.SelectedIndex = 5;
                                 lb_j.Text = "j = " + j;
                                 wait_time(5 * toc_Do);
                                 lb_status1.Text = "a[j] = a[" + j + "] = " + a[j].ToString();
-                                wait_time(2*toc_Do);
+                                wait_time(2 * toc_Do);
                                 lb_status2.Text = "a[j+1] = a[" + (j + 1) + "] = " + a[j + 1].ToString();
                                 wait_time(toc_Do * 5);
                                 set_node_color(node1[j], Properties.Resources.img_select); // Sét màu cho phần tử j đang xét
                                 set_node_color(node1[j + 1], Properties.Resources.img_pivot);
-                                wait_time(2*toc_Do);
+                                wait_time(2 * toc_Do);
                                 lb_Code.SelectedIndex = 6;
                                 wait_time(5 * toc_Do);
                                 if (a[j] > a[j + 1])
@@ -936,12 +938,12 @@ namespace test
                                 {
                                     set_node_color(node1[j], Properties.Resources.img_simple);
                                     set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                    wait_time(2*toc_Do);
+                                    wait_time(2 * toc_Do);
                                 }
                                 if (j + 1 == n - i - 1)
                                 {
                                     set_node_color(node1[j + 1], Properties.Resources.img_done);
-                                    wait_time(2*toc_Do);
+                                    wait_time(2 * toc_Do);
                                 }
                             }
                         }
@@ -1048,7 +1050,7 @@ namespace test
                                 a[j] = a[j - 1];
                                 to_right(node1[j - 1], j - 1, j);
                                 swap_button(j - 1, j);
-                                wait_time(2*toc_Do);
+                                wait_time(2 * toc_Do);
                                 lb_Code.SelectedIndex = 10;
                                 wait_time(5 * toc_Do);
                                 j--;
@@ -1063,10 +1065,10 @@ namespace test
                                 go_down(node_tam, j);
                                 node1[j] = node_tam;
                                 stopwatch.Stop();
-                                wait_time(2*toc_Do);
+                                wait_time(2 * toc_Do);
                             }
                             else
-                                wait_time(2*toc_Do);
+                                wait_time(2 * toc_Do);
                             set_node_color(node1[j], Properties.Resources.img_done);
                             //set_node_color(node1[j + 1], Properties.Resources.img_done);
                         }
@@ -1085,7 +1087,6 @@ namespace test
             {
                 if (rbNoiBot.Checked)
                 {
-                    stopwatch.Start();
                     for (i = 0; i < n - 1; i++)
                     {
                         for (int j = 0; j < n - i - 1; j++)
@@ -1095,7 +1096,6 @@ namespace test
                                 int temp = a[j];
                                 a[j] = a[j + 1];
                                 a[j + 1] = temp;
-                                stopwatch.Stop();
                                 string tam = node1[j].Text;
                                 node1[j].Text = node1[j + 1].Text;
                                 node1[j + 1].Text = tam;
@@ -1103,10 +1103,11 @@ namespace test
                         }
                         set_node_color(node1[i], Properties.Resources.img_done);
                     }
+                    MangNoiBotTang();
+                    StackNoiBotTang();
                 }
                 else if (rbChon.Checked)
                 {
-                    stopwatch.Start();
                     for (i = 0; i < n - 1; i++)
                     {
                         int minIndex = i;
@@ -1118,25 +1119,24 @@ namespace test
                                 minIndex = j;
                             }
                         }
-
                         if (i != minIndex)
                         {
                             int temp = a[i];
                             a[i] = a[minIndex];
                             a[minIndex] = temp;
-                            stopwatch.Stop();
                             string tam = node1[i].Text;
                             node1[i].Text = node1[minIndex].Text;
-                            
+
                             node1[minIndex].Text = tam;
                         }
                         set_node_color(node1[i], Properties.Resources.img_done);
                     }
+                    MangChonTang();
+                    StackChonTang();
                 }
                 else if (rbChen.Checked)
                 {
                     int x, j;
-                    stopwatch.Start();
                     //set_node_color(node1[0], Properties.Resources.img_done);
                     for (int i = 1; i < n; i++)
                     {
@@ -1152,52 +1152,185 @@ namespace test
                         if (j != i)
                         {
                             a[j] = x;
-                            stopwatch.Stop();
                             node1[j].Text = y;
                         }
                     }
                     for (int i = 0; i < n; i++)
                         set_node_color(node1[i], Properties.Resources.img_done);
+
+                    MangChenTang();
+                    StackChenTang();
                 }
                 for (int i = 0; i < n; i++)
                     set_node_color(node1[i], Properties.Resources.img_done);
                 foreach (int value in a)
                 {
                     tbKetQua.AppendText(value.ToString() + " ");
-                    msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString("0.######") + " ms";
                 }
                 MessageBox.Show("Đã sắp xếp xong.");
             }
+
+            // msgtimeArray.Text = elapsedTime1.TotalMilliseconds.ToString() + "ms";
+
+            stopwatch.Reset();
         }
 
-        private void Array()
+        private void MangChenTang()
         {
-
-            string[] array = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
+            int x, j;
+            stopwatch.Reset();
+            stopwatch.Start();
             for (int i = 1; i < n; i++)
             {
-                for (int j = i; j > 0; j--)
+                x = a[i];
+                j = i;
+                while (j > 0 && x < a[j - 1])
                 {
-                    if (string.Compare(array[j - 1], array[j]) > 0)
+                    a[j] = a[j - 1];
+                    j--;
+                }
+                a[j] = x;
+            }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void MangChenGiam()
+        {
+            int x, j;
+            stopwatch.Reset();
+            stopwatch.Start();
+            for (int i = 1; i < n; i++)
+            {
+                x = a[i];
+                j = i;
+                while (j > 0 && x > a[j - 1])
+                {
+                    a[j] = a[j - 1];
+                    j--;
+                }
+                a[j] = x;
+            }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void MangNoiBotGiam()
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            for (i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (a[j] < a[j + 1])
                     {
-                        string temp = array[j];
-                        array[j] = array[j - 1];
-                        array[j - 1] = temp;
-                    }
-                    else
-                    {
-                        break;
+                        int temp = a[j];
+                        a[j] = a[j + 1];
+                        a[j + 1] = temp;
                     }
                 }
             }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
         }
-        private void Stack()
+        private void MangNoiBotTang()
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            for (i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (a[j] > a[j + 1])
+                    {
+                        int temp = a[j];
+                        a[j] = a[j + 1];
+                        a[j + 1] = temp;
+                    }
+                }
+            }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void MangChonGiam()
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            for (i = 0; i < n - 1; i++)
+            {
+                int maxIndex = i;
+                // Tìm phần tử lon nhất trong mảng chưa sắp xếp
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (a[j] > a[maxIndex])
+                    {
+                        maxIndex = j;
+                    }
+                }
+                int temp = a[i];
+                a[i] = a[maxIndex];
+                a[maxIndex] = temp;
+            }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void MangChonTang()
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            for (i = 0; i < n - 1; i++)
+            {
+                int minIndex = i;
+                // Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (a[j] < a[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+            }
+            stopwatch.Stop();
+            msgtimeArray.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void StackChenTang()
         {
             string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             Stack<int> stack = new Stack<int>();
+            Stack<int> tempStack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
+            // Chèn các phần tử vào stack theo thứ tự tăng dần
+            foreach (string item in inputArray)
+            {
+                int number = int.Parse(item);
+                if (stack.Count == 0 || number > stack.Peek())
+                {
+                    stack.Push(number);
+                }
+                else
+                {
+                    while (stack.Count > 0 && number < stack.Peek())
+                    {
+                        tempStack.Push(stack.Pop());
+                    }
+                    stack.Push(number);
 
+                    while (tempStack.Count > 0)
+                    {
+                        stack.Push(tempStack.Pop());
+                    }
+                }
+            }
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void StackChenGiam()
+        {
+            string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            Stack<int> stack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
             // Chèn các phần tử vào stack theo thứ tự tăng dần
             foreach (string item in inputArray)
             {
@@ -1223,6 +1356,114 @@ namespace test
                     }
                 }
             }
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void StackNoiBotGiam()
+        {
+            string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Stack<int> stack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
+            // Chèn các phần tử vào stack theo thứ tự tăng dần
+            foreach (string item in inputArray)
+            {
+                stack.Push(int.Parse(item));
+            }
+            Stack<int> sortedStack = BubbleSort(stack);
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void StackNoiBotTang()
+        { string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Stack<int> stack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
+            // Chèn các phần tử vào stack theo thứ tự tăng dần
+            foreach (string item in inputArray)
+            {
+                stack.Push(int.Parse(item));
+            }
+            Stack<int> sortedStack = BubbleSort(stack);
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private void StackChonTang()
+        {
+            string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Stack<int> stack = new Stack<int>();
+            Stack<int> tempStack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
+            foreach (string item in inputArray)
+            {
+                while (stack.Count > 0)
+                {
+                    int temp = stack.Pop();
+                    while (tempStack.Count > 0 && tempStack.Peek() > temp)
+                    {
+                        stack.Push(tempStack.Pop());
+                    }
+                    tempStack.Push(temp);
+                }
+                while (tempStack.Count > 0)
+                {
+                    stack.Push(tempStack.Pop());
+                }
+            }
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+
+        private void StackChonGiam()
+        {
+            string[] inputArray = tbMang.Text.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Stack<int> stack = new Stack<int>();
+            Stack<int> tempStack = new Stack<int>();
+            stopwatch.Reset();
+            stopwatch.Start();
+            foreach (string item in inputArray)
+            {
+                while (stack.Count > 0)
+                {
+                    int temp = stack.Pop();
+                    while (tempStack.Count > 0 && tempStack.Peek() > temp)
+                    {
+                        stack.Push(tempStack.Pop());
+                    }
+                    tempStack.Push(temp);
+                }
+                while (tempStack.Count > 0)
+                {
+                    stack.Push(tempStack.Pop());
+                }
+            }
+            stopwatch.Stop();
+            msgtimeStack.Text = stopwatch.Elapsed.TotalMilliseconds.ToString() + " ms";
+        }
+        private static Stack<int> BubbleSort(Stack<int> stack)
+        {
+            int[] array = stack.ToArray();
+
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                for (int j = 0; j < array.Length - i - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        int temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                }
+            }
+            stack = new Stack<int>(array);
+
+            return stack;
         }
         private void Queue()
         {
@@ -1237,7 +1478,7 @@ namespace test
 
                 stopwatch.Start();
 
-                Array();
+                MangChenTang();
 
                 TimeSpan elapsedTime1 = stopwatch.Elapsed;
                 msgtimeArray.Text = elapsedTime1.ToString() + "ms";
@@ -1245,7 +1486,7 @@ namespace test
                 stopwatch.Reset();
                 stopwatch.Start();
 
-                Stack();
+                StackChenTang();
 
                 TimeSpan elapsedTime2 = stopwatch.Elapsed;
                 msgtimeStack.Text = elapsedTime2.ToString() + "ms";
@@ -1258,9 +1499,7 @@ namespace test
 
                 // Tính thời gian đã trôi qua sau khi thực hiện công việc 3
                 TimeSpan elapsedTime3 = stopwatch.Elapsed;
-
                 //msgtimeQueue.Text = elapsedTime3.ToString() + " ms";
-
                 // Dừng 
                 stopwatch.Stop();
             }
@@ -1277,7 +1516,6 @@ namespace test
             Queue hd = new Queue();
             hd.ShowDialog();
         }
-
 
         /*
        private void cb_Tungbuoc_CheckedChanged(object sender, EventArgs e)

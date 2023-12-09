@@ -331,8 +331,6 @@ namespace test
             }
         }
 
-
-
         private static Stack<int> SelectionSort(Stack<int> stack)
         {
             //Stack<int> sortedStack = new Stack<int>();
